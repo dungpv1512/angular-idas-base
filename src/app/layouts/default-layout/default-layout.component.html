@@ -1,0 +1,99 @@
+<nz-layout class="app-layout">
+  <!-- Sidebar -->
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
+    <!-- Logo -->
+    <div class="sidebar-logo">
+      <a href="/" [class.collapsed]="isCollapsed()">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
+        @if (!isCollapsed()) {
+          <h1>Angular IDAS</h1>
+        }
+      </a>
+    </div>
+
+    <!-- Menu -->
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed()"
+    >
+      @for (item of menuItems; track item.title) {
+        @if (item.children && item.children.length > 0) {
+          <li
+            nz-submenu
+            [nzOpen]="item.open"
+            [nzTitle]="item.title"
+            [nzIcon]="item.icon || null"
+          >
+            <ul>
+              @for (child of item.children; track child.title) {
+                <li nz-menu-item nzMatchRouter>
+                  <a [routerLink]="child.route">{{ child.title }}</a>
+                </li>
+              }
+            </ul>
+          </li>
+        } @else {
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="item.route">
+              @if (item.icon) {
+                <span nz-icon [nzType]="item.icon"></span>
+              }
+              <span>{{ item.title }}</span>
+            </a>
+          </li>
+        }
+      }
+    </ul>
+  </nz-sider>
+
+  <!-- Main Layout -->
+  <nz-layout>
+    <!-- Header -->
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="toggleCollapsed()">
+          <span
+            nz-icon
+            class="trigger"
+            [nzType]="isCollapsed() ? 'menu-unfold' : 'menu-fold'"
+          ></span>
+        </span>
+
+        <div class="header-right">
+          <span class="header-action">
+            <span nz-icon nzType="question-circle" nzTheme="outline"></span>
+          </span>
+          <span class="header-action">
+            <span nz-icon nzType="bell" nzTheme="outline"></span>
+          </span>
+          <span class="header-action">
+            <span nz-icon nzType="user" nzTheme="outline"></span>
+          </span>
+        </div>
+      </div>
+    </nz-header>
+
+    <!-- Content -->
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+
+    <!-- Footer -->
+    <nz-footer>
+      <div class="footer-content">
+        Angular IDAS ©2025 Created with ❤️
+      </div>
+    </nz-footer>
+  </nz-layout>
+</nz-layout>

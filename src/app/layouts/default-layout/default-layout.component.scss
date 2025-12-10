@@ -1,0 +1,157 @@
+// Import variables
+@import '../../shared/styles/variables';
+
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.app-layout {
+  height: 100vh;
+}
+
+/* Sidebar */
+.menu-sidebar {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  box-shadow: 2px 0 8px rgba($primary-color, 0.15);
+  background: $gradient-sidebar;
+}
+
+.sidebar-logo {
+  position: relative;
+  height: 64px;
+  padding-left: 24px;
+  overflow: hidden;
+  line-height: 64px;
+  background: $gradient-primary;
+  transition: all 0.3s;
+  
+  a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    text-decoration: none;
+    
+    &.collapsed {
+      justify-content: center;
+      padding-left: 0;
+    }
+  }
+  
+  img {
+    height: 32px;
+    width: 32px;
+    vertical-align: middle;
+  }
+  
+  h1 {
+    margin: 0 0 0 20px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+}
+
+/* Header */
+nz-header {
+  padding: 0;
+  width: 100%;
+  z-index: 2;
+  background: $gradient-header;
+  box-shadow: $shadow-red;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 24px;
+  background: transparent;
+}
+
+.header-trigger {
+  height: 64px;
+  padding: 20px 0;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.trigger {
+  font-size: 20px;
+  
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.header-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 48px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 4px;
+  
+  &:hover {
+    background: rgba($primary-color, 0.08);
+    color: $primary-color;
+  }
+}
+
+/* Content */
+nz-content {
+  margin: 0;
+  overflow-y: auto;
+  height: calc(100vh - 64px - 48px); // 64px header + 48px footer
+}
+
+.inner-content {
+  min-height: 100%;
+}
+
+/* Footer */
+nz-footer {
+  padding: 0;
+  background: $gradient-footer;
+  border-top: 1px solid $primary-border;
+}
+
+.footer-content {
+  padding: 12px 24px;
+  text-align: center;
+  color: $text-heading;
+  font-size: 14px;
+}
+
+/* Responsive */
+@include mobile {
+  .header-right {
+    gap: 12px;
+  }
+  
+  .header-action {
+    height: 40px;
+    width: 40px;
+    font-size: 16px;
+  }
+  
+  .sidebar-logo h1 {
+    font-size: 14px;
+  }
+}

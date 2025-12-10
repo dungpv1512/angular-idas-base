@@ -1,0 +1,122 @@
+/* Global Styles - Red & White Theme */
+
+// Import variables
+@import 'app/shared/styles/variables';
+
+// CSS Variables
+:root {
+  --primary-color: #{$primary-color};
+  --primary-hover: #{$primary-hover};
+  --primary-light: #{$primary-light};
+  --gradient-primary: #{$gradient-primary};
+  --gradient-light: #{$gradient-header};
+}
+
+// Body
+body {
+  background: #fafafa;
+  margin: 0;
+  padding: 0;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $gradient-primary;
+  border-radius: 4px;
+  
+  &:hover {
+    background: linear-gradient(180deg, $primary-hover 0%, $primary-darker 100%);
+  }
+}
+
+// Ant Design overrides
+.ant-btn-primary {
+  background: $gradient-primary;
+  border-color: $primary-color;
+  
+  &:hover,
+  &:focus {
+    background: linear-gradient(135deg, $primary-hover 0%, $primary-dark 100%);
+    border-color: $primary-hover;
+  }
+}
+
+.ant-menu-dark {
+  background: transparent !important;
+  
+  .ant-menu-item-selected {
+    background: rgba(255, 255, 255, 0.15) !important;
+  }
+  
+  .ant-menu-item:hover,
+  .ant-menu-submenu-title:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+// Card with gradient border
+.ant-card {
+  border-radius: 8px;
+  box-shadow: $shadow-red;
+}
+
+// Form items
+.ant-form-item-label > label {
+  color: $text-body;
+  font-weight: 500;
+}
+
+// Links
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: color 0.3s;
+  
+  &:hover {
+    color: $primary-hover;
+  }
+}
+
+// Utility classes
+.gradient-text {
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: $gradient-header;
+}
+
+.gradient-bg-content {
+  background: $gradient-content;
+}
+
+// Responsive utilities
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 769px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}

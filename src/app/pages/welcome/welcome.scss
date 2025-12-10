@@ -1,0 +1,57 @@
+// Import variables
+@import '../../shared/styles/variables';
+
+:host {
+  display: block;
+  padding: 24px;
+}
+
+h1 {
+  color: $text-heading;
+  margin-bottom: 16px;
+}
+
+p {
+  color: $text-body;
+  line-height: 1.6;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  
+  li {
+    margin-bottom: 16px;
+    padding: 16px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: $shadow-red;
+    border-left: 3px solid $primary-color;
+    transition: all 0.3s;
+    
+    &:hover {
+      box-shadow: $shadow-red-hover;
+      transform: translateX(4px);
+    }
+    
+    a {
+      font-size: 16px;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 4px;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: $text-secondary;
+    }
+  }
+}
+
+h2 {
+  color: $text-heading;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
