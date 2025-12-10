@@ -7,9 +7,11 @@
     [columns]="columns"
     [actions]="actions"
     [loading]="loading"
+    [searchFields]="searchFields"
     (viewModeChange)="switchView($event)"
     (createClick)="openCreateDrawer()"
     (treeNodeClick)="onTreeNodeClick($event)"
+    (searchTagsChange)="onSearchTagsChange($event)"
   />
 
   <!-- Drawer for Create/Edit/View -->

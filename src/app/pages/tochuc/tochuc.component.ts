@@ -8,6 +8,7 @@ import { ToChucService, ToChuc } from '@app/core/services/tochuc.service';
 import { ToChucListComponent } from './components/tochuc-list/tochuc-list.component';
 import { ToChucViewComponent } from './components/tochuc-view/tochuc-view.component';
 import { ToChucFormComponent } from './components/tochuc-form/tochuc-form.component';
+import { buildApiFilterMultiValue } from '@app/shared/utils/filter.utils';
 
 @Component({
   selector: 'app-tochuc',
@@ -40,10 +41,13 @@ export class ToChucComponent implements OnInit {
   drawerTitle = '';
   viewMode: 'table' | 'tree' = 'table';
 
+  // Search config
+  searchFields = ['TenToChuc', 'MaToChuc', 'Stt']; // Các field để search với OR condition
+
   // Table config
   columns: TableColumn[] = [
-    { title: 'STT', key: 'Stt', width: '20%', sortable: true },
-    { title: 'Tên tổ chức', key: 'TenToChuc', sortable: true },
+    { title: 'STT', key: 'Stt', width: '20%' },
+    { title: 'Tên tổ chức', key: 'TenToChuc' },
     { title: 'Loại', key: 'LoaiText', width: '10%' },
     { title: 'Trạng thái', key: 'TrangThaiText', width: '12%' },
     { title: 'Người cập nhật', key: 'TenNhanSu', width: '12%' }
@@ -79,9 +83,26 @@ export class ToChucComponent implements OnInit {
     this.loadData();
   }
 
-  loadData(): void {
+  loadData(searchTags?: string[]): void {
     this.loading = true;
-    this.toChucService.getList().subscribe({
+    
+    // Build filter với helper function (multi-value)
+    const apiFilter = buildApiFilterMultiValue(
+      searchTags && searchTags.length > 0 ? searchTags : undefined,
+      this.searchFields,
+      [{ field: 'TrangThai', operator: 'notinlist', value: [6, 8, 9] }]
+    );
+
+    const filter: any = {
+      all: true,
+      UseCache: false
+    };
+
+    if (apiFilter) {
+      filter.filter = apiFilter;
+    }
+
+    this.toChucService.getList(filter).subscribe({
       next: (response) => {
         this.listData = response.Data.map(item => ({
           ...item,
@@ -99,6 +120,10 @@ export class ToChucComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  onSearchTagsChange(tags: string[]): void {
+    this.loadData(tags);
   }
 
   getTrangThaiText(status: number): string {

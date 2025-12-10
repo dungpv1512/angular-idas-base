@@ -1,51 +1,90 @@
 <div class="tochuc-list">
-  <!-- Header -->
-  <div class="page-header">
-    <h2>Quản lý Tổ chức</h2>
-    <nz-space>
-      <button *nzSpaceItem nz-button nzType="default" (click)="switchView('table')" [nzType]="viewMode === 'table' ? 'primary' : 'default'">
-        <span nz-icon nzType="table" nzTheme="outline"></span>
-        Bảng
-      </button>
-      <button *nzSpaceItem nz-button nzType="default" (click)="switchView('tree')" [nzType]="viewMode === 'tree' ? 'primary' : 'default'">
-        <span nz-icon nzType="apartment" nzTheme="outline"></span>
-        Cây
-      </button>
-      <button *nzSpaceItem nz-button nzType="primary" (click)="onCreateClick()">
-        <span nz-icon nzType="plus" nzTheme="outline"></span>
-        Thêm mới
-      </button>
-    </nz-space>
-  </div>
-
-  <!-- Table View -->
-  @if (viewMode === 'table') {
-    <div class="table-container">
-      <app-base-table
-        [data]="treeTableData"
-        [columns]="columns"
-        [actions]="actions"
-        [loading]="loading"
-        [bordered]="true"
-        [scroll]="{ y: 'calc(100vh - 360px)' }"
-        [isTree]="true"
-        [showPagination]="false"
-      />
+  <nz-card class="main-card" [nzBordered]="false">
+    <!-- Header Section -->
+    <div class="header-section">
+      <div class="header-left">
+        <div class="title-section">
+          <span nz-icon nzType="apartment" nzTheme="twotone" class="title-icon"></span>
+          <h1>Quản lý Tổ chức</h1>
+        </div>
+        <p class="subtitle">Quản lý cấu trúc tổ chức và phòng ban</p>
+      </div>
+      <div class="header-actions">
+        <button nz-button nzType="primary" nzSize="large" (click)="onCreateClick()">
+          <span nz-icon nzType="plus"></span>
+          Thêm mới
+        </button>
+      </div>
     </div>
-  }
 
-  <!-- Tree View -->
-  @if (viewMode === 'tree') {
-    <div class="tree-container">
-      <nz-card>
-        <app-base-tree
-          [nodes]="treeData"
-          [checkable]="false"
-          [showLine]="true"
-          [expandAll]="false"
-          (nodeClick)="onTreeNodeClick($event)"
+    <nz-divider></nz-divider>
+
+    <!-- Toolbar Section -->
+    <div class="toolbar-section">
+      <div class="search-section">
+        <app-base-tags-input
+          [(tags)]="searchTags"
+          [searchFields]="searchFields"
+          [placeholder]="'Nhập giá trị và Enter để thêm...'"
+          [debounceTime]="500"
+          [maxTags]="10"
+          (tagsChange)="onSearchTagsChange($event)"
         />
-      </nz-card>
+      </div>
+      <div class="view-switcher">
+        <nz-radio-group [(ngModel)]="viewMode" (ngModelChange)="switchView($event)" nzButtonStyle="solid">
+          <label nz-radio-button nzValue="table">
+            <span nz-icon nzType="table"></span>
+            Bảng
+          </label>
+          <label nz-radio-button nzValue="tree">
+            <span nz-icon nzType="apartment"></span>
+            Cây
+          </label>
+        </nz-radio-group>
+      </div>
     </div>
-  }
+
+    <nz-divider></nz-divider>
+
+    <!-- Content Section -->
+    <div class="content-section">
+      <!-- Table View -->
+      @if (viewMode === 'table') {
+      <div class="table-wrapper">
+        <app-base-table 
+          [data]="treeTableData" 
+          [columns]="columns" 
+          [actions]="actions" 
+          [loading]="loading" 
+          [bordered]="true"
+          [scroll]="{ y: 'calc(-445px + 100vh)' }" 
+          [isTree]="true" 
+          [showPagination]="false" 
+          [virtualScroll]="true" 
+        />
+      </div>
+      }
+
+      <!-- Tree View -->
+      @if (viewMode === 'tree') {
+      <div class="tree-wrapper">
+        @if (searchTags.length > 0 && filteredTreeData.length === 0) {
+          <nz-empty 
+            nzNotFoundImage="simple" 
+            [nzNotFoundContent]="'Không tìm thấy kết quả phù hợp'"
+          ></nz-empty>
+        } @else {
+          <app-base-tree 
+            [nodes]="filteredTreeData.length > 0 ? filteredTreeData : treeData" 
+            [checkable]="false" 
+            [showLine]="true" 
+            [expandAll]="searchTags.length > 0"
+            (nodeClick)="onTreeNodeClick($event)" 
+          />
+        }
+      </div>
+      }
+    </div>
+  </nz-card>
 </div>

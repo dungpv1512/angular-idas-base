@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -48,6 +48,9 @@ export interface TreeTableNode {
       [nzSize]="size"
       [nzBordered]="bordered"
       [nzScroll]="scroll"
+      [nzVirtualItemSize]="virtualScroll ? virtualItemSize : 0"
+      [nzVirtualMaxBufferPx]="virtualScroll ? 200 : 0"
+      [nzVirtualMinBufferPx]="virtualScroll ? 100 : 0"
       (nzPageIndexChange)="onPageChange($event)"
       (nzPageSizeChange)="onPageSizeChange($event)"
       (nzQueryParams)="onQueryParamsChange($event)"
@@ -58,7 +61,7 @@ export interface TreeTableNode {
             <th
               [nzWidth]="column.width || null"
               [nzAlign]="column.align || 'left'"
-              [nzSortFn]="column.sortable ? true : null"
+              [nzShowSort]="column.sortable ? true : null"
             >
               {{ column.title }}
             </th>
@@ -71,7 +74,7 @@ export interface TreeTableNode {
       <tbody>
         @if (isTree) {
           <!-- Tree Table Mode -->
-          @for (node of table.data; track node.key) {
+          @for (node of displayData; track node.key) {
             <tr>
               @for (column of columns; track $index; let first = $first) {
                 <td 
@@ -129,7 +132,7 @@ export interface TreeTableNode {
           }
         } @else {
           <!-- Flat Table Mode -->
-          @for (record of table.data; track record[rowKey]) {
+          @for (record of displayData; track record[rowKey]) {
             <tr>
               @for (column of columns; track $index) {
                 <td [nzAlign]="column.align || 'left'">
@@ -226,6 +229,8 @@ export class BaseTableComponent {
   @Input() size: 'small' | 'middle' | 'default' = 'default';
   @Input() bordered = false;
   @Input() scroll: { x?: string; y?: string } = {};
+  @Input() virtualScroll = false;
+  @Input() virtualItemSize = 54; // Default row height in px
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() pageSizeChange = new EventEmitter<number>();
@@ -255,21 +260,22 @@ export class BaseTableComponent {
 
   onExpandChange(node: TreeTableNode, expand: boolean): void {
     node.expand = expand;
-    this.displayData = this.flattenTree(this._data as TreeTableNode[]);
+    const flattened = this.flattenTree(this._data as TreeTableNode[]);
+    this.displayData = [...flattened];
   }
 
   private flattenTree(nodes: TreeTableNode[], level = 0): TreeTableNode[] {
     const result: TreeTableNode[] = [];
-    
+
     nodes.forEach(node => {
       node.level = level;
       result.push(node);
-      
+
       if (node.expand && node.children && node.children.length > 0) {
         result.push(...this.flattenTree(node.children, level + 1));
       }
     });
-    
+
     return result;
   }
 }

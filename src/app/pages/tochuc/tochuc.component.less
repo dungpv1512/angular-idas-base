@@ -1,8 +1,8 @@
 @import '../../../theme.less';
 
 .tochuc-page {
-  padding: @padding-lg;
-  background: @background-color-light;
+  padding: 20px;
+  background: #f5f7fa;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -11,11 +11,31 @@
     .ant-drawer-body {
       padding-bottom: 80px;
     }
+
+    // Custom scrollbar
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+
+      &:hover {
+        background: #a8a8a8;
+      }
+    }
   }
 }
 
 @media (max-width: @screen-md) {
   .tochuc-page {
-    padding: @padding-md;
+    padding: 12px;
   }
 }
