@@ -22,6 +22,7 @@ import {
   TableAction
 } from './index';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormModule } from 'ng-zorro-antd/form';
 
 /**
  * Demo Component - Showcase tất cả shared components
@@ -34,6 +35,7 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    NzFormModule,
     NzButtonModule,
     NzTagModule,
     BaseInputComponent,
@@ -53,8 +55,33 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
       <!-- Form Demo -->
       <section class="demo-section">
-        <h2>Form Components</h2>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="section-header">
+          <h2>Form Components</h2>
+          <div class="layout-switcher">
+            <button 
+              nz-button 
+              [nzType]="formLayout === 'vertical' ? 'primary' : 'default'"
+              (click)="formLayout = 'vertical'"
+            >
+              Vertical
+            </button>
+            <button 
+              nz-button 
+              [nzType]="formLayout === 'horizontal' ? 'primary' : 'default'"
+              (click)="formLayout = 'horizontal'"
+            >
+              Horizontal
+            </button>
+            <button 
+              nz-button 
+              [nzType]="formLayout === 'inline' ? 'primary' : 'default'"
+              (click)="formLayout = 'inline'"
+            >
+              Inline
+            </button>
+          </div>
+        </div>
+        <form nz-form [nzLayout]="formLayout" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="form-row">
             <app-base-input
               formControlName="username"
@@ -236,12 +263,30 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
       margin-bottom: 0;
     }
 
-    h2 {
-      font-size: 20px;
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 24px;
       padding-bottom: 12px;
       border-bottom: 2px solid #fee2e2;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 0;
       color: #991b1b;
+    }
+
+    .layout-switcher {
+      display: flex;
+      gap: 8px;
+    }
+
+    .layout-switcher button {
+      font-size: 13px;
     }
 
     .form-row {
@@ -293,6 +338,7 @@ export class SharedDemoComponent {
   @ViewChild('statusTemplate', { static: true }) statusTemplate!: TemplateRef<any>;
 
   form: FormGroup;
+  formLayout: 'vertical' | 'horizontal' | 'inline' = 'vertical';
 
   // Select options
   departmentOptions: SelectOption[] = [

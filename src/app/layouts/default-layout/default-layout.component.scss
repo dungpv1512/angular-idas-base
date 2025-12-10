@@ -176,7 +176,7 @@ nz-footer {
       
       // Submenu list
       > .ant-menu-sub {
-        background: rgba(0, 0, 0, 0.15) !important;
+        background: rgba(139, 0, 0, 0.25) !important; // Màu đỏ đậm phù hợp với tone chủ đạo
         padding: 4px 0 !important;
         margin: 0 !important;
       }
@@ -198,18 +198,31 @@ nz-footer {
       line-height: 40px;
       margin: 0 !important;
       border-radius: 0 !important;
+      background: transparent !important;
       
       &:hover {
-        background: rgba(255, 255, 255, 0.12) !important;
+        background: rgba(255, 255, 255, 0.15) !important;
       }
       
       &.ant-menu-item-selected {
-        background: rgba(255, 255, 255, 0.18) !important;
+        background: rgba(255, 255, 255, 0.2) !important;
         border-left: 3px solid $accent-blue;
         
         &::after {
           border-right: none;
         }
+      }
+    }
+    
+    // Khi sidebar collapsed
+    &.ant-menu-inline-collapsed {
+      .ant-menu-submenu-open > .ant-menu-sub {
+        background: linear-gradient(180deg, #c97a78 0%, #b85450 50%, #a94442 100%) !important;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+      }
+      
+      .ant-menu-sub .ant-menu-item {
+        padding-left: 24px !important;
       }
     }
   }
