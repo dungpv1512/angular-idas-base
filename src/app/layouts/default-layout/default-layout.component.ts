@@ -40,9 +40,7 @@ export class DefaultLayoutComponent {
       icon: 'dashboard',
       open: true,
       children: [
-        { title: 'Welcome', route: '/welcome' },
-        { title: 'Monitor', route: '/monitor' },
-        { title: 'Workplace', route: '/workplace' }
+        { title: 'Welcome', route: '/welcome' }
       ]
     },
     {
@@ -51,22 +49,6 @@ export class DefaultLayoutComponent {
       open: true,
       children: [
         { title: 'Shared Components Demo', route: '/demo' }
-      ]
-    },
-    {
-      title: 'Form',
-      icon: 'form',
-      children: [
-        { title: 'Basic Form', route: '/form/basic' },
-        { title: 'Advanced Form', route: '/form/advanced' }
-      ]
-    },
-    {
-      title: 'Table',
-      icon: 'table',
-      children: [
-        { title: 'Basic Table', route: '/table/basic' },
-        { title: 'Advanced Table', route: '/table/advanced' }
       ]
     }
   ];

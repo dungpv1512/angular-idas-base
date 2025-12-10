@@ -1,32 +1,41 @@
-// Red & White Theme Variables
+// IDAS Theme Variables (Based on Logo Colors)
 
-// Colors
-$primary-color: #dc2626;
-$primary-hover: #b91c1c;
-$primary-dark: #991b1b;
-$primary-darker: #7f1d1d;
-$primary-light: #fef2f2;
-$primary-border: #fee2e2;
+// Primary Colors (Red-Brown from logo) - Softer and lighter
+$primary-color: #c97a78;
+$primary-hover: #b85450;
+$primary-dark: #a94442;
+$primary-darker: #8b3735;
+$primary-light: #fdf7f7;
+$primary-border: #f9eded;
 
-$success-color: #16a34a;
-$warning-color: #ea580c;
-$error-color: #dc2626;
+// Accent Colors (From logo circle)
+$accent-red: #e74c3c;
+$accent-orange: #f39c12;
+$accent-yellow: #f1c40f;
+$accent-green: #27ae60;
+$accent-blue: #5b9bd5;
 
-$text-heading: #991b1b;
-$text-body: #374151;
-$text-secondary: #6b7280;
-$text-disabled: #d1d5db;
+$success-color: #27ae60;
+$warning-color: #f39c12;
+$error-color: #e74c3c;
 
-$border-color: #e5e7eb;
-$background-light: #fafafa;
+$text-heading: #8b3735;
+$text-body: #4a5568;
+$text-secondary: #a0aec0;
+$text-disabled: #cbd5e0;
 
-// Gradients
-$gradient-primary: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
-$gradient-sidebar: linear-gradient(180deg, $primary-color 0%, $primary-hover 50%, $primary-dark 100%);
-$gradient-header: linear-gradient(90deg, #ffffff 0%, $primary-light 100%);
-$gradient-footer: linear-gradient(90deg, $primary-light 0%, #ffffff 100%);
-$gradient-content: linear-gradient(135deg, $primary-light 0%, #ffffff 50%, $primary-light 100%);
-$gradient-text: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+$border-color: #f0f0f0;
+$background-light: #fafbfc;
+$background-content: #ffffff;
+
+// Gradients - Softer and lighter
+$gradient-primary: linear-gradient(135deg, $primary-color 0%, $primary-hover 100%);
+$gradient-sidebar: linear-gradient(180deg, #b85450 0%, #a94442 50%, #8b3735 100%);
+$gradient-header: linear-gradient(90deg, #ffffff 0%, #fefefe 100%);
+$gradient-footer: linear-gradient(90deg, #fafbfc 0%, #ffffff 100%);
+$gradient-content: linear-gradient(135deg, #fafbfc 0%, #ffffff 50%, #fafbfc 100%);
+$gradient-text: linear-gradient(135deg, $primary-color 0%, $primary-hover 100%);
+$gradient-colorful: linear-gradient(90deg, $accent-red 0%, $accent-orange 25%, $accent-yellow 50%, $accent-green 75%, $accent-blue 100%);
 
 // Shadows
 $shadow-sm: 0 1px 2px rgba($primary-color, 0.05);

@@ -14,9 +14,10 @@
 
 // Body
 body {
-  background: #fafafa;
+  background: #fafbfc;
   margin: 0;
   padding: 0;
+  color: $text-body;
 }
 
 // Custom scrollbar
@@ -53,13 +54,56 @@ body {
 .ant-menu-dark {
   background: transparent !important;
   
-  .ant-menu-item-selected {
-    background: rgba(255, 255, 255, 0.15) !important;
+  // Main menu items
+  > .ant-menu-item {
+    margin: 4px 8px !important;
+    border-radius: 6px;
+    
+    &.ant-menu-item-selected {
+      background: rgba(255, 255, 255, 0.15) !important;
+    }
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+    }
   }
   
-  .ant-menu-item:hover,
-  .ant-menu-submenu-title:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
+  // Main submenu
+  > .ant-menu-submenu {
+    margin: 4px 8px !important;
+    
+    > .ant-menu-submenu-title {
+      border-radius: 6px;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+      }
+    }
+  }
+  
+  // Submenu container - only visible when open
+  .ant-menu-submenu-open > .ant-menu-sub {
+    background: rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  // Hide closed submenus
+  .ant-menu-submenu:not(.ant-menu-submenu-open) > .ant-menu-sub {
+    display: none !important;
+  }
+  
+  // Submenu items styling
+  .ant-menu-sub .ant-menu-item {
+    background: transparent !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+    }
+    
+    &.ant-menu-item-selected {
+      background: rgba(255, 255, 255, 0.18) !important;
+    }
   }
 }
 

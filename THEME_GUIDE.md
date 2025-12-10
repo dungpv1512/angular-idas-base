@@ -2,31 +2,42 @@
 
 Hướng dẫn sử dụng theme màu đỏ và trắng với gradient cho Angular IDAS.
 
-## 🎨 Color Palette
+## 🎨 Color Palette (Based on IDAS Logo)
 
-### Primary Colors
-- **Primary Red**: `#dc2626` (Red-600)
-- **Primary Dark**: `#b91c1c` (Red-700)
-- **Primary Darker**: `#991b1b` (Red-800)
-- **Primary Light**: `#fef2f2` (Red-50)
-- **Border Light**: `#fee2e2` (Red-100)
+### Primary Colors (From Logo Center)
+- **Primary Red-Brown**: `#a94442` (RGB: 169, 68, 66)
+- **Primary Hover**: `#8b3735`
+- **Primary Dark**: `#6d2a28`
+- **Primary Darker**: `#4f1e1c`
+- **Primary Light**: `#f8e8e8`
+- **Border Light**: `#f0d4d4`
+
+### Accent Colors (From Logo Circle)
+- **Red**: `#e74c3c` (Top right of circle)
+- **Orange**: `#f39c12` (Right of circle)
+- **Yellow**: `#f1c40f` (Bottom right)
+- **Green**: `#27ae60` (Bottom left)
+- **Blue**: `#5b9bd5` (Left of circle)
 
 ### Gradients
 ```css
 /* Primary Gradient (Sidebar, Buttons) */
-background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+background: linear-gradient(135deg, #a94442 0%, #6d2a28 100%);
 
 /* Light Gradient (Header, Footer) */
-background: linear-gradient(90deg, #ffffff 0%, #fef2f2 100%);
+background: linear-gradient(90deg, #ffffff 0%, #f8e8e8 100%);
 
 /* Background Gradient (Content) */
-background: linear-gradient(135deg, #fef2f2 0%, #ffffff 50%, #fef2f2 100%);
+background: linear-gradient(135deg, #f8e8e8 0%, #ffffff 50%, #f8e8e8 100%);
+
+/* Colorful Gradient (From Logo Circle) */
+background: linear-gradient(90deg, #e74c3c 0%, #f39c12 25%, #f1c40f 50%, #27ae60 75%, #5b9bd5 100%);
 ```
 
 ### Text Colors
-- **Heading**: `#991b1b` (Red-800)
-- **Body**: `#374151` (Gray-700)
-- **Secondary**: `#6b7280` (Gray-500)
+- **Heading**: `#6d2a28` (Dark red-brown)
+- **Body**: `#2c3e50` (Dark blue-gray)
+- **Secondary**: `#7f8c8d` (Gray)
 
 ---
 

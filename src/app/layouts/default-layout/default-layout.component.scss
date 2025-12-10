@@ -15,8 +15,8 @@
   position: relative;
   z-index: 10;
   min-height: 100vh;
-  box-shadow: 2px 0 8px rgba($primary-color, 0.15);
-  background: $gradient-sidebar;
+  box-shadow: 2px 0 12px rgba($primary-color, 0.12);
+  background: linear-gradient(180deg, #c97a78 0%, #b85450 50%, #a94442 100%);
 }
 
 .sidebar-logo {
@@ -25,7 +25,10 @@
   padding-left: 24px;
   overflow: hidden;
   line-height: 64px;
-  background: $gradient-primary;
+  background: linear-gradient(135deg, #b85450 0%, #c97a78 100%);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, $accent-red 0%, $accent-orange 25%, $accent-yellow 50%, $accent-green 75%, $accent-blue 100%);
+  border-image-slice: 1;
   transition: all 0.3s;
   
   a {
@@ -41,19 +44,23 @@
   }
   
   img {
-    height: 32px;
-    width: 32px;
+    height: 40px;
+    width: 40px;
     vertical-align: middle;
+    border-radius: 50%;
+    background: white;
+    padding: 2px;
   }
   
   h1 {
-    margin: 0 0 0 20px;
+    margin: 0 0 0 16px;
     color: #fff;
-    font-weight: 600;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: 20px;
     font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
     vertical-align: middle;
     white-space: nowrap;
+    letter-spacing: 1px;
   }
 }
 
@@ -76,7 +83,6 @@ nz-header {
 }
 
 .header-trigger {
-  height: 64px;
   padding: 20px 0;
   font-size: 20px;
   cursor: pointer;
@@ -129,7 +135,9 @@ nz-content {
 nz-footer {
   padding: 0;
   background: $gradient-footer;
-  border-top: 1px solid $primary-border;
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, $accent-red 0%, $accent-orange 25%, $accent-yellow 50%, $accent-green 75%, $accent-blue 100%);
+  border-image-slice: 1;
 }
 
 .footer-content {
@@ -137,6 +145,74 @@ nz-footer {
   text-align: center;
   color: $text-heading;
   font-size: 14px;
+  font-weight: 500;
+}
+
+.ant-layout-sider-collapsed .sidebar-logo {
+  padding-left: 0;
+}
+
+/* Menu Customization */
+::ng-deep {
+  .ant-menu-dark {
+    // Main menu items
+    > .ant-menu-item,
+    > .ant-menu-submenu > .ant-menu-submenu-title {
+      font-weight: 500;
+      font-size: 15px;
+      // margin: 4px 8px;
+      border-radius: 6px;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+      }
+    }
+    
+    // Submenu container - only show when open
+    .ant-menu-submenu-open {
+      > .ant-menu-submenu-title {
+        background: rgba(255, 255, 255, 0.08) !important;
+      }
+      
+      // Submenu list
+      > .ant-menu-sub {
+        background: rgba(0, 0, 0, 0.15) !important;
+        padding: 4px 0 !important;
+        margin: 0 !important;
+      }
+    }
+    
+    // Hide closed submenu
+    .ant-menu-submenu:not(.ant-menu-submenu-open) {
+      > .ant-menu-sub {
+        display: none !important;
+      }
+    }
+    
+    // Submenu items - indented and styled differently
+    .ant-menu-sub .ant-menu-item {
+      padding-left: 64px !important;
+      font-size: 14px;
+      font-weight: 400;
+      height: 40px;
+      line-height: 40px;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.12) !important;
+      }
+      
+      &.ant-menu-item-selected {
+        background: rgba(255, 255, 255, 0.18) !important;
+        border-left: 3px solid $accent-blue;
+        
+        &::after {
+          border-right: none;
+        }
+      }
+    }
+  }
 }
 
 /* Responsive */
