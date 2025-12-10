@@ -411,41 +411,44 @@ Layout trống không có sidebar/header/footer.
 
 ---
 
-## 🎨 SCSS Styling
+## 🎨 LESS Styling
 
-Project sử dụng SCSS thay vì CSS để có khả năng tái sử dụng và maintain tốt hơn.
+Project sử dụng LESS để tái sử dụng trực tiếp biến của Ant Design.
 
 ### Structure
 ```
 src/
-├── styles.scss                    # Global styles
-├── theme.less                     # Ant Design theme
+├── styles.less                    # Global styles
+├── theme.less                     # Ant Design theme & variables
 └── app/
-    └── shared/
-        └── styles/
-            ├── _variables.scss    # Variables, mixins, functions
-            └── README.md          # SCSS guide
+    └── pages/
+        └── component/
+            └── component.less     # Component styles
 ```
 
 ### Features
-- ✅ Variables cho colors, spacing, typography
-- ✅ Mixins cho responsive, gradients, effects
+- ✅ Tái sử dụng biến từ Ant Design (@primary-color, @padding-*, @margin-*)
 - ✅ Consistent theme với Red & White gradient
-- ✅ Reusable patterns
-- ✅ Type-safe với SCSS
+- ✅ Reusable patterns với LESS variables
+- ✅ Compile-time type checking
+- ✅ Integration hoàn hảo với ng-zorro-antd
 
 ### Usage
-```scss
-@import '../../shared/styles/variables';
+```less
+@import '../../../theme.less';
 
 .component {
-  color: $primary-color;
-  padding: $spacing-lg;
-  @include card-hover;
+  color: @primary-color;
+  padding: @padding-lg;
+  border-radius: @border-radius-base;
+  
+  &:hover {
+    background: @primary-1;
+  }
 }
 ```
 
-**Chi tiết:** Xem `src/app/shared/styles/README.md`
+**Chi tiết:** Xem `LESS_VARIABLES_GUIDE.md`
 
 ---
 
@@ -459,7 +462,8 @@ src/
 | 10/12/2025 | Thêm environment configuration | - |
 | 10/12/2025 | Thêm 10 Shared Components base trên Ant Design | - |
 | 10/12/2025 | Thêm Layout Components (Default & Blank) | - |
-| 10/12/2025 | Chuyển đổi từ CSS sang SCSS với variables & mixins | - |
+| 10/12/2025 | Chuyển đổi toàn bộ project từ SCSS sang LESS | - |
+| 10/12/2025 | Tái sử dụng biến LESS của Ant Design | - |
 | 10/12/2025 | Áp dụng Red & White gradient theme | - |
 
 ---

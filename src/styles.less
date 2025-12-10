@@ -1,23 +1,14 @@
 /* Global Styles - Red & White Theme */
 
-// Import variables
-@import 'app/shared/styles/variables';
-
-// CSS Variables
-:root {
-  --primary-color: #{$primary-color};
-  --primary-hover: #{$primary-hover};
-  --primary-light: #{$primary-light};
-  --gradient-primary: #{$gradient-primary};
-  --gradient-light: #{$gradient-header};
-}
+// Import Ant Design theme
+@import 'theme.less';
 
 // Body
 body {
-  background: #fafbfc;
+  background: @body-background; // Red-50 tint
   margin: 0;
   padding: 0;
-  color: $text-body;
+  color: @text-color; // Red-900
 }
 
 // Custom scrollbar
@@ -31,23 +22,23 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $gradient-primary;
-  border-radius: 4px;
+  background: linear-gradient(135deg, @primary-color 0%, @primary-8 100%);
+  border-radius: @border-radius-base;
   
   &:hover {
-    background: linear-gradient(180deg, $primary-hover 0%, $primary-darker 100%);
+    background: linear-gradient(180deg, @primary-6 0%, @primary-8 100%);
   }
 }
 
 // Ant Design overrides
 .ant-btn-primary {
-  background: $gradient-primary;
-  border-color: $primary-color;
+  background: linear-gradient(135deg, @primary-color 0%, @primary-8 100%);
+  border-color: @primary-color;
   
   &:hover,
   &:focus {
-    background: linear-gradient(135deg, $primary-hover 0%, $primary-dark 100%);
-    border-color: $primary-hover;
+    background: linear-gradient(135deg, @primary-6 0%, @primary-8 100%);
+    border-color: @primary-6;
   }
 }
 
@@ -107,60 +98,59 @@ body {
   }
 }
 
+
+
 // Card with gradient border
 .ant-card {
-  border-radius: 8px;
-  box-shadow: $shadow-red;
+  border-radius: @border-radius-base * 2;
+  box-shadow: @box-shadow-base;
 }
 
 // Form items
 .ant-form-item-label > label {
-  color: $text-body;
+  color: @text-color;
   font-weight: 500;
 }
 
 // Links
 a {
-  color: $primary-color;
+  color: @link-color;
   text-decoration: none;
   transition: color 0.3s;
   
   &:hover {
-    color: $primary-hover;
+    color: @primary-6;
   }
 }
 
 // Utility classes
 .gradient-text {
-  background: $gradient-primary;
+  background: linear-gradient(135deg, @primary-color 0%, @primary-8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-bg {
-  background: $gradient-header;
+  background: linear-gradient(90deg, #ffffff 0%, @primary-1 100%);
 }
 
 .gradient-bg-content {
-  background: $gradient-content;
+  background: linear-gradient(135deg, @primary-1 0%, #ffffff 50%, @primary-1 100%);
 }
 
 // Responsive utilities
-@mixin mobile {
-  @media (max-width: 768px) {
-    @content;
+@media (max-width: @screen-md) {
+  // Mobile styles
+  body {
+    font-size: @font-size-sm;
   }
 }
 
-@mixin tablet {
-  @media (min-width: 769px) and (max-width: 1024px) {
-    @content;
-  }
+@media (min-width: @screen-md) and (max-width: @screen-lg) {
+  // Tablet styles
 }
 
-@mixin desktop {
-  @media (min-width: 1025px) {
-    @content;
-  }
+@media (min-width: @screen-lg) {
+  // Desktop styles
 }

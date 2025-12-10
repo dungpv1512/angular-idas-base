@@ -29,7 +29,7 @@ export interface MenuItem {
     NzBreadCrumbModule
   ],
   templateUrl: './default-layout.component.html',
-  styleUrl: './default-layout.component.scss'
+  styleUrl: './default-layout.component.less'
 })
 export class DefaultLayoutComponent {
   isCollapsed = signal(false);
@@ -44,9 +44,17 @@ export class DefaultLayoutComponent {
       ]
     },
     {
+      title: 'Quản lý',
+      icon: 'setting',
+      open: true,
+      children: [
+        { title: 'Quản lý Tổ chức', route: '/tochuc' }
+      ]
+    },
+    {
       title: 'Components',
       icon: 'appstore',
-      open: true,
+      open: false,
       children: [
         { title: 'Shared Components Demo', route: '/demo' }
       ]

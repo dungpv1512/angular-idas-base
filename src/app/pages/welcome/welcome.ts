@@ -5,6 +5,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-welcome',
   imports: [RouterLink],
   templateUrl: './welcome.html',
-  styleUrl: './welcome.scss'
+  styleUrl: './welcome.less'
 })
 export class Welcome {}

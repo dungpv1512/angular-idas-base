@@ -1,25 +1,25 @@
-// Import variables
-@import '../../shared/styles/variables';
+// Import Ant Design theme
+@import '../../../theme.less';
 
 :host {
   display: block;
-  background: $gradient-content;
+  background: linear-gradient(135deg, @primary-1 0%, #ffffff 50%, @primary-1 100%);
   min-height: 100%;
 }
 
 .welcome-dashboard {
   max-width: 1400px;
   margin: 0 auto;
-  padding: $spacing-lg;
+  padding: @padding-lg;
 }
 
 // Hero Section
 .hero-section {
-  background: linear-gradient(135deg, $primary-color 0%, $primary-hover 100%);
-  border-radius: $radius-lg;
-  padding: $spacing-2xl;
-  margin-bottom: $spacing-xl;
-  box-shadow: $shadow-lg;
+  background: linear-gradient(135deg, @primary-color 0%, @primary-7 100%);
+  border-radius: @border-radius-base * 2;
+  padding: @padding-xl * 2;
+  margin-bottom: @margin-xl;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
   animation: slideDown 0.6s ease-out;
   position: relative;
   overflow: hidden;
@@ -31,7 +31,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, $accent-red 0%, $accent-orange 25%, $accent-yellow 50%, $accent-green 75%, $accent-blue 100%);
+    background: linear-gradient(90deg, #3b82f6 0%, #06b6d4 25%, #10b981 50%, #8b5cf6 75%, #ec4899 100%);
   }
 }
 
@@ -43,7 +43,7 @@
 .hero-logo {
   width: 100px;
   height: 100px;
-  margin-bottom: $spacing-lg;
+  margin-bottom: @margin-lg;
   animation: float 3s ease-in-out infinite;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
@@ -51,14 +51,14 @@
 .hero-title {
   font-size: 42px;
   font-weight: 700;
-  margin: 0 0 $spacing-md 0;
+  margin: 0 0 @margin-md 0;
   color: white;
   animation: fadeIn 0.8s ease-out 0.2s both;
 }
 
 .hero-subtitle {
-  font-size: $font-size-xl;
-  margin: 0 0 $spacing-xl 0;
+  font-size: @font-size-lg + 4px;
+  margin: 0 0 @margin-xl 0;
   opacity: 0.95;
   animation: fadeIn 0.8s ease-out 0.4s both;
 }
@@ -66,17 +66,17 @@
 .hero-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: $spacing-lg;
-  margin-top: $spacing-xl;
+  gap: @margin-lg;
+  margin-top: @margin-xl;
 }
 
 .stat-card {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
-  padding: $spacing-lg;
-  border-radius: $radius-base;
+  padding: @padding-lg;
+  border-radius: @border-radius-base;
   animation: fadeInUp 0.8s ease-out both;
-  transition: all $transition-base;
+  transition: all 0.3s;
   
   &:nth-child(1) { animation-delay: 0.5s; }
   &:nth-child(2) { animation-delay: 0.6s; }
@@ -89,29 +89,29 @@
   
   .stat-icon {
     font-size: 32px;
-    margin-bottom: $spacing-sm;
+    margin-bottom: @margin-sm;
   }
   
   .stat-value {
     font-size: 28px;
     font-weight: 700;
-    margin-bottom: $spacing-xs;
+    margin-bottom: @margin-xs;
   }
   
   .stat-label {
-    font-size: $font-size-sm;
+    font-size: @font-size-sm;
     opacity: 0.9;
   }
 }
 
 // Section Title
 .section-title {
-  font-size: $font-size-2xl;
-  color: $text-heading;
-  margin-bottom: $spacing-lg;
-  padding-bottom: $spacing-sm;
+  font-size: @font-size-lg + 8px;
+  color: @heading-color;
+  margin-bottom: @margin-lg;
+  padding-bottom: @padding-sm;
   border-bottom: 3px solid transparent;
-  border-image: linear-gradient(90deg, $accent-red 0%, $accent-orange 25%, $accent-yellow 50%, $accent-green 75%, $accent-blue 100%);
+  border-image: linear-gradient(90deg, #3b82f6 0%, #06b6d4 25%, #10b981 50%, #8b5cf6 75%, #ec4899 100%);
   border-image-slice: 1;
   display: inline-block;
   animation: slideRight 0.6s ease-out;
@@ -119,22 +119,22 @@
 
 // Quick Actions
 .quick-actions {
-  margin-bottom: $spacing-xl;
+  margin-bottom: @margin-xl;
 }
 
 .action-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: $spacing-lg;
+  gap: @margin-lg;
 }
 
 .action-card {
   background: white;
-  padding: $spacing-xl;
-  border-radius: $radius-base;
-  box-shadow: $shadow-base;
+  padding: @padding-xl;
+  border-radius: @border-radius-base;
+  box-shadow: @box-shadow-base;
   cursor: pointer;
-  transition: all $transition-base;
+  transition: all 0.3s;
   position: relative;
   overflow: hidden;
   text-decoration: none;
@@ -142,11 +142,10 @@
   display: block;
   animation: fadeInUp 0.6s ease-out both;
   
-  @for $i from 1 through 4 {
-    &:nth-child(#{$i}) {
-      animation-delay: #{$i * 0.1}s;
-    }
-  }
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
   
   &::before {
     content: '';
@@ -155,12 +154,12 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background: $primary-color;
-    transition: width $transition-base;
+    background: @primary-color;
+    transition: width 0.3s;
   }
   
   &:hover {
-    box-shadow: $shadow-lg;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
     transform: translateY(-8px);
     
     &::before {
@@ -174,67 +173,68 @@
   }
   
   &.primary {
-    border: 2px solid $primary-color;
+    border: 2px solid @primary-color;
     
     &::before {
-      background: $primary-color;
+      background: @primary-color;
     }
   }
   
   .card-icon {
     font-size: 48px;
-    margin-bottom: $spacing-md;
+    margin-bottom: @margin-md;
   }
   
   h3 {
-    font-size: $font-size-xl;
-    color: $text-heading;
-    margin: 0 0 $spacing-sm 0;
+    font-size: @font-size-lg + 4px;
+    color: @heading-color;
+    margin: 0 0 @margin-sm 0;
   }
   
   p {
-    color: $text-secondary;
+    color: @text-color-secondary;
     margin: 0;
-    line-height: 1.6;
+    line-height: @line-height-base;
   }
   
   .card-arrow {
     position: absolute;
-    bottom: $spacing-lg;
-    right: $spacing-lg;
+    bottom: @padding-lg;
+    right: @padding-lg;
     font-size: 24px;
-    color: $primary-color;
-    transition: transform $transition-base;
+    color: @primary-color;
+    transition: transform 0.3s;
   }
 }
 
 // Features Section
 .features-section {
-  margin-bottom: $spacing-xl;
+  margin-bottom: @margin-xl;
 }
 
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: $spacing-lg;
+  gap: @margin-lg;
 }
 
 .feature-card {
   background: white;
-  padding: $spacing-lg;
-  border-radius: $radius-base;
-  box-shadow: $shadow-base;
-  transition: all $transition-base;
+  padding: @padding-lg;
+  border-radius: @border-radius-base;
+  box-shadow: @box-shadow-base;
+  transition: all 0.3s;
   animation: fadeInUp 0.6s ease-out both;
   
-  @for $i from 1 through 6 {
-    &:nth-child(#{$i}) {
-      animation-delay: #{$i * 0.1}s;
-    }
-  }
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+  &:nth-child(5) { animation-delay: 0.5s; }
+  &:nth-child(6) { animation-delay: 0.6s; }
   
   &:hover {
-    box-shadow: $shadow-lg;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
     transform: translateY(-4px);
     
     .feature-icon {
@@ -250,62 +250,60 @@
     align-items: center;
     justify-content: center;
     font-size: 28px;
-    margin-bottom: $spacing-md;
-    transition: transform $transition-base;
+    margin-bottom: @margin-md;
+    transition: transform 0.3s;
     
-    &.red { background: linear-gradient(135deg, lighten($accent-red, 35%) 0%, lighten($accent-red, 25%) 100%); }
-    &.orange { background: linear-gradient(135deg, lighten($accent-orange, 35%) 0%, lighten($accent-orange, 25%) 100%); }
-    &.yellow { background: linear-gradient(135deg, lighten($accent-yellow, 35%) 0%, lighten($accent-yellow, 25%) 100%); }
-    &.green { background: linear-gradient(135deg, lighten($accent-green, 35%) 0%, lighten($accent-green, 25%) 100%); }
-    &.blue { background: linear-gradient(135deg, lighten($accent-blue, 35%) 0%, lighten($accent-blue, 25%) 100%); }
-    &.purple { background: linear-gradient(135deg, #e8d5f2 0%, #d5b8e8 100%); }
+    &.red { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); } // Blue tones
+    &.orange { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); } // Sky tones
+    &.yellow { background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%); } // Blue tones
+    &.green { background: linear-gradient(135deg, #bbf7d0 0%, #86efac 100%); } // Keep green
+    &.blue { background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%); } // Blue
+    &.purple { background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); } // Indigo tones
   }
   
   h3 {
-    font-size: $font-size-lg;
-    color: $text-heading;
-    margin: 0 0 $spacing-sm 0;
+    font-size: @font-size-lg;
+    color: @heading-color;
+    margin: 0 0 @margin-sm 0;
   }
   
   p {
-    color: $text-secondary;
+    color: @text-color-secondary;
     margin: 0;
-    font-size: $font-size-sm;
-    line-height: 1.6;
+    font-size: @font-size-sm;
+    line-height: @line-height-base;
   }
 }
 
 // Activity Section
 .activity-section {
   background: white;
-  padding: $spacing-xl;
-  border-radius: $radius-base;
-  box-shadow: $shadow-base;
+  padding: @padding-xl;
+  border-radius: @border-radius-base;
+  box-shadow: @box-shadow-base;
   animation: fadeIn 0.8s ease-out;
 }
 
 .activity-list {
   display: flex;
   flex-direction: column;
-  gap: $spacing-lg;
+  gap: @margin-lg;
 }
 
 .activity-item {
   display: flex;
-  gap: $spacing-md;
-  padding: $spacing-md;
-  border-radius: $radius-base;
-  transition: all $transition-base;
+  gap: @margin-md;
+  padding: @padding-md;
+  border-radius: @border-radius-base;
+  transition: all 0.3s;
   animation: slideRight 0.6s ease-out both;
   
-  @for $i from 1 through 3 {
-    &:nth-child(#{$i}) {
-      animation-delay: #{$i * 0.15}s;
-    }
-  }
+  &:nth-child(1) { animation-delay: 0.15s; }
+  &:nth-child(2) { animation-delay: 0.30s; }
+  &:nth-child(3) { animation-delay: 0.45s; }
   
   &:hover {
-    background: $primary-light;
+    background: @primary-1;
     transform: translateX(8px);
   }
   
@@ -313,7 +311,7 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: $gradient-primary;
+    background: linear-gradient(135deg, @primary-color 0%, @primary-8 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -325,15 +323,15 @@
     flex: 1;
     
     h4 {
-      font-size: $font-size-lg;
-      color: $text-heading;
-      margin: 0 0 $spacing-xs 0;
+      font-size: @font-size-lg;
+      color: @heading-color;
+      margin: 0 0 @margin-xs 0;
     }
     
     p {
-      color: $text-secondary;
+      color: @text-color-secondary;
       margin: 0;
-      font-size: $font-size-sm;
+      font-size: @font-size-sm;
     }
   }
 }
@@ -391,13 +389,13 @@
 }
 
 // Responsive
-@include mobile {
+@media (max-width: @screen-md) {
   .welcome-dashboard {
-    padding: $spacing-md;
+    padding: @padding-md;
   }
   
   .hero-section {
-    padding: $spacing-lg;
+    padding: @padding-lg;
   }
   
   .hero-logo {
@@ -411,7 +409,7 @@
   
   .hero-stats {
     grid-template-columns: 1fr;
-    gap: $spacing-md;
+    gap: @margin-md;
   }
   
   .action-grid,
@@ -420,6 +418,6 @@
   }
   
   .activity-section {
-    padding: $spacing-lg;
+    padding: @padding-lg;
   }
 }

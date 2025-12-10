@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.yourdomain.com'
+  apiUrl: 'https://apidemo.idasonline.com',
+  apiToken: '' // Token sẽ được lấy từ localStorage trong production
 };

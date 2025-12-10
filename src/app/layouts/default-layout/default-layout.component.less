@@ -1,5 +1,5 @@
-// Import variables
-@import '../../shared/styles/variables';
+// Import Ant Design theme
+@import '../../../theme.less';
 
 :host {
   display: block;
@@ -15,19 +15,19 @@
   position: relative;
   z-index: 10;
   min-height: 100vh;
-  box-shadow: 2px 0 12px rgba($primary-color, 0.12);
-  background: linear-gradient(180deg, #c97a78 0%, #b85450 50%, #a94442 100%);
+  box-shadow: 2px 0 12px rgba(59, 130, 246, 0.12);
+  background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%); // Blue gradient
 }
 
 .sidebar-logo {
   position: relative;
   height: 64px;
-  padding-left: 24px;
+  padding-left: @padding-lg;
   overflow: hidden;
   line-height: 64px;
-  background: linear-gradient(135deg, #b85450 0%, #c97a78 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); // Blue gradient
   border-bottom: 3px solid transparent;
-  border-image: linear-gradient(90deg, $accent-red 0%, $accent-orange 25%, $accent-yellow 50%, $accent-green 75%, $accent-blue 100%);
+  border-image: linear-gradient(90deg, #3b82f6 0%, #06b6d4 25%, #10b981 50%, #8b5cf6 75%, #ec4899 100%);
   border-image-slice: 1;
   transition: all 0.3s;
   
@@ -53,10 +53,10 @@
   }
   
   h1 {
-    margin: 0 0 0 16px;
+    margin: 0 0 0 @margin-md;
     color: #fff;
     font-weight: 700;
-    font-size: 20px;
+    font-size: @font-size-lg + 4px;
     font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
     vertical-align: middle;
     white-space: nowrap;
@@ -66,11 +66,11 @@
 
 /* Header */
 nz-header {
-  padding: 0;
+  padding: 0 !important;
   width: 100%;
   z-index: 2;
-  background: $gradient-header;
-  box-shadow: $shadow-red;
+  background: linear-gradient(90deg, #ffffff 0%, @primary-1 100%) !important;
+  box-shadow: @box-shadow-base;
 }
 
 .app-header {
@@ -78,29 +78,29 @@ nz-header {
   align-items: center;
   justify-content: space-between;
   height: 64px;
-  padding: 0 24px;
+  padding: 0 @padding-lg;
   background: transparent;
 }
 
 .header-trigger {
   padding: 20px 0;
-  font-size: 20px;
+  font-size: @font-size-lg + 4px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .trigger {
-  font-size: 20px;
+  font-size: @font-size-lg + 4px;
   
   &:hover {
-    color: $primary-color;
+    color: @primary-color;
   }
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: @margin-lg;
 }
 
 .header-action {
@@ -109,14 +109,14 @@ nz-header {
   justify-content: center;
   height: 48px;
   width: 48px;
-  font-size: 18px;
+  font-size: @font-size-lg + 2px;
   cursor: pointer;
   transition: all 0.3s;
-  border-radius: 4px;
+  border-radius: @border-radius-base;
   
   &:hover {
-    background: rgba($primary-color, 0.08);
-    color: $primary-color;
+    background: @primary-1; // Blue-50
+    color: @primary-color;
   }
 }
 
@@ -133,18 +133,18 @@ nz-content {
 
 /* Footer */
 nz-footer {
-  padding: 0;
-  background: $gradient-footer;
+  padding: 0 !important;
+  background: linear-gradient(90deg, @primary-1 0%, #ffffff 100%);
   border-top: 3px solid transparent;
-  border-image: linear-gradient(90deg, $accent-red 0%, $accent-orange 25%, $accent-yellow 50%, $accent-green 75%, $accent-blue 100%);
+  border-image: linear-gradient(90deg, #3b82f6 0%, #06b6d4 25%, #10b981 50%, #8b5cf6 75%, #ec4899 100%);
   border-image-slice: 1;
 }
 
 .footer-content {
-  padding: 12px 24px;
+  padding: @padding-sm @padding-lg;
   text-align: center;
-  color: $text-heading;
-  font-size: 14px;
+  color: @heading-color;
+  font-size: @font-size-base;
   font-weight: 500;
 }
 
@@ -153,14 +153,17 @@ nz-footer {
 }
 
 /* Menu Customization */
-::ng-deep {
+:global {
+.ant-menu-dark .ant-menu-sub {
+      background: rgba(29, 78, 216, 0.25) !important;
+    }
+
   .ant-menu-dark {
     // Main menu items
     > .ant-menu-item,
     > .ant-menu-submenu > .ant-menu-submenu-title {
       font-weight: 500;
-      font-size: 15px;
-      // margin: 4px 8px;
+      font-size: @font-size-base + 1px;
       border-radius: 6px;
       
       &:hover {
@@ -176,7 +179,7 @@ nz-footer {
       
       // Submenu list
       > .ant-menu-sub {
-        background: rgba(139, 0, 0, 0.25) !important; // Màu đỏ đậm phù hợp với tone chủ đạo
+        background: rgba(29, 78, 216, 0.25) !important; // Blue-700 với opacity
         padding: 4px 0 !important;
         margin: 0 !important;
       }
@@ -192,7 +195,7 @@ nz-footer {
     // Submenu items - indented and styled differently
     .ant-menu-sub .ant-menu-item {
       padding-left: 64px !important;
-      font-size: 14px;
+      font-size: @font-size-base;
       font-weight: 400;
       height: 40px;
       line-height: 40px;
@@ -206,7 +209,7 @@ nz-footer {
       
       &.ant-menu-item-selected {
         background: rgba(255, 255, 255, 0.2) !important;
-        border-left: 3px solid $accent-blue;
+        border-left: 3px solid #06b6d4; // Cyan accent
         
         &::after {
           border-right: none;
@@ -217,30 +220,29 @@ nz-footer {
     // Khi sidebar collapsed
     &.ant-menu-inline-collapsed {
       .ant-menu-submenu-open > .ant-menu-sub {
-        background: linear-gradient(180deg, #c97a78 0%, #b85450 50%, #a94442 100%) !important;
+        background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%) !important; // Blue gradient
         box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
       }
       
       .ant-menu-sub .ant-menu-item {
-        padding-left: 24px !important;
+        padding-left: @padding-lg !important;
       }
     }
   }
 }
 
 /* Responsive */
-@include mobile {
+@media (max-width: @screen-md) {
   .header-right {
-    gap: 12px;
+    gap: @margin-sm;
   }
   
   .header-action {
     height: 40px;
     width: 40px;
-    font-size: 16px;
   }
   
   .sidebar-logo h1 {
-    font-size: 14px;
+    font-size: @font-size-base;
   }
 }
