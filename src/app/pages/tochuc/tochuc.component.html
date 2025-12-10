@@ -1,53 +1,16 @@
 <div class="tochuc-page">
-  <!-- Header -->
-  <div class="page-header">
-    <h2>Quản lý Tổ chức</h2>
-    <nz-space>
-      <button *nzSpaceItem nz-button nzType="default" (click)="switchView('table')" [nzType]="viewMode === 'table' ? 'primary' : 'default'">
-        <span nz-icon nzType="table" nzTheme="outline"></span>
-        Bảng
-      </button>
-      <button *nzSpaceItem nz-button nzType="default" (click)="switchView('tree')" [nzType]="viewMode === 'tree' ? 'primary' : 'default'">
-        <span nz-icon nzType="apartment" nzTheme="outline"></span>
-        Cây
-      </button>
-      <button *nzSpaceItem nz-button nzType="primary" (click)="openCreateDrawer()">
-        <span nz-icon nzType="plus" nzTheme="outline"></span>
-        Thêm mới
-      </button>
-    </nz-space>
-  </div>
-
-  <!-- Table View -->
-  @if (viewMode === 'table') {
-    <div class="table-container">
-      <app-base-table
-        [data]="filteredData"
-        [columns]="columns"
-        [actions]="actions"
-        [loading]="loading"
-        [total]="filteredData.length"
-        [pageSize]="20"
-        [bordered]="true"
-        [showPagination]="true"
-      />
-    </div>
-  }
-
-  <!-- Tree View -->
-  @if (viewMode === 'tree') {
-    <div class="tree-container">
-      <nz-card>
-        <app-base-tree
-          [nodes]="treeData"
-          [checkable]="false"
-          [showLine]="true"
-          [expandAll]="false"
-          (nodeClick)="onTreeNodeClick($event)"
-        />
-      </nz-card>
-    </div>
-  }
+  <!-- List Component -->
+  <app-tochuc-list
+    [viewMode]="viewMode"
+    [treeTableData]="treeTableData"
+    [treeData]="treeData"
+    [columns]="columns"
+    [actions]="actions"
+    [loading]="loading"
+    (viewModeChange)="switchView($event)"
+    (createClick)="openCreateDrawer()"
+    (treeNodeClick)="onTreeNodeClick($event)"
+  />
 
   <!-- Drawer for Create/Edit/View -->
   <nz-drawer
@@ -60,155 +23,23 @@
     <ng-container *nzDrawerContent>
       <!-- View Mode -->
       @if (drawerMode === 'view' && selectedToChuc) {
-        <div>
-          <nz-descriptions nzBordered [nzColumn]="1">
-            <nz-descriptions-item nzTitle="Mã tổ chức">
-              {{ selectedToChuc.MaToChuc }}
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Tên tổ chức">
-              {{ selectedToChuc.TenToChuc }}
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="STT">
-              {{ selectedToChuc.Stt }}
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Tổ chức cấp trên">
-              {{ getParentName(selectedToChuc.IdToChucCapTren) }}
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Loại">
-              <nz-tag [nzColor]="selectedToChuc.Loai === 1 ? 'blue' : 'green'">
-                {{ getLoaiText(selectedToChuc.Loai) }}
-              </nz-tag>
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Trạng thái">
-              <nz-tag [nzColor]="getTrangThaiColor(selectedToChuc.TrangThai)">
-                {{ getTrangThaiText(selectedToChuc.TrangThai) }}
-              </nz-tag>
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Công ty mẹ">
-              {{ selectedToChuc.LaCongTyMe ? 'Có' : 'Không' }}
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Người tạo">
-              {{ selectedToChuc.TenNhanSu || 'N/A' }}
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Ngày tạo">
-              {{ selectedToChuc.DateCreated | date: 'dd/MM/yyyy HH:mm' }}
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Ngày cập nhật">
-              {{ selectedToChuc.DateUpdated | date: 'dd/MM/yyyy HH:mm' }}
-            </nz-descriptions-item>
-          </nz-descriptions>
-
-          <nz-divider></nz-divider>
-
-          <h4>Chức năng nhiệm vụ</h4>
-          @if (selectedToChuc.NoiDungChucNangNhiemVus && selectedToChuc.NoiDungChucNangNhiemVus.length > 0) {
-            <div class="mission-list">
-              @for (mission of selectedToChuc.NoiDungChucNangNhiemVus; track $index) {
-                <div class="mission-item">
-                  <strong>{{ $index + 1 }}.</strong> {{ mission }}
-                </div>
-              }
-            </div>
-          } @else {
-            <p style="color: #8c8c8c;">Chưa có chức năng nhiệm vụ</p>
-          }
-
-          <nz-divider></nz-divider>
-
-          <div class="drawer-footer">
-            <nz-space>
-              <button *nzSpaceItem nz-button nzType="default" (click)="onDrawerClose()">
-                Đóng
-              </button>
-              <button *nzSpaceItem nz-button nzType="primary" (click)="edit(selectedToChuc)">
-                <span nz-icon nzType="edit" nzTheme="outline"></span>
-                Chỉnh sửa
-              </button>
-            </nz-space>
-          </div>
-        </div>
+        <app-tochuc-view
+          [toChuc]="selectedToChuc"
+          [parentName]="getParentName(selectedToChuc.IdToChucCapTren)"
+          (close)="onDrawerClose()"
+          (edit)="edit($event)"
+        />
       }
 
       <!-- Create/Edit Mode -->
       @if (drawerMode === 'create' || drawerMode === 'edit') {
-        <div>
-          <form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div nz-row [nzGutter]="16">
-              <div nz-col [nzSpan]="12">
-                <app-base-input
-                  formControlName="MaToChuc"
-                  label="Mã tổ chức"
-                  placeholder="Nhập mã tổ chức"
-                  [required]="true"
-                  errorTip="Vui lòng nhập mã tổ chức"
-                />
-              </div>
-              <div nz-col [nzSpan]="12">
-                <app-base-input
-                  formControlName="TenToChuc"
-                  label="Tên tổ chức"
-                  placeholder="Nhập tên tổ chức"
-                  [required]="true"
-                  errorTip="Vui lòng nhập tên tổ chức"
-                />
-              </div>
-            </div>
-
-            <div nz-row [nzGutter]="16">
-              <div nz-col [nzSpan]="12">
-                <app-base-select
-                  formControlName="Loai"
-                  label="Loại tổ chức"
-                  [options]="loaiOptions"
-                  [required]="true"
-                  placeholder="Chọn loại tổ chức"
-                />
-              </div>
-              <div nz-col [nzSpan]="12">
-                <app-base-select
-                  formControlName="TrangThai"
-                  label="Trạng thái"
-                  [options]="trangThaiOptions"
-                  [required]="true"
-                  placeholder="Chọn trạng thái"
-                />
-              </div>
-            </div>
-
-            <app-base-tree-select
-              formControlName="IdToChucCapTren"
-              label="Tổ chức cấp trên"
-              placeholder="Chọn tổ chức cấp trên"
-              [nodes]="treeData"
-              [allowClear]="true"
-              hint="Để trống nếu là tổ chức cấp cao nhất"
-            />
-
-            <app-base-textarea
-              formControlName="NoiDungChucNangNhiemVus"
-              label="Chức năng nhiệm vụ"
-              placeholder="Nhập mỗi chức năng trên một dòng"
-              [rows]="8"
-              [maxLength]="5000"
-              [showCount]="true"
-              hint="Mỗi chức năng nhiệm vụ trên một dòng"
-            />
-
-            <nz-divider></nz-divider>
-
-            <div class="drawer-footer">
-              <nz-space>
-                <button *nzSpaceItem nz-button nzType="default" (click)="onDrawerClose()">
-                  Hủy
-                </button>
-                <button *nzSpaceItem nz-button nzType="primary" type="submit" [disabled]="form.invalid">
-                  <span nz-icon nzType="save" nzTheme="outline"></span>
-                  {{ drawerMode === 'create' ? 'Tạo mới' : 'Cập nhật' }}
-                </button>
-              </nz-space>
-            </div>
-          </form>
-        </div>
+        <app-tochuc-form
+          [mode]="drawerMode"
+          [toChuc]="selectedToChuc"
+          [treeData]="treeData"
+          (submit)="onFormSubmit($event)"
+          (cancel)="onDrawerClose()"
+        />
       }
     </ng-container>
   </nz-drawer>

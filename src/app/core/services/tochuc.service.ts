@@ -155,4 +155,46 @@ export class ToChucService {
 
     return roots;
   }
+
+  /**
+   * Convert danh sách tổ chức thành tree table data
+   */
+  convertToTreeTableData(data: ToChuc[], level = 0): any[] {
+    const map = new Map<number, any>();
+    const roots: any[] = [];
+
+    // Tạo map của tất cả nodes
+    data.forEach(item => {
+      map.set(item.Id, {
+        key: item.Id.toString(),
+        data: item,
+        level: 0,
+        expand: false,
+        children: []
+      });
+    });
+
+    // Xây dựng tree structure và set level
+    const setLevel = (node: any, lvl: number) => {
+      node.level = lvl;
+      if (node.children && node.children.length > 0) {
+        node.children.forEach((child: any) => setLevel(child, lvl + 1));
+      }
+    };
+
+    data.forEach(item => {
+      const node = map.get(item.Id);
+      if (item.IdToChucCapTren && map.has(item.IdToChucCapTren)) {
+        const parent = map.get(item.IdToChucCapTren);
+        parent.children.push(node);
+      } else {
+        roots.push(node);
+      }
+    });
+
+    // Set level cho tất cả nodes
+    roots.forEach(root => setLevel(root, 0));
+
+    return roots;
+  }
 }

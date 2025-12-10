@@ -1,0 +1,67 @@
+<div class="tochuc-view" *ngIf="toChuc">
+  <nz-descriptions nzBordered [nzColumn]="1">
+    <nz-descriptions-item nzTitle="Mã tổ chức">
+      {{ toChuc.MaToChuc }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Tên tổ chức">
+      {{ toChuc.TenToChuc }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="STT">
+      {{ toChuc.Stt }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Tổ chức cấp trên">
+      {{ parentName }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Loại">
+      <nz-tag [nzColor]="toChuc.Loai === 1 ? 'blue' : 'green'">
+        {{ getLoaiText(toChuc.Loai) }}
+      </nz-tag>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Trạng thái">
+      <nz-tag [nzColor]="getTrangThaiColor(toChuc.TrangThai)">
+        {{ getTrangThaiText(toChuc.TrangThai) }}
+      </nz-tag>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Công ty mẹ">
+      {{ toChuc.LaCongTyMe ? 'Có' : 'Không' }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Người tạo">
+      {{ toChuc.TenNhanSu || 'N/A' }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Ngày tạo">
+      {{ toChuc.DateCreated | date: 'dd/MM/yyyy HH:mm' }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Ngày cập nhật">
+      {{ toChuc.DateUpdated | date: 'dd/MM/yyyy HH:mm' }}
+    </nz-descriptions-item>
+  </nz-descriptions>
+
+  <nz-divider></nz-divider>
+
+  <h4>Chức năng nhiệm vụ</h4>
+  @if (toChuc.NoiDungChucNangNhiemVus && toChuc.NoiDungChucNangNhiemVus.length > 0) {
+    <div class="mission-list">
+      @for (mission of toChuc.NoiDungChucNangNhiemVus; track $index) {
+        <div class="mission-item">
+          <strong>{{ $index + 1 }}.</strong> {{ mission }}
+        </div>
+      }
+    </div>
+  } @else {
+    <p style="color: #8c8c8c;">Chưa có chức năng nhiệm vụ</p>
+  }
+
+  <nz-divider></nz-divider>
+
+  <div class="drawer-footer">
+    <nz-space>
+      <button *nzSpaceItem nz-button nzType="default" (click)="onClose()">
+        Đóng
+      </button>
+      <button *nzSpaceItem nz-button nzType="primary" (click)="onEdit()">
+        <span nz-icon nzType="edit" nzTheme="outline"></span>
+        Chỉnh sửa
+      </button>
+    </nz-space>
+  </div>
+</div>

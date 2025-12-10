@@ -1,121 +1,21 @@
-// Import Ant Design variables
 @import '../../../theme.less';
 
 .tochuc-page {
   padding: @padding-lg;
   background: @background-color-light;
-  min-height: 100vh;
-
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: @margin-lg;
-    padding: @padding-md;
-    background: @component-background;
-    border-radius: @border-radius-base;
-    box-shadow: @box-shadow-base;
-    border-left: 4px solid @primary-color; // Red accent
-
-    h2 {
-      margin: 0;
-      color: @heading-color; // Red-800
-      font-size: @font-size-lg + 8px;
-      font-weight: 600;
-    }
-  }
-
-  .table-container,
-  .tree-container {
-    background: @component-background;
-    border-radius: @border-radius-base;
-    box-shadow: @box-shadow-base;
-    padding: @padding-md;
-  }
-
-  .tree-container {
-    :global {
-      .ant-tree {
-        font-size: @font-size-base;
-        
-        .ant-tree-node-content-wrapper {
-          padding: 4px 8px;
-          border-radius: @border-radius-base;
-          transition: all 0.3s;
-
-          &:hover {
-            background-color: @primary-1; // Ant Design color level 1
-          }
-        }
-
-        .ant-tree-node-selected {
-          .ant-tree-node-content-wrapper {
-            background-color: @primary-2 !important; // Ant Design color level 2
-          }
-        }
-      }
-    }
-  }
-
-  .mission-list {
-    margin-top: @margin-md;
-
-    .mission-item {
-      padding: @padding-sm;
-      margin-bottom: @margin-sm;
-      background: @background-color-light;
-      border-left: 3px solid @primary-color;
-      border-radius: @border-radius-base;
-      line-height: @line-height-base;
-
-      strong {
-        color: @primary-color;
-        margin-right: @margin-xs;
-      }
-    }
-  }
-
-  .drawer-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: @padding-md @padding-lg;
-    background: @component-background;
-    border-top: 1px solid @border-color-base;
-    display: flex;
-    justify-content: flex-end;
-  }
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   :global {
     .ant-drawer-body {
       padding-bottom: 80px;
     }
-
-    .ant-descriptions-item-label {
-      font-weight: 600;
-      background-color: @background-color-light;
-    }
-
-    .ant-tag {
-      margin: 0;
-    }
   }
 }
 
-// Responsive
 @media (max-width: @screen-md) {
   .tochuc-page {
     padding: @padding-md;
-
-    .page-header {
-      flex-direction: column;
-      gap: @margin-md;
-      align-items: flex-start;
-
-      h2 {
-        font-size: @font-size-lg + 4px;
-      }
-    }
   }
 }

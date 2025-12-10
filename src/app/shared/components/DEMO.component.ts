@@ -17,12 +17,11 @@ import {
   BaseUploadComponent,
   SelectOption,
   RadioOption,
-  CheckboxOption,
-  TableColumn,
-  TableAction
+  CheckboxOption
 } from './index';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { TableAction, TableColumn } from '../types/table.types';
 
 /**
  * Demo Component - Showcase tất cả shared components
@@ -235,18 +234,11 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 
     .demo-container {
       padding: 24px;
-      max-width: 1200px;
       margin: 0 auto;
-      padding-bottom: 80px;
     }
 
     h1 {
       font-size: 28px;
-      margin-bottom: 32px;
-      color: #991b1b;
-      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
@@ -256,7 +248,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(220, 38, 38, 0.08);
-      border-top: 3px solid #dc2626;
     }
 
     .demo-section:last-child {
@@ -277,7 +268,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
     h2 {
       font-size: 20px;
       margin: 0;
-      color: #991b1b;
     }
 
     .layout-switcher {
@@ -322,7 +312,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
     .form-value h3 {
       margin-bottom: 12px;
       font-size: 16px;
-      color: #991b1b;
     }
 
     .form-value pre {
