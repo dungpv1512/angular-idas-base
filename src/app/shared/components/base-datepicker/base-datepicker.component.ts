@@ -1,5 +1,5 @@
-import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { Component, Input, Optional, Self, Output, EventEmitter } from '@angular/core';
+import { ControlValueAccessor, NgControl, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -16,7 +16,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
       @if (label) {
         <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
       }
-      <nz-form-control [nzErrorTip]="errorTip">
+      <nz-form-control 
+        [nzErrorTip]="errorTip"
+        [nzValidateStatus]="validateStatus"
+      >
         @if (mode === 'range') {
           <nz-range-picker
             [nzPlaceHolder]="[startPlaceholder, endPlaceholder]"
@@ -42,14 +45,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
         }
       </nz-form-control>
     </nz-form-item>
-  `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BaseDatepickerComponent),
-      multi: true
-    }
-  ]
+  `
 })
 export class BaseDatepickerComponent implements ControlValueAccessor {
   @Input() label = '';
@@ -67,6 +63,24 @@ export class BaseDatepickerComponent implements ControlValueAccessor {
   @Output() dateChange = new EventEmitter<Date | Date[] | null>();
 
   value: Date | Date[] | null = null;
+
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  get validateStatus(): string {
+    if (!this.ngControl || !this.ngControl.control) {
+      return '';
+    }
+    const control = this.ngControl.control;
+    if (control.invalid && (control.dirty || control.touched)) {
+      return 'error';
+    }
+    return '';
+  }
+
   onChange: any = () => {};
   onTouched: any = () => {};
 

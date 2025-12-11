@@ -94,16 +94,20 @@ export class ToChucFormComponent implements OnChanges {
     });
   }
 
-  onSubmit(): void {
+  onSubmit(event: Event): void {
+    // Mark all controls as touched and dirty to trigger validation display
+    this.validateAllFormFields(this.form);
+
     if (this.form.invalid) {
-      Object.values(this.form.controls).forEach(control => {
-        control.markAsTouched();
-      });
+      // Prevent form submission and event propagation
+      event.preventDefault();
+      event.stopPropagation();
+      console.log('Form is invalid. Invalid controls:', this.getInvalidControls());
       return;
     }
 
     const formData = { ...this.form.value };
-    
+
     // Convert NoiDungChucNangNhiemVus từ string sang array
     if (formData.NoiDungChucNangNhiemVus) {
       formData.NoiDungChucNangNhiemVus = formData.NoiDungChucNangNhiemVus
@@ -119,21 +123,53 @@ export class ToChucFormComponent implements OnChanges {
   }
 
   /**
+   * Validate all form fields
+   */
+  private validateAllFormFields(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control) {
+        control.markAsTouched();
+        control.markAsDirty();
+        control.updateValueAndValidity({ onlySelf: true });
+      }
+    });
+  }
+
+  /**
+   * Get invalid controls for debugging
+   */
+  private getInvalidControls(): string[] {
+    const invalid: string[] = [];
+    Object.keys(this.form.controls).forEach(key => {
+      if (this.form.get(key)?.invalid) {
+        invalid.push(key);
+      }
+    });
+    return invalid;
+  }
+
+  /**
    * Mở modal chọn tổ chức cấp trên
    */
   openToChucSelector(): void {
     const modalRef = this.modal.create({
       nzTitle: 'Chọn Tổ chức cấp trên',
       nzContent: ToChucSelectorComponent,
-      nzWidth: '90%',
-      nzStyle: { top: '20px' },
-      nzBodyStyle: { padding: '0' },
+      nzWidth: '100vw',
+      nzStyle: { top: '0', padding: '0' },
+      nzBodyStyle: {
+        padding: '0',
+        height: 'calc(100vh - 110px)', // Trừ header và footer
+        overflow: 'hidden'
+      },
+      nzMaskClosable: false,
       nzData: {
         title: 'Chọn Tổ chức cấp trên',
         subtitle: 'Chọn một tổ chức làm cấp trên',
         multiple: false,
-        scroll: { y: '500px' },
-        autoLoad: true // Component tự load data
+        scroll: { y: 'calc(100vh - 445px)' }, // Dynamic height based on viewport
+        autoLoad: true
       },
       nzFooter: [
         {

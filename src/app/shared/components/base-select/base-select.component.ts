@@ -1,5 +1,5 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { Component, Input, forwardRef, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule, NgControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -22,7 +22,10 @@ export interface SelectOption {
       @if (label) {
         <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
       }
-      <nz-form-control [nzErrorTip]="errorTip">
+      <nz-form-control 
+        [nzErrorTip]="errorTip"
+        [nzValidateStatus]="validateStatus"
+      >
         <nz-select
           [nzMode]="mode"
           [nzPlaceHolder]="placeholder"
@@ -46,15 +49,24 @@ export interface SelectOption {
       </nz-form-control>
     </nz-form-item>
   `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BaseSelectComponent),
-      multi: true
-    }
-  ]
 })
 export class BaseSelectComponent implements ControlValueAccessor {
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  get validateStatus(): string {
+    if (!this.ngControl || !this.ngControl.control) {
+      return '';
+    }
+    const control = this.ngControl.control;
+    if (control.invalid && (control.dirty || control.touched)) {
+      return 'error';
+    }
+    return '';
+  }
   @Input() label = '';
   @Input() placeholder = 'Chọn...';
   @Input() options: SelectOption[] = [];

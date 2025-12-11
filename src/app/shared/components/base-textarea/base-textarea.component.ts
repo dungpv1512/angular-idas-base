@@ -1,5 +1,5 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -16,7 +16,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
       @if (label) {
         <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
       }
-      <nz-form-control [nzErrorTip]="errorTip">
+      <nz-form-control 
+        [nzErrorTip]="errorTip"
+        [nzValidateStatus]="validateStatus"
+      >
         <textarea
           nz-input
           [placeholder]="placeholder"
@@ -43,13 +46,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
         margin-top: 4px;
       }
     `
-  ],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BaseTextareaComponent),
-      multi: true
-    }
   ]
 })
 export class BaseTextareaComponent implements ControlValueAccessor {
@@ -64,6 +60,24 @@ export class BaseTextareaComponent implements ControlValueAccessor {
   @Input() errorTip = '';
 
   value = '';
+
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  get validateStatus(): string {
+    if (!this.ngControl || !this.ngControl.control) {
+      return '';
+    }
+    const control = this.ngControl.control;
+    if (control.invalid && (control.dirty || control.touched)) {
+      return 'error';
+    }
+    return '';
+  }
+
   onChange: any = () => {};
   onTouched: any = () => {};
 

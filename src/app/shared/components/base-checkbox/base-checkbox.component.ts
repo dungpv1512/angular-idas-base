@@ -1,5 +1,5 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -22,7 +22,10 @@ export interface CheckboxOption {
       @if (label && mode === 'group') {
         <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
       }
-      <nz-form-control [nzErrorTip]="errorTip">
+      <nz-form-control 
+        [nzErrorTip]="errorTip"
+        [nzValidateStatus]="validateStatus"
+      >
         @if (mode === 'single') {
           <label
             nz-checkbox
@@ -50,14 +53,7 @@ export interface CheckboxOption {
         }
       </nz-form-control>
     </nz-form-item>
-  `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BaseCheckboxComponent),
-      multi: true
-    }
-  ]
+  `
 })
 export class BaseCheckboxComponent implements ControlValueAccessor {
   @Input() label = '';
@@ -68,6 +64,24 @@ export class BaseCheckboxComponent implements ControlValueAccessor {
   @Input() errorTip = '';
 
   value: any = false;
+
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  get validateStatus(): string {
+    if (!this.ngControl || !this.ngControl.control) {
+      return '';
+    }
+    const control = this.ngControl.control;
+    if (control.invalid && (control.dirty || control.touched)) {
+      return 'error';
+    }
+    return '';
+  }
+
   onChange: any = () => {};
   onTouched: any = () => {};
 

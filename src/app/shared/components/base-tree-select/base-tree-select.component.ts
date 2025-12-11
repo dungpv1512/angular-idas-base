@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, Optional, Self } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, FormsModule, NgControl } from '@angular/forms';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -22,7 +22,10 @@ export interface TreeSelectNode {
   template: `
     <nz-form-item>
       <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
-      <nz-form-control [nzErrorTip]="errorTip">
+      <nz-form-control 
+        [nzErrorTip]="errorTip"
+        [nzValidateStatus]="validateStatus"
+      >
         <nz-tree-select
           [nzNodes]="nodes"
           [nzPlaceHolder]="placeholder"
@@ -99,15 +102,24 @@ export interface TreeSelectNode {
       margin-top: 8px;
     }
   `],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BaseTreeSelectComponent),
-      multi: true
-    }
-  ]
 })
 export class BaseTreeSelectComponent implements ControlValueAccessor {
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  get validateStatus(): string {
+    if (!this.ngControl || !this.ngControl.control) {
+      return '';
+    }
+    const control = this.ngControl.control;
+    if (control.invalid && (control.dirty || control.touched)) {
+      return 'error';
+    }
+    return '';
+  }
   @Input() label = '';
   @Input() placeholder = 'Chọn...';
   @Input() required = false;

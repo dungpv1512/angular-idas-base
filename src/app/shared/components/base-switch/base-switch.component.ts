@@ -1,5 +1,5 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -13,7 +13,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
       @if (label) {
         <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
       }
-      <nz-form-control [nzErrorTip]="errorTip">
+      <nz-form-control 
+        [nzErrorTip]="errorTip"
+        [nzValidateStatus]="validateStatus"
+      >
         <nz-switch
           [(ngModel)]="value"
           (ngModelChange)="onValueChange($event)"
@@ -24,14 +27,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
         ></nz-switch>
       </nz-form-control>
     </nz-form-item>
-  `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BaseSwitchComponent),
-      multi: true
-    }
-  ]
+  `
 })
 export class BaseSwitchComponent implements ControlValueAccessor {
   @Input() label = '';
@@ -43,6 +39,24 @@ export class BaseSwitchComponent implements ControlValueAccessor {
   @Input() errorTip = '';
 
   value = false;
+
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  get validateStatus(): string {
+    if (!this.ngControl || !this.ngControl.control) {
+      return '';
+    }
+    const control = this.ngControl.control;
+    if (control.invalid && (control.dirty || control.touched)) {
+      return 'error';
+    }
+    return '';
+  }
+
   onChange: any = () => {};
   onTouched: any = () => {};
 

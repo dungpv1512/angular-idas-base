@@ -1,5 +1,5 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -19,7 +19,10 @@ export interface RadioOption {
       @if (label) {
         <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
       }
-      <nz-form-control [nzErrorTip]="errorTip">
+      <nz-form-control 
+        [nzErrorTip]="errorTip"
+        [nzValidateStatus]="validateStatus"
+      >
         <nz-radio-group
           [(ngModel)]="value"
           (ngModelChange)="onValueChange($event)"
@@ -39,14 +42,7 @@ export interface RadioOption {
         </nz-radio-group>
       </nz-form-control>
     </nz-form-item>
-  `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BaseRadioComponent),
-      multi: true
-    }
-  ]
+  `
 })
 export class BaseRadioComponent implements ControlValueAccessor {
   @Input() label = '';
@@ -57,6 +53,24 @@ export class BaseRadioComponent implements ControlValueAccessor {
   @Input() errorTip = '';
 
   value: any = null;
+
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  get validateStatus(): string {
+    if (!this.ngControl || !this.ngControl.control) {
+      return '';
+    }
+    const control = this.ngControl.control;
+    if (control.invalid && (control.dirty || control.touched)) {
+      return 'error';
+    }
+    return '';
+  }
+
   onChange: any = () => {};
   onTouched: any = () => {};
 

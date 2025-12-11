@@ -1,6 +1,6 @@
 <div class="tochuc-form">
   {{ form.value | json }}
-  <form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="onSubmit($event)">
     <div nz-row [nzGutter]="16">
       <div nz-col [nzSpan]="12">
         <app-base-input
@@ -30,6 +30,7 @@
           [options]="loaiOptions"
           [required]="true"
           placeholder="Chọn loại tổ chức"
+          errorTip="Vui lòng chọn loại tổ chức"
         />
       </div>
       <div nz-col [nzSpan]="12">
@@ -39,6 +40,7 @@
           [options]="trangThaiOptions"
           [required]="true"
           placeholder="Chọn trạng thái"
+          errorTip="Vui lòng chọn trạng thái"
         />
       </div>
     </div>
@@ -72,7 +74,7 @@
         <button *nzSpaceItem nz-button nzType="default" type="button" (click)="onCancel()">
           Hủy
         </button>
-        <button *nzSpaceItem nz-button nzType="primary" type="submit" [disabled]="form.invalid">
+        <button *nzSpaceItem nz-button nzType="primary" type="submit">
           <span nz-icon nzType="save" nzTheme="outline"></span>
           {{ mode === 'create' ? 'Tạo mới' : 'Cập nhật' }}
         </button>

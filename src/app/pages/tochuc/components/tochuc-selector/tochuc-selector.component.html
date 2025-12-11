@@ -1,20 +1,4 @@
 <div class="tochuc-selector">
-  <!-- Selection Info Bar -->
-  @if (selectedCount > 0) {
-  <div class="selection-info-bar">
-    <div class="selection-info">
-      <span nz-icon nzType="check-circle" nzTheme="twotone"></span>
-      <span class="selection-text">
-        Đã chọn: <strong>{{ selectedCount }}</strong> tổ chức
-      </span>
-    </div>
-    <button nz-button nzType="default" nzSize="small" (click)="clearSelection()">
-      <span nz-icon nzType="close"></span>
-      Bỏ chọn tất cả
-    </button>
-  </div>
-  }
-
   <!-- Reuse ToChucListComponent -->
   <app-tochuc-list
     [viewMode]="viewMode"

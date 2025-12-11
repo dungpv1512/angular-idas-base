@@ -1,5 +1,5 @@
-import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NzUploadModule, NzUploadFile } from 'ng-zorro-antd/upload';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -15,7 +15,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
       @if (label) {
         <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
       }
-      <nz-form-control [nzErrorTip]="errorTip">
+      <nz-form-control 
+        [nzErrorTip]="errorTip"
+        [nzValidateStatus]="validateStatus"
+      >
         <nz-upload
           [nzAction]="uploadUrl"
           [nzListType]="listType"
@@ -51,14 +54,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
       font-size: 12px;
       margin-top: 4px;
     }
-  `],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BaseUploadComponent),
-      multi: true
-    }
-  ]
+  `]
 })
 export class BaseUploadComponent implements ControlValueAccessor {
   @Input() label = '';
@@ -75,6 +71,24 @@ export class BaseUploadComponent implements ControlValueAccessor {
   @Input() showUploadList = true;
 
   fileList: NzUploadFile[] = [];
+
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  get validateStatus(): string {
+    if (!this.ngControl || !this.ngControl.control) {
+      return '';
+    }
+    const control = this.ngControl.control;
+    if (control.invalid && (control.dirty || control.touched)) {
+      return 'error';
+    }
+    return '';
+  }
+
   onChange: any = () => {};
   onTouched: any = () => {};
 
