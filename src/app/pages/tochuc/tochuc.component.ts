@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { TableColumn, TableAction } from '@app/shared/types/table.types';
 import { ToChucService, ToChuc } from '@app/core/services/tochuc.service';
@@ -16,6 +17,7 @@ import { buildApiFilterMultiValue } from '@app/shared/utils/filter.utils';
   imports: [
     CommonModule,
     NzDrawerModule,
+    TranslateModule,
     ToChucListComponent,
     ToChucViewComponent,
     ToChucFormComponent
@@ -26,6 +28,7 @@ import { buildApiFilterMultiValue } from '@app/shared/utils/filter.utils';
 export class ToChucComponent implements OnInit {
   private toChucService = inject(ToChucService);
   private message = inject(NzMessageService);
+  private translate = inject(TranslateService);
 
   // Data
   listData: ToChuc[] = [];
@@ -45,39 +48,43 @@ export class ToChucComponent implements OnInit {
   searchFields = ['TenToChuc', 'MaToChuc', 'Stt']; // Các field để search với OR condition
 
   // Table config
-  columns: TableColumn[] = [
-    { title: 'STT', key: 'Stt', width: '20%' },
-    { title: 'Tên tổ chức', key: 'TenToChuc' },
-    { title: 'Loại', key: 'LoaiText', width: '10%' },
-    { title: 'Trạng thái', key: 'TrangThaiText', width: '12%' },
-    { title: 'Người cập nhật', key: 'TenNhanSu', width: '12%' }
-  ];
+  get columns(): TableColumn[] {
+    return [
+      { title: this.translate.instant('tochuc.columns.stt'), key: 'Stt', width: '20%' },
+      { title: this.translate.instant('tochuc.columns.name'), key: 'TenToChuc' },
+      { title: this.translate.instant('tochuc.columns.type'), key: 'LoaiText', width: '10%' },
+      { title: this.translate.instant('tochuc.columns.status'), key: 'TrangThaiText', width: '12%' },
+      { title: this.translate.instant('tochuc.columns.updatedBy'), key: 'TenNhanSu', width: '12%' }
+    ];
+  }
 
-  actions: TableAction[] = [
-    {
-      label: '',
-      tooltipText: 'Xem',
-      icon: 'eye',
-      type: 'default',
-      onClick: (record: ToChuc) => this.viewDetail(record)
-    },
-    {
-      label: '',
-      tooltipText: 'Sửa',
-      icon: 'edit',
-      type: 'primary',
-      onClick: (record: ToChuc) => this.edit(record)
-    },
-    {
-      label: '',
-      tooltipText: 'Xóa',
-      icon: 'delete',
-      danger: true,
-      confirm: true,
-      confirmText: 'Bạn có chắc muốn xóa tổ chức này?',
-      onClick: (record: ToChuc) => this.delete(record)
-    }
-  ];
+  get actions(): TableAction[] {
+    return [
+      {
+        label: '',
+        tooltipText: this.translate.instant('tochuc.actions.view'),
+        icon: 'eye',
+        type: 'default',
+        onClick: (record: ToChuc) => this.viewDetail(record)
+      },
+      {
+        label: '',
+        tooltipText: this.translate.instant('tochuc.actions.edit'),
+        icon: 'edit',
+        type: 'primary',
+        onClick: (record: ToChuc) => this.edit(record)
+      },
+      {
+        label: '',
+        tooltipText: this.translate.instant('tochuc.actions.delete'),
+        icon: 'delete',
+        danger: true,
+        confirm: true,
+        confirmText: this.translate.instant('tochuc.messages.deleteConfirm'),
+        onClick: (record: ToChuc) => this.delete(record)
+      }
+    ];
+  }
 
   ngOnInit(): void {
     this.loadData();
@@ -106,7 +113,7 @@ export class ToChucComponent implements OnInit {
       next: (response) => {
         this.listData = response.Data.map(item => ({
           ...item,
-          LoaiText: item.Loai === 1 ? 'Trung tâm' : 'Phòng ban',
+          LoaiText: this.translate.instant(item.Loai === 1 ? 'tochuc.type.center' : 'tochuc.type.department'),
           TrangThaiText: this.getTrangThaiText(item.TrangThai)
         }));
         this.filteredData = [...this.listData];
@@ -115,7 +122,7 @@ export class ToChucComponent implements OnInit {
         this.loading = false;
       },
       error: (error) => {
-        this.message.error('Không thể tải dữ liệu');
+        this.message.error(this.translate.instant('tochuc.messages.loadError'));
         console.error(error);
         this.loading = false;
       }
@@ -128,18 +135,18 @@ export class ToChucComponent implements OnInit {
 
   getTrangThaiText(status: number): string {
     const statusMap: { [key: number]: string } = {
-      1: 'Nháp',
-      2: 'Đang hoạt động',
-      3: 'Tạm dừng',
-      4: 'Đã duyệt',
-      5: 'Đã hủy'
+      1: this.translate.instant('tochuc.status.draft'),
+      2: this.translate.instant('tochuc.status.active'),
+      3: this.translate.instant('tochuc.status.paused'),
+      4: this.translate.instant('tochuc.status.approved'),
+      5: this.translate.instant('tochuc.status.cancelled')
     };
-    return statusMap[status] || 'Không xác định';
+    return statusMap[status] || this.translate.instant('common.unknown');
   }
 
   openCreateDrawer(): void {
     this.drawerMode = 'create';
-    this.drawerTitle = 'Thêm mới tổ chức';
+    this.drawerTitle = this.translate.instant('tochuc.drawer.create');
     this.selectedToChuc = null;
     this.drawerVisible = true;
   }
@@ -147,25 +154,25 @@ export class ToChucComponent implements OnInit {
   viewDetail(record: ToChuc): void {
     this.selectedToChuc = record;
     this.drawerMode = 'view';
-    this.drawerTitle = 'Chi tiết tổ chức';
+    this.drawerTitle = this.translate.instant('tochuc.drawer.view');
     this.drawerVisible = true;
   }
 
   edit(record: ToChuc): void {
     this.selectedToChuc = record;
     this.drawerMode = 'edit';
-    this.drawerTitle = 'Chỉnh sửa tổ chức';
+    this.drawerTitle = this.translate.instant('tochuc.drawer.edit');
     this.drawerVisible = true;
   }
 
   delete(record: ToChuc): void {
     this.toChucService.delete(record.Id).subscribe({
       next: () => {
-        this.message.success('Xóa thành công');
+        this.message.success(this.translate.instant('tochuc.messages.deleteSuccess'));
         this.loadData();
       },
       error: (error) => {
-        this.message.error('Xóa thất bại');
+        this.message.error(this.translate.instant('tochuc.messages.deleteError'));
         console.error(error);
       }
     });
@@ -178,12 +185,15 @@ export class ToChucComponent implements OnInit {
 
     request$.subscribe({
       next: () => {
-        this.message.success(this.drawerMode === 'create' ? 'Thêm mới thành công' : 'Cập nhật thành công');
+        const messageKey = this.drawerMode === 'create' 
+          ? 'tochuc.messages.createSuccess' 
+          : 'tochuc.messages.updateSuccess';
+        this.message.success(this.translate.instant(messageKey));
         this.drawerVisible = false;
         this.loadData();
       },
       error: (error) => {
-        this.message.error('Có lỗi xảy ra');
+        this.message.error(this.translate.instant('tochuc.messages.saveError'));
         console.error(error);
       }
     });
@@ -206,8 +216,8 @@ export class ToChucComponent implements OnInit {
   }
 
   getParentName(idToChucCapTren: number | null): string {
-    if (!idToChucCapTren) return 'Không có';
+    if (!idToChucCapTren) return this.translate.instant('common.none');
     const parent = this.listData.find(item => item.Id === idToChucCapTren);
-    return parent?.TenToChuc || 'Không xác định';
+    return parent?.TenToChuc || this.translate.instant('common.unknown');
   }
 }

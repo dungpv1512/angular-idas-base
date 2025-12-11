@@ -5,9 +5,12 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '../../shared/components/language-switcher.component';
 
 export interface MenuItem {
   title: string;
+  titleKey?: string; // Translation key
   icon?: string;
   route?: string;
   children?: MenuItem[];
@@ -26,7 +29,9 @@ export interface MenuItem {
     NzLayoutModule,
     NzMenuModule,
     NzIconModule,
-    NzBreadCrumbModule
+    NzBreadCrumbModule,
+    TranslateModule,
+    LanguageSwitcherComponent
   ],
   templateUrl: './default-layout.component.html',
   styleUrl: './default-layout.component.less'
@@ -37,10 +42,11 @@ export class DefaultLayoutComponent {
   menuItems: MenuItem[] = [
     {
       title: 'Dashboard',
+      titleKey: 'menu.welcome',
       icon: 'dashboard',
       open: true,
       children: [
-        { title: 'Welcome', route: '/welcome' }
+        { title: 'Welcome', titleKey: 'menu.welcome', route: '/welcome' }
       ]
     },
     {
@@ -48,7 +54,7 @@ export class DefaultLayoutComponent {
       icon: 'setting',
       open: true,
       children: [
-        { title: 'Quản lý Tổ chức', route: '/tochuc' }
+        { title: 'Quản lý Tổ chức', titleKey: 'menu.tochuc', route: '/tochuc' }
       ]
     },
     {
@@ -56,8 +62,8 @@ export class DefaultLayoutComponent {
       icon: 'appstore',
       open: false,
       children: [
-        { title: 'Shared Components Demo', route: '/demo' },
-        { title: 'Virtual Table Demo', route: '/virtual-table' }
+        { title: 'Shared Components Demo', titleKey: 'menu.demo', route: '/demo' },
+        { title: 'Virtual Table Demo', titleKey: 'menu.virtualTable', route: '/virtual-table' }
       ]
     }
   ];

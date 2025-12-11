@@ -22,6 +22,15 @@
 >
   <thead>
     <tr>
+      @if (checkable) {
+        <th
+          [nzWidth]="'60px'"
+          [nzChecked]="isAllChecked"
+          [nzIndeterminate]="isIndeterminate"
+          (nzCheckedChange)="onAllChecked($event)"
+          [nzShowCheckbox]="multiple"
+        ></th>
+      }
       @for (column of columns; track $index) {
         <th
           [nzWidth]="column.width || null"
@@ -32,7 +41,7 @@
         </th>
       }
       @if (actions && actions.length > 0) {
-        <th [nzWidth]="isTree ? '18%' : '15%'" nzAlign="center">Thao tác</th>
+        <th [nzWidth]="isTree ? '18%' : '15%'" nzAlign="center">{{ actionsColumnTitle }}</th>
       }
     </tr>
   </thead>
@@ -41,6 +50,13 @@
       <!-- Virtual Scroll Mode (Flat Table) -->
       <ng-template nz-virtual-scroll let-record let-index="index">
         <tr>
+          @if (checkable) {
+            <td
+              [nzChecked]="isItemChecked(record)"
+              (nzCheckedChange)="onItemChecked(record, $event)"
+              [nzShowCheckbox]="true"
+            ></td>
+          }
           <ng-container *ngTemplateOutlet="columnCells; context: { record: record }" />
           <ng-container *ngTemplateOutlet="actionCell; context: { record: record }" />
         </tr>
@@ -49,6 +65,13 @@
       <!-- Virtual Scroll Mode (Tree Table) - Loop displayData manually -->
       @for (node of displayData; track node.key) {
         <tr>
+          @if (checkable) {
+            <td
+              [nzChecked]="isItemChecked(node.data)"
+              (nzCheckedChange)="onItemChecked(node.data, $event)"
+              [nzShowCheckbox]="true"
+            ></td>
+          }
           <ng-container *ngTemplateOutlet="treeColumnCells; context: { node: node }" />
           <ng-container *ngTemplateOutlet="actionCell; context: { record: node.data }" />
         </tr>
@@ -57,6 +80,13 @@
       <!-- Tree Table Mode (No Virtual Scroll) -->
       @for (node of displayData; track node.key) {
         <tr>
+          @if (checkable) {
+            <td
+              [nzChecked]="isItemChecked(node.data)"
+              (nzCheckedChange)="onItemChecked(node.data, $event)"
+              [nzShowCheckbox]="true"
+            ></td>
+          }
           <ng-container *ngTemplateOutlet="treeColumnCells; context: { node: node }" />
           <ng-container *ngTemplateOutlet="actionCell; context: { record: node.data }" />
         </tr>
@@ -65,6 +95,13 @@
       <!-- Flat Table Mode (No Virtual Scroll) -->
       @for (record of displayData; track record[rowKey]) {
         <tr>
+          @if (checkable) {
+            <td
+              [nzChecked]="isItemChecked(record)"
+              (nzCheckedChange)="onItemChecked(record, $event)"
+              [nzShowCheckbox]="true"
+            ></td>
+          }
           <ng-container *ngTemplateOutlet="columnCells; context: { record: record }" />
           <ng-container *ngTemplateOutlet="actionCell; context: { record: record }" />
         </tr>
@@ -130,7 +167,7 @@
         [nzType]="action.type || 'default'"
         [nzDanger]="action.danger"
         nz-popconfirm
-        [nzPopconfirmTitle]="action.confirmText || 'Bạn có chắc chắn?'"
+        [nzPopconfirmTitle]="action.confirmText || defaultConfirmText"
         (nzOnConfirm)="action.onClick(record)"
       >
         @if (action.icon) {

@@ -5,15 +5,15 @@
       <div class="header-left">
         <div class="title-section">
           <span nz-icon nzType="apartment" nzTheme="twotone" class="title-icon"></span>
-          <h1>{{ title }}</h1>
+          <h1>{{ title | translate }}</h1>
         </div>
-        <p class="subtitle">{{ subtitle }}</p>
+        <p class="subtitle">{{ subtitle | translate }}</p>
       </div>
       @if (showCreateButton) {
       <div class="header-actions">
         <button nz-button nzType="primary" nzSize="large" (click)="onCreateClick()">
           <span nz-icon nzType="plus"></span>
-          Thêm mới
+          {{ 'tochuc.actions.create' | translate }}
         </button>
       </div>
       }
@@ -27,7 +27,7 @@
         <app-base-tags-input
           [(tags)]="searchTags"
           [searchFields]="searchFields"
-          [placeholder]="'Nhập giá trị và Enter để thêm...'"
+          [placeholder]="'tochuc.list.searchPlaceholder' | translate"
           [debounceTime]="500"
           [maxTags]="10"
           (tagsChange)="onSearchTagsChange($event)"
@@ -37,11 +37,11 @@
         <nz-radio-group [(ngModel)]="viewMode" (ngModelChange)="switchView($event)" nzButtonStyle="solid">
           <label nz-radio-button nzValue="table">
             <span nz-icon nzType="table"></span>
-            Bảng
+            {{ 'common.table' | translate }}
           </label>
           <label nz-radio-button nzValue="tree">
             <span nz-icon nzType="apartment"></span>
-            Cây
+            {{ 'common.tree' | translate }}
           </label>
         </nz-radio-group>
       </div>
@@ -54,75 +54,21 @@
       <!-- Table View -->
       @if (viewMode === 'table') {
       <div class="table-wrapper">
-        @if (checkable) {
-          <!-- Custom table with checkbox -->
-          <nz-table
-            #table
-            [nzData]="displayData"
-            [nzLoading]="loading"
-            [nzShowPagination]="false"
-            [nzBordered]="true"
-            [nzScroll]="scroll"
-            [nzVirtualItemSize]="54"
-            [nzVirtualMaxBufferPx]="200"
-            [nzVirtualMinBufferPx]="100"
-          >
-            <thead>
-              <tr>
-                <th
-                  [nzWidth]="'60px'"
-                  [nzChecked]="isAllChecked"
-                  [nzIndeterminate]="isIndeterminate"
-                  (nzCheckedChange)="onAllChecked($event)"
-                  [nzShowCheckbox]="multiple"
-                ></th>
-                @for (column of displayColumns; track $index) {
-                  <th
-                    [nzWidth]="column.width || null"
-                    [nzAlign]="column.align || 'left'"
-                  >
-                    {{ column.title }}
-                  </th>
-                }
-              </tr>
-            </thead>
-            <tbody>
-              @for (node of displayData; track node.key) {
-                <tr>
-                  <td
-                    [nzChecked]="setOfCheckedId.has(node.data.Id)"
-                    (nzCheckedChange)="onItemChecked(node.data.Id, $event)"
-                    [nzShowCheckbox]="true"
-                  ></td>
-                  @for (column of displayColumns; track $index; let first = $first) {
-                    <td 
-                      [nzAlign]="column.align || 'left'" 
-                      [nzIndentSize]="first ? (node.level || 0) * 20 : 0" 
-                      [nzShowExpand]="first && hasChildren(node)" 
-                      [(nzExpand)]="node.expand"
-                      (nzExpandChange)="onExpandChange(node, $event)"
-                    >
-                      {{ node.data[column.key] }}
-                    </td>
-                  }
-                </tr>
-              }
-            </tbody>
-          </nz-table>
-        } @else {
-          <!-- Normal table without checkbox -->
-          <app-base-table 
-            [data]="treeTableData" 
-            [columns]="displayColumns" 
-            [actions]="displayActions" 
-            [loading]="loading" 
-            [bordered]="true"
-            [scroll]="scroll" 
-            [isTree]="true" 
-            [showPagination]="false" 
-            [virtualScroll]="true" 
-          />
-        }
+        <app-base-table 
+          [data]="treeTableData" 
+          [columns]="displayColumns" 
+          [actions]="displayActions" 
+          [loading]="loading" 
+          [bordered]="true"
+          [scroll]="scroll" 
+          [isTree]="true" 
+          [showPagination]="false" 
+          [virtualScroll]="true"
+          [checkable]="checkable"
+          [multiple]="multiple"
+          [checkedKeys]="checkedKeys"
+          (checkChange)="onCheckChange($event)"
+        />
       </div>
       }
 
@@ -132,7 +78,7 @@
         @if (searchTags.length > 0 && filteredTreeData.length === 0) {
           <nz-empty 
             nzNotFoundImage="simple" 
-            [nzNotFoundContent]="'Không tìm thấy kết quả phù hợp'"
+            [nzNotFoundContent]="'common.notFound' | translate"
           ></nz-empty>
         } @else {
           <app-base-tree 

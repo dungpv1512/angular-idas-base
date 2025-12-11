@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
@@ -6,6 +6,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ToChuc } from '@app/core/services/tochuc.service';
 
 @Component({
@@ -18,12 +19,15 @@ import { ToChuc } from '@app/core/services/tochuc.service';
     NzDividerModule,
     NzDescriptionsModule,
     NzTagModule,
-    NzIconModule
+    NzIconModule,
+    TranslateModule
   ],
   templateUrl: './tochuc-view.component.html',
   styleUrls: ['./tochuc-view.component.less']
 })
 export class ToChucViewComponent {
+  private translate = inject(TranslateService);
+
   @Input() toChuc: ToChuc | null = null;
   @Input() parentName = '';
 
@@ -42,13 +46,13 @@ export class ToChucViewComponent {
 
   getTrangThaiText(status: number): string {
     const statusMap: { [key: number]: string } = {
-      1: 'Nháp',
-      2: 'Đang hoạt động',
-      3: 'Tạm dừng',
-      4: 'Đã duyệt',
-      5: 'Đã hủy'
+      1: this.translate.instant('tochuc.status.draft'),
+      2: this.translate.instant('tochuc.status.active'),
+      3: this.translate.instant('tochuc.status.paused'),
+      4: this.translate.instant('tochuc.status.approved'),
+      5: this.translate.instant('tochuc.status.cancelled')
     };
-    return statusMap[status] || 'Không xác định';
+    return statusMap[status] || this.translate.instant('common.unknown');
   }
 
   getTrangThaiColor(status: number): string {
@@ -63,6 +67,6 @@ export class ToChucViewComponent {
   }
 
   getLoaiText(loai: number): string {
-    return loai === 1 ? 'Trung tâm' : 'Phòng ban';
+    return this.translate.instant(loai === 1 ? 'tochuc.type.center' : 'tochuc.type.department');
   }
 }

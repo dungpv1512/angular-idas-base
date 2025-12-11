@@ -1,20 +1,15 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
 /dist
 /tmp
 /out-tsc
 /bazel-out
-*.js.map
-*.d.ts
 
 # Node
 /node_modules
 npm-debug.log
 yarn-error.log
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
 
 # IDEs and editors
 .idea/
@@ -24,7 +19,6 @@ pnpm-lock.yaml
 *.launch
 .settings/
 *.sublime-workspace
-*.sublime-project
 
 # Visual Studio Code
 .vscode/*
@@ -36,132 +30,18 @@ pnpm-lock.yaml
 
 # Miscellaneous
 /.angular/cache
-/.angular/
 .sass-cache/
 /connect.lock
 /coverage
 /libpeerconnection.log
 testem.log
 /typings
-__screenshots__/
 
 # System files
 .DS_Store
 Thumbs.db
-*.swp
-*.swo
-*~
 
-# Environment files
+# Environment
 .env
 .env.local
 .env.*.local
-*.env
-
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-pnpm-debug.log*
-
-# Testing
-/coverage
-/.nyc_output
-*.lcov
-.cache
-
-# Build files
-*.tgz
-*.zip
-*.tar.gz
-
-# Temporary files
-*.tmp
-*.temp
-.tmp/
-.temp/
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-Desktop.ini
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Optional stylelint cache
-.stylelintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
-# Serverless directories
-.serverless/
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
-
-# TernJS port file
-.tern-port
-
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
-
-# yarn v2
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
-
-# Angular specific
-.angular/
-.angular/cache/
-e2e/*.js
-e2e/*.map
-
-# Storybook
-storybook-static/
-
-# Firebase
-.firebase/
-.firebaserc
-firebase-debug.log
-firestore-debug.log
-ui-debug.log
-
-# Vercel
-.vercel
-
-# Local Netlify folder
-.netlify

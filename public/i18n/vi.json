@@ -1,0 +1,116 @@
+{
+  "common": {
+    "home": "Trang chủ",
+    "back": "Quay lại",
+    "language": "Ngôn ngữ",
+    "vietnamese": "Tiếng Việt",
+    "english": "Tiếng Anh",
+    "create": "Thêm mới",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "view": "Xem",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "search": "Tìm kiếm",
+    "loading": "Đang tải...",
+    "noData": "Không có dữ liệu",
+    "confirm": "Xác nhận",
+    "confirmDelete": "Bạn có chắc chắn?",
+    "success": "Thành công",
+    "error": "Lỗi",
+    "table": "Bảng",
+    "tree": "Cây",
+    "notFound": "Không tìm thấy kết quả phù hợp",
+    "unknown": "Không xác định",
+    "none": "Không có",
+    "actions": "Thao tác",
+    "searchPlaceholder": "Tìm kiếm..."
+  },
+  "errors": {
+    "general": "Đã xảy ra lỗi",
+    "network": "Không thể kết nối đến server",
+    "unauthorized": "Phiên đăng nhập hết hạn",
+    "forbidden": "Bạn không có quyền truy cập",
+    "notFound": "Không tìm thấy dữ liệu",
+    "server": "Lỗi server, vui lòng thử lại sau"
+  },
+  "forbidden": {
+    "title": "403",
+    "subtitle": "Xin lỗi, bạn không có quyền truy cập trang này.",
+    "goHome": "Về trang chủ",
+    "goBack": "Quay lại"
+  },
+  "menu": {
+    "welcome": "Chào mừng",
+    "tochuc": "Quản lý Tổ chức",
+    "demo": "Demo Components",
+    "virtualTable": "Virtual Table Demo"
+  },
+  "tochuc": {
+    "title": "Quản lý Tổ chức",
+    "subtitle": "Quản lý thông tin tổ chức, phòng ban",
+    "list": {
+      "searchPlaceholder": "Nhập giá trị và Enter để thêm...",
+      "viewTable": "Bảng",
+      "viewTree": "Cây"
+    },
+    "columns": {
+      "stt": "STT",
+      "name": "Tên tổ chức",
+      "code": "Mã tổ chức",
+      "type": "Loại",
+      "status": "Trạng thái",
+      "updatedBy": "Người cập nhật",
+      "parent": "Tổ chức cấp trên"
+    },
+    "actions": {
+      "view": "Xem",
+      "edit": "Sửa",
+      "delete": "Xóa",
+      "create": "Thêm mới"
+    },
+    "drawer": {
+      "create": "Thêm mới tổ chức",
+      "edit": "Chỉnh sửa tổ chức",
+      "view": "Chi tiết tổ chức"
+    },
+    "form": {
+      "name": "Tên tổ chức",
+      "namePlaceholder": "Nhập tên tổ chức",
+      "nameRequired": "Vui lòng nhập tên tổ chức",
+      "code": "Mã tổ chức",
+      "codePlaceholder": "Nhập mã tổ chức",
+      "type": "Loại tổ chức",
+      "typePlaceholder": "Chọn loại tổ chức",
+      "typeRequired": "Vui lòng chọn loại tổ chức",
+      "parent": "Tổ chức cấp trên",
+      "parentPlaceholder": "Chọn tổ chức cấp trên",
+      "selectParent": "Chọn Tổ chức cấp trên",
+      "selectParentSubtitle": "Chọn một tổ chức làm cấp trên",
+      "status": "Trạng thái",
+      "statusPlaceholder": "Chọn trạng thái",
+      "description": "Mô tả",
+      "descriptionPlaceholder": "Nhập mô tả"
+    },
+    "type": {
+      "center": "Trung tâm",
+      "department": "Phòng ban"
+    },
+    "status": {
+      "draft": "Nháp",
+      "active": "Đang hoạt động",
+      "paused": "Tạm dừng",
+      "approved": "Đã duyệt",
+      "cancelled": "Đã hủy"
+    },
+    "messages": {
+      "loadError": "Không thể tải dữ liệu",
+      "deleteConfirm": "Bạn có chắc muốn xóa tổ chức này?",
+      "deleteSuccess": "Xóa thành công",
+      "deleteError": "Xóa thất bại",
+      "createSuccess": "Thêm mới thành công",
+      "updateSuccess": "Cập nhật thành công",
+      "saveError": "Có lỗi xảy ra"
+    }
+  }
+}

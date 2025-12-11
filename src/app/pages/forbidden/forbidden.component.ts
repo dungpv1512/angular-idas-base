@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * 403 Forbidden Page
@@ -10,20 +11,20 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 @Component({
   selector: 'app-forbidden',
   standalone: true,
-  imports: [NzResultModule, NzButtonModule],
+  imports: [NzResultModule, NzButtonModule, TranslateModule],
   template: `
     <div class="forbidden-container">
       <nz-result
         nzStatus="403"
-        nzTitle="403"
-        nzSubTitle="Xin lỗi, bạn không có quyền truy cập trang này."
+        [nzTitle]="'forbidden.title' | translate"
+        [nzSubTitle]="'forbidden.subtitle' | translate"
       >
         <div nz-result-extra>
           <button nz-button nzType="primary" (click)="goHome()">
-            Về trang chủ
+            {{ 'forbidden.goHome' | translate }}
           </button>
           <button nz-button (click)="goBack()">
-            Quay lại
+            {{ 'forbidden.goBack' | translate }}
           </button>
         </div>
       </nz-result>

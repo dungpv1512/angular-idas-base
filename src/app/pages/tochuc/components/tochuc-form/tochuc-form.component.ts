@@ -8,6 +8,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BaseInputComponent } from '@app/shared/components/base-input/base-input.component';
 import { BaseSelectComponent, SelectOption } from '@app/shared/components/base-select/base-select.component';
 import { BaseTextareaComponent } from '@app/shared/components/base-textarea/base-textarea.component';
@@ -28,6 +29,7 @@ import { ToChuc } from '@app/core/services/tochuc.service';
     NzFormModule,
     NzIconModule,
     NzModalModule,
+    TranslateModule,
     BaseInputComponent,
     BaseSelectComponent,
     BaseTextareaComponent,
@@ -39,6 +41,7 @@ import { ToChuc } from '@app/core/services/tochuc.service';
 export class ToChucFormComponent implements OnChanges {
   private fb = inject(FormBuilder);
   private modal = inject(NzModalService);
+  private translate = inject(TranslateService);
 
   @Input() mode: 'create' | 'edit' = 'create';
   @Input() toChuc: ToChuc | null = null;
@@ -49,18 +52,22 @@ export class ToChucFormComponent implements OnChanges {
 
   form!: FormGroup;
 
-  loaiOptions: SelectOption[] = [
-    { label: 'Trung tâm', value: 1 },
-    { label: 'Phòng ban', value: 2 }
-  ];
+  get loaiOptions(): SelectOption[] {
+    return [
+      { label: this.translate.instant('tochuc.type.center'), value: 1 },
+      { label: this.translate.instant('tochuc.type.department'), value: 2 }
+    ];
+  }
 
-  trangThaiOptions: SelectOption[] = [
-    { label: 'Nháp', value: 1 },
-    { label: 'Đang hoạt động', value: 2 },
-    { label: 'Tạm dừng', value: 3 },
-    { label: 'Đã duyệt', value: 4 },
-    { label: 'Đã hủy', value: 5 }
-  ];
+  get trangThaiOptions(): SelectOption[] {
+    return [
+      { label: this.translate.instant('tochuc.status.draft'), value: 1 },
+      { label: this.translate.instant('tochuc.status.active'), value: 2 },
+      { label: this.translate.instant('tochuc.status.paused'), value: 3 },
+      { label: this.translate.instant('tochuc.status.approved'), value: 4 },
+      { label: this.translate.instant('tochuc.status.cancelled'), value: 5 }
+    ];
+  }
 
   constructor() {
     this.initForm();
@@ -154,7 +161,7 @@ export class ToChucFormComponent implements OnChanges {
    */
   openToChucSelector(): void {
     const modalRef = this.modal.create({
-      nzTitle: 'Chọn Tổ chức cấp trên',
+      nzTitle: this.translate.instant('tochuc.form.selectParent'),
       nzContent: ToChucSelectorComponent,
       nzWidth: '100vw',
       nzStyle: { top: '0', padding: '0' },
@@ -165,19 +172,19 @@ export class ToChucFormComponent implements OnChanges {
       },
       nzMaskClosable: false,
       nzData: {
-        title: 'Chọn Tổ chức cấp trên',
-        subtitle: 'Chọn một tổ chức làm cấp trên',
+        title: this.translate.instant('tochuc.form.selectParent'),
+        subtitle: this.translate.instant('tochuc.form.selectParentSubtitle'),
         multiple: false,
         scroll: { y: 'calc(100vh - 445px)' }, // Dynamic height based on viewport
         autoLoad: true
       },
       nzFooter: [
         {
-          label: 'Hủy',
+          label: this.translate.instant('common.cancel'),
           onClick: () => modalRef.destroy()
         },
         {
-          label: 'Xác nhận',
+          label: this.translate.instant('common.confirm'),
           type: 'primary',
           disabled: (componentInstance) => {
             return !componentInstance || componentInstance.selectedCount === 0;

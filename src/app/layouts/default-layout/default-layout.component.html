@@ -36,7 +36,9 @@
             <ul>
               @for (child of item.children; track child.title) {
                 <li nz-menu-item nzMatchRouter>
-                  <a [routerLink]="child.route">{{ child.title }}</a>
+                  <a [routerLink]="child.route">
+                    {{ child.titleKey ? (child.titleKey | translate) : child.title }}
+                  </a>
                 </li>
               }
             </ul>
@@ -69,6 +71,7 @@
         </span>
 
         <div class="header-right">
+          <app-language-switcher />
           <span class="header-action">
             <span nz-icon nzType="question-circle" nzTheme="outline"></span>
           </span>

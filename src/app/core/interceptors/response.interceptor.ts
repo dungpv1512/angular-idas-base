@@ -2,10 +2,15 @@ import { HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
+import { inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
 /**
  * Response Interceptor - Transform response data và xử lý errors
  */
 export const responseInterceptor: HttpInterceptorFn = (req, next) => {
+  const translate = inject(TranslateService);
+  
   return next(req).pipe(
     tap(event => {
       // Xử lý response thành công
@@ -33,20 +38,20 @@ export const responseInterceptor: HttpInterceptorFn = (req, next) => {
         error: error.error
       });
 
-      // Transform error message
-      let errorMessage = 'Đã xảy ra lỗi';
+      // Transform error message using i18n
+      let errorMessage = translate.instant('errors.general');
       
       if (error.status === 0) {
-        errorMessage = 'Không thể kết nối đến server';
+        errorMessage = translate.instant('errors.network');
       } else if (error.status === 401) {
-        errorMessage = 'Phiên đăng nhập hết hạn';
+        errorMessage = translate.instant('errors.unauthorized');
         // Có thể redirect đến trang login
       } else if (error.status === 403) {
-        errorMessage = 'Bạn không có quyền truy cập';
+        errorMessage = translate.instant('errors.forbidden');
       } else if (error.status === 404) {
-        errorMessage = 'Không tìm thấy dữ liệu';
+        errorMessage = translate.instant('errors.notFound');
       } else if (error.status >= 500) {
-        errorMessage = 'Lỗi server, vui lòng thử lại sau';
+        errorMessage = translate.instant('errors.server');
       } else if (error.error?.message) {
         errorMessage = error.error.message;
       }

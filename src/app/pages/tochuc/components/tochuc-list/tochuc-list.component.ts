@@ -8,7 +8,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
-import { NzTableModule } from 'ng-zorro-antd/table';
+import { TranslateModule } from '@ngx-translate/core';
 import { BaseTableComponent } from '@app/shared/components/base-table/base-table.component';
 import { BaseTreeComponent } from '@app/shared/components/base-tree/base-tree.component';
 import { BaseTagsInputComponent } from '@app/shared/components/base-tags-input/base-tags-input.component';
@@ -28,7 +28,7 @@ import { ToChuc } from '@app/core/services/tochuc.service';
     NzRadioModule,
     NzDividerModule,
     NzEmptyModule,
-    NzTableModule,
+    TranslateModule,
     BaseTableComponent,
     BaseTreeComponent,
     BaseTagsInputComponent
@@ -46,8 +46,8 @@ export class ToChucListComponent implements OnChanges, OnInit {
   @Input() searchFields: string[] = []; // Danh sách fields để search
   
   // Customization options
-  @Input() title = 'Quản lý Tổ chức';
-  @Input() subtitle = 'Quản lý cấu trúc tổ chức và phòng ban';
+  @Input() title = 'tochuc.title';
+  @Input() subtitle = 'tochuc.subtitle';
   @Input() showCreateButton = true; // Hiển thị nút "Thêm mới"
   @Input() showActions = true; // Hiển thị cột thao tác
   @Input() checkable = false; // Bật checkbox selection
@@ -63,18 +63,10 @@ export class ToChucListComponent implements OnChanges, OnInit {
 
   searchTags: string[] = [];
   filteredTreeData: any[] = [];
-  
-  // Table checkbox state
-  displayData: any[] = [];
-  setOfCheckedId = new Set<number>();
 
   ngOnChanges(): void {
     // Filter tree data khi có search tags
     this.filterTreeData();
-    // Update display data for table
-    this.updateDisplayData();
-    // Initialize checked IDs
-    this.initializeCheckedIds();
   }
 
   onSearchTagsChange(tags: string[]): void {
@@ -166,112 +158,6 @@ export class ToChucListComponent implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
-    this.updateDisplayData();
-    this.initializeCheckedIds();
-  }
-
-  /**
-   * Initialize checked IDs from checkedKeys
-   */
-  private initializeCheckedIds(): void {
-    if (this.checkedKeys && this.checkedKeys.length > 0) {
-      this.setOfCheckedId = new Set(this.checkedKeys.map(key => parseInt(key, 10)));
-    }
-  }
-
-  /**
-   * Update display data for table view
-   */
-  private updateDisplayData(): void {
-    this.displayData = this.flattenTree(this.treeTableData);
-  }
-
-  /**
-   * Flatten tree data for table display
-   */
-  private flattenTree(nodes: any[], level = 0): any[] {
-    const result: any[] = [];
-    nodes.forEach(node => {
-      node.level = level;
-      result.push(node);
-      if (node.expand && node.children && node.children.length > 0) {
-        result.push(...this.flattenTree(node.children, level + 1));
-      }
-    });
-    return result;
-  }
-
-  /**
-   * Handle expand/collapse in table
-   */
-  onExpandChange(node: any, expand: boolean): void {
-    node.expand = expand;
-    this.updateDisplayData();
-  }
-
-  /**
-   * Check if node has children
-   */
-  hasChildren(node: any): boolean {
-    return !!(node.children && node.children.length > 0);
-  }
-
-  /**
-   * Handle checkbox change in table
-   */
-  onItemChecked(id: number, checked: boolean): void {
-    if (checked) {
-      if (this.multiple) {
-        this.setOfCheckedId.add(id);
-      } else {
-        this.setOfCheckedId.clear();
-        this.setOfCheckedId.add(id);
-      }
-    } else {
-      this.setOfCheckedId.delete(id);
-    }
-    this.emitCheckChange();
-  }
-
-  /**
-   * Handle check all in table
-   */
-  onAllChecked(checked: boolean): void {
-    if (!this.multiple) return;
-
-    this.displayData.forEach(node => {
-      if (checked) {
-        this.setOfCheckedId.add(node.data.Id);
-      } else {
-        this.setOfCheckedId.delete(node.data.Id);
-      }
-    });
-    this.emitCheckChange();
-  }
-
-  /**
-   * Check if all items are checked
-   */
-  get isAllChecked(): boolean {
-    return this.displayData.length > 0 && 
-           this.displayData.every(node => this.setOfCheckedId.has(node.data.Id));
-  }
-
-  /**
-   * Check if some items are checked (indeterminate state)
-   */
-  get isIndeterminate(): boolean {
-    const checkedCount = this.displayData.filter(node => 
-      this.setOfCheckedId.has(node.data.Id)
-    ).length;
-    return checkedCount > 0 && checkedCount < this.displayData.length;
-  }
-
-  /**
-   * Emit check change event
-   */
-  private emitCheckChange(): void {
-    const keys = Array.from(this.setOfCheckedId).map(id => id.toString());
-    this.checkChange.emit({ keys });
+    // Component initialization
   }
 }

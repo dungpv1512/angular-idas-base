@@ -1,0 +1,116 @@
+{
+  "common": {
+    "home": "Home",
+    "back": "Back",
+    "language": "Language",
+    "vietnamese": "Vietnamese",
+    "english": "English",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search",
+    "loading": "Loading...",
+    "noData": "No data",
+    "confirm": "Confirm",
+    "confirmDelete": "Are you sure?",
+    "success": "Success",
+    "error": "Error",
+    "table": "Table",
+    "tree": "Tree",
+    "notFound": "No results found",
+    "unknown": "Unknown",
+    "none": "None",
+    "actions": "Actions",
+    "searchPlaceholder": "Search..."
+  },
+  "errors": {
+    "general": "An error occurred",
+    "network": "Unable to connect to server",
+    "unauthorized": "Session expired",
+    "forbidden": "You don't have permission to access",
+    "notFound": "Data not found",
+    "server": "Server error, please try again later"
+  },
+  "forbidden": {
+    "title": "403",
+    "subtitle": "Sorry, you are not authorized to access this page.",
+    "goHome": "Go Home",
+    "goBack": "Go Back"
+  },
+  "menu": {
+    "welcome": "Welcome",
+    "tochuc": "Organization Management",
+    "demo": "Demo Components",
+    "virtualTable": "Virtual Table Demo"
+  },
+  "tochuc": {
+    "title": "Organization Management",
+    "subtitle": "Manage organization and department information",
+    "list": {
+      "searchPlaceholder": "Enter value and press Enter to add...",
+      "viewTable": "Table",
+      "viewTree": "Tree"
+    },
+    "columns": {
+      "stt": "No.",
+      "name": "Organization Name",
+      "code": "Organization Code",
+      "type": "Type",
+      "status": "Status",
+      "updatedBy": "Updated By",
+      "parent": "Parent Organization"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete",
+      "create": "Create"
+    },
+    "drawer": {
+      "create": "Create Organization",
+      "edit": "Edit Organization",
+      "view": "Organization Details"
+    },
+    "form": {
+      "name": "Organization Name",
+      "namePlaceholder": "Enter organization name",
+      "nameRequired": "Please enter organization name",
+      "code": "Organization Code",
+      "codePlaceholder": "Enter organization code",
+      "type": "Organization Type",
+      "typePlaceholder": "Select organization type",
+      "typeRequired": "Please select organization type",
+      "parent": "Parent Organization",
+      "parentPlaceholder": "Select parent organization",
+      "selectParent": "Select Parent Organization",
+      "selectParentSubtitle": "Choose an organization as parent",
+      "status": "Status",
+      "statusPlaceholder": "Select status",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter description"
+    },
+    "type": {
+      "center": "Center",
+      "department": "Department"
+    },
+    "status": {
+      "draft": "Draft",
+      "active": "Active",
+      "paused": "Paused",
+      "approved": "Approved",
+      "cancelled": "Cancelled"
+    },
+    "messages": {
+      "loadError": "Unable to load data",
+      "deleteConfirm": "Are you sure you want to delete this organization?",
+      "deleteSuccess": "Deleted successfully",
+      "deleteError": "Delete failed",
+      "createSuccess": "Created successfully",
+      "updateSuccess": "Updated successfully",
+      "saveError": "An error occurred"
+    }
+  }
+}

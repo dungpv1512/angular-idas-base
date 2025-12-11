@@ -8,8 +8,9 @@ export const FORBIDDEN_ROUTES: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./forbidden.component').then(m => m.ForbiddenComponent)
-      }
-    ]
-  }
+        loadComponent: () =>
+          import('./forbidden.component').then((m) => m.ForbiddenComponent),
+      },
+    ],
+  },
 ];

@@ -6,6 +6,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideNzIcons } from 'ng-zorro-antd/icon';
 import { vi_VN, provideNzI18n } from 'ng-zorro-antd/i18n';
 import vi from '@angular/common/locales/vi';
+import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { importProvidersFrom } from '@angular/core';
 
 import { routes } from './app.routes';
 import { icons } from './icons-provider';
@@ -33,6 +36,15 @@ export const appConfig: ApplicationConfig = {
         cacheInterceptor,     // Cache GET requests
         responseInterceptor   // Transform response & handle errors
       ])
-    )
+    ),
+    importProvidersFrom(
+      TranslateModule.forRoot({
+        defaultLanguage: 'vi'
+      })
+    ),
+    provideTranslateHttpLoader({
+      prefix: './i18n/',
+      suffix: '.json'
+    })
   ]
 };
