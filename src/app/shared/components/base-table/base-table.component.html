@@ -1,0 +1,155 @@
+<nz-table
+  #table
+  [nzData]="displayData"
+  [nzLoading]="loading"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  [nzTotal]="total"
+  [nzFrontPagination]="frontPagination"
+  [nzShowPagination]="showPagination && !isTree"
+  [nzShowSizeChanger]="showSizeChanger"
+  [nzPageSizeOptions]="pageSizeOptions"
+  [nzSize]="size"
+  [nzBordered]="bordered"
+  [nzScroll]="scroll"
+  [nzVirtualItemSize]="virtualScroll ? virtualItemSize : 0"
+  [nzVirtualForTrackBy]="trackByIndex"
+  [nzVirtualMaxBufferPx]="virtualScroll ? 200 : 0"
+  [nzVirtualMinBufferPx]="virtualScroll ? 100 : 0"
+  (nzPageIndexChange)="onPageChange($event)"
+  (nzPageSizeChange)="onPageSizeChange($event)"
+  (nzQueryParams)="onQueryParamsChange($event)"
+>
+  <thead>
+    <tr>
+      @for (column of columns; track $index) {
+        <th
+          [nzWidth]="column.width || null"
+          [nzAlign]="column.align || 'left'"
+          [nzShowSort]="column.sortable ? true : null"
+        >
+          {{ column.title }}
+        </th>
+      }
+      @if (actions && actions.length > 0) {
+        <th [nzWidth]="isTree ? '18%' : '15%'" nzAlign="center">Thao tác</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @if (virtualScroll && !isTree) {
+      <!-- Virtual Scroll Mode (Flat Table) -->
+      <ng-template nz-virtual-scroll let-record let-index="index">
+        <tr>
+          <ng-container *ngTemplateOutlet="columnCells; context: { record: record }" />
+          <ng-container *ngTemplateOutlet="actionCell; context: { record: record }" />
+        </tr>
+      </ng-template>
+    } @else if (virtualScroll && isTree) {
+      <!-- Virtual Scroll Mode (Tree Table) - Loop displayData manually -->
+      @for (node of displayData; track node.key) {
+        <tr>
+          <ng-container *ngTemplateOutlet="treeColumnCells; context: { node: node }" />
+          <ng-container *ngTemplateOutlet="actionCell; context: { record: node.data }" />
+        </tr>
+      }
+    } @else if (isTree) {
+      <!-- Tree Table Mode (No Virtual Scroll) -->
+      @for (node of displayData; track node.key) {
+        <tr>
+          <ng-container *ngTemplateOutlet="treeColumnCells; context: { node: node }" />
+          <ng-container *ngTemplateOutlet="actionCell; context: { record: node.data }" />
+        </tr>
+      }
+    } @else {
+      <!-- Flat Table Mode (No Virtual Scroll) -->
+      @for (record of displayData; track record[rowKey]) {
+        <tr>
+          <ng-container *ngTemplateOutlet="columnCells; context: { record: record }" />
+          <ng-container *ngTemplateOutlet="actionCell; context: { record: record }" />
+        </tr>
+      }
+    }
+  </tbody>
+</nz-table>
+
+<!-- Reusable Templates -->
+<ng-template #columnCells let-record="record">
+  @for (column of columns; track $index) {
+    <td [nzAlign]="column.align || 'left'">
+      @if (column.template) {
+        <ng-container
+          *ngTemplateOutlet="column.template; context: { $implicit: record, column: column }"
+        ></ng-container>
+      } @else {
+        {{ record[column.key] }}
+      }
+    </td>
+  }
+</ng-template>
+
+<ng-template #treeColumnCells let-node="node">
+  @for (column of columns; track $index; let first = $first) {
+    <td 
+      [nzAlign]="column.align || 'left'" 
+      [nzIndentSize]="first ? (node.level || 0) * 20 : 0" 
+      [nzShowExpand]="first && hasChildren(node)" 
+      [(nzExpand)]="node.expand"
+      (nzExpandChange)="onExpandChange(node, $event)"
+    >
+      @if (column.template) {
+        <ng-container
+          *ngTemplateOutlet="column.template; context: { $implicit: node.data, column: column }"
+        ></ng-container>
+      } @else {
+        {{ node.data[column.key] }}
+      }
+    </td>
+  }
+</ng-template>
+
+<ng-template #actionCell let-record="record">
+  @if (actions && actions.length > 0) {
+    <td nzAlign="center">
+      <div class="table-actions">
+        @for (action of actions; track $index) {
+          @if (!action.visible || action.visible(record)) {
+            <ng-container *ngTemplateOutlet="actionButton; context: { action: action, record: record }" />
+          }
+        }
+      </div>
+    </td>
+  }
+</ng-template>
+
+<ng-template #actionButton let-action="action" let-record="record">
+  <span nz-tooltip [nzTooltipTitle]="action.tooltipText">
+    @if (action.confirm) {
+      <button
+        nz-button
+        [nzType]="action.type || 'default'"
+        [nzDanger]="action.danger"
+        nz-popconfirm
+        [nzPopconfirmTitle]="action.confirmText || 'Bạn có chắc chắn?'"
+        (nzOnConfirm)="action.onClick(record)"
+      >
+        @if (action.icon) {
+          <span nz-icon [nzType]="action.icon"></span>
+        }
+        {{ action.label }}
+      </button>
+    } @else {
+      <button
+        nz-button
+        [nzType]="action.type || 'default'"
+        [nzDanger]="action.danger"
+        (click)="action.onClick(record)"
+      >
+        @if (action.icon) {
+          <span nz-icon [nzType]="action.icon"></span>
+        }
+        {{ action.label }}
+      </button>
+    }
+  </span>
+</ng-template>

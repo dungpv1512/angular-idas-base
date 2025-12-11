@@ -12,5 +12,10 @@ export const routes: Routes = [
     path: 'demo', 
     loadComponent: () => import('./shared/components/DEMO.component').then(m => m.SharedDemoComponent),
     title: 'Shared Components Demo'
+  },
+  { 
+    path: 'virtual-table', 
+    loadComponent: () => import('./pages/virtual-table-demo/virtual-table-demo.component').then(m => m.VirtualTableDemoComponent),
+    title: 'Virtual Table Demo'
   }
 ];

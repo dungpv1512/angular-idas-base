@@ -48,8 +48,7 @@ export class DefaultLayoutComponent {
       icon: 'setting',
       open: true,
       children: [
-        { title: 'Quản lý Tổ chức', route: '/tochuc' },
-        { title: 'ToChuc Selector Demo', route: '/tochuc/selector-demo' }
+        { title: 'Quản lý Tổ chức', route: '/tochuc' }
       ]
     },
     {
@@ -57,7 +56,8 @@ export class DefaultLayoutComponent {
       icon: 'appstore',
       open: false,
       children: [
-        { title: 'Shared Components Demo', route: '/demo' }
+        { title: 'Shared Components Demo', route: '/demo' },
+        { title: 'Virtual Table Demo', route: '/virtual-table' }
       ]
     }
   ];
