@@ -1,8 +1,10 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 export interface TreeSelectNode {
   title: string;
@@ -16,7 +18,7 @@ export interface TreeSelectNode {
 @Component({
   selector: 'app-base-tree-select',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, NzTreeSelectModule, NzFormModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, NzTreeSelectModule, NzFormModule, NzButtonModule, NzIconModule],
   template: `
     <nz-form-item>
       <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
@@ -37,8 +39,40 @@ export interface TreeSelectNode {
           (ngModelChange)="onChange($event)"
           (nzExpandChange)="onExpandChange($event)"
         >
+          @if (showAddButton) {
+            <ng-template #nzNotFoundContent>
+              <div class="tree-select-footer">
+                <button 
+                  nz-button 
+                  nzType="link" 
+                  nzSize="small"
+                  (click)="onAddClick($event)"
+                  class="add-button"
+                >
+                  <span nz-icon nzType="plus"></span>
+                  {{ addButtonText }}
+                </button>
+              </div>
+            </ng-template>
+          }
         </nz-tree-select>
-        <small *ngIf="hint" class="hint-text">{{ hint }}</small>
+        @if (showAddButton) {
+          <div class="external-add-button">
+            <button 
+              nz-button 
+              nzType="dashed" 
+              nzSize="small"
+              (click)="onAddClick($event)"
+              [disabled]="disabled"
+            >
+              <span nz-icon nzType="plus"></span>
+              {{ addButtonText }}
+            </button>
+          </div>
+        }
+        @if (hint) {
+          <small class="hint-text">{{ hint }}</small>
+        }
       </nz-form-control>
     </nz-form-item>
   `,
@@ -48,6 +82,21 @@ export interface TreeSelectNode {
       font-size: 12px;
       margin-top: 4px;
       display: block;
+    }
+
+    .tree-select-footer {
+      padding: 8px;
+      border-top: 1px solid #f0f0f0;
+      text-align: center;
+    }
+
+    .add-button {
+      width: 100%;
+      text-align: left;
+    }
+
+    .external-add-button {
+      margin-top: 8px;
     }
   `],
   providers: [
@@ -73,6 +122,10 @@ export class BaseTreeSelectComponent implements ControlValueAccessor {
   @Input() showExpand = true;
   @Input() showLine = false;
   @Input() expandedKeys: string[] = [];
+  @Input() showAddButton = false; // Hiển thị nút thêm
+  @Input() addButtonText = 'Thêm mới'; // Text cho nút thêm
+
+  @Output() addClick = new EventEmitter<void>(); // Event khi click nút thêm
 
   value: any = null;
   disabled = false;
@@ -97,7 +150,13 @@ export class BaseTreeSelectComponent implements ControlValueAccessor {
     this.disabled = isDisabled;
   }
 
-  onExpandChange(event: any): void {
+  onExpandChange(_event: any): void {
     // Handle expand change if needed
+  }
+
+  onAddClick(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.addClick.emit();
   }
 }

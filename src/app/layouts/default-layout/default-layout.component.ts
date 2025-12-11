@@ -48,7 +48,8 @@ export class DefaultLayoutComponent {
       icon: 'setting',
       open: true,
       children: [
-        { title: 'Quản lý Tổ chức', route: '/tochuc' }
+        { title: 'Quản lý Tổ chức', route: '/tochuc' },
+        { title: 'ToChuc Selector Demo', route: '/tochuc/selector-demo' }
       ]
     },
     {

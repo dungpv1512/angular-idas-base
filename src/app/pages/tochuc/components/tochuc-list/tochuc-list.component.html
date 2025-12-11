@@ -5,16 +5,18 @@
       <div class="header-left">
         <div class="title-section">
           <span nz-icon nzType="apartment" nzTheme="twotone" class="title-icon"></span>
-          <h1>Quản lý Tổ chức</h1>
+          <h1>{{ title }}</h1>
         </div>
-        <p class="subtitle">Quản lý cấu trúc tổ chức và phòng ban</p>
+        <p class="subtitle">{{ subtitle }}</p>
       </div>
+      @if (showCreateButton) {
       <div class="header-actions">
         <button nz-button nzType="primary" nzSize="large" (click)="onCreateClick()">
           <span nz-icon nzType="plus"></span>
           Thêm mới
         </button>
       </div>
+      }
     </div>
 
     <nz-divider></nz-divider>
@@ -52,17 +54,75 @@
       <!-- Table View -->
       @if (viewMode === 'table') {
       <div class="table-wrapper">
-        <app-base-table 
-          [data]="treeTableData" 
-          [columns]="columns" 
-          [actions]="actions" 
-          [loading]="loading" 
-          [bordered]="true"
-          [scroll]="{ y: 'calc(-445px + 100vh)' }" 
-          [isTree]="true" 
-          [showPagination]="false" 
-          [virtualScroll]="true" 
-        />
+        @if (checkable) {
+          <!-- Custom table with checkbox -->
+          <nz-table
+            #table
+            [nzData]="displayData"
+            [nzLoading]="loading"
+            [nzShowPagination]="false"
+            [nzBordered]="true"
+            [nzScroll]="scroll"
+            [nzVirtualItemSize]="54"
+            [nzVirtualMaxBufferPx]="200"
+            [nzVirtualMinBufferPx]="100"
+          >
+            <thead>
+              <tr>
+                <th
+                  [nzWidth]="'60px'"
+                  [nzChecked]="isAllChecked"
+                  [nzIndeterminate]="isIndeterminate"
+                  (nzCheckedChange)="onAllChecked($event)"
+                  [nzShowCheckbox]="multiple"
+                ></th>
+                @for (column of displayColumns; track $index) {
+                  <th
+                    [nzWidth]="column.width || null"
+                    [nzAlign]="column.align || 'left'"
+                  >
+                    {{ column.title }}
+                  </th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (node of displayData; track node.key) {
+                <tr>
+                  <td
+                    [nzChecked]="setOfCheckedId.has(node.data.Id)"
+                    (nzCheckedChange)="onItemChecked(node.data.Id, $event)"
+                    [nzShowCheckbox]="true"
+                  ></td>
+                  @for (column of displayColumns; track $index; let first = $first) {
+                    <td 
+                      [nzAlign]="column.align || 'left'" 
+                      [nzIndentSize]="first ? (node.level || 0) * 20 : 0" 
+                      [nzShowExpand]="first && hasChildren(node)" 
+                      [(nzExpand)]="node.expand"
+                      (nzExpandChange)="onExpandChange(node, $event)"
+                    >
+                      {{ node.data[column.key] }}
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </nz-table>
+        } @else {
+          <!-- Normal table without checkbox -->
+          <app-base-table 
+            [data]="treeTableData" 
+            [columns]="displayColumns" 
+            [actions]="displayActions" 
+            [loading]="loading" 
+            [bordered]="true"
+            [scroll]="scroll" 
+            [isTree]="true" 
+            [showPagination]="false" 
+            [virtualScroll]="true" 
+          />
+        }
       </div>
       }
 
@@ -77,10 +137,12 @@
         } @else {
           <app-base-tree 
             [nodes]="filteredTreeData.length > 0 ? filteredTreeData : treeData" 
-            [checkable]="false" 
+            [checkable]="checkable" 
+            [checkedKeys]="checkedKeys"
             [showLine]="true" 
             [expandAll]="searchTags.length > 0"
-            (nodeClick)="onTreeNodeClick($event)" 
+            (nodeClick)="onTreeNodeClick($event)"
+            (nzCheckBoxChange)="onCheckChange($event)"
           />
         }
       </div>

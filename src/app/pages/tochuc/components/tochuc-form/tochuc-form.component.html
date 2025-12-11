@@ -1,4 +1,5 @@
 <div class="tochuc-form">
+  {{ form.value | json }}
   <form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div nz-row [nzGutter]="16">
       <div nz-col [nzSpan]="12">
@@ -48,7 +49,10 @@
       placeholder="Chọn tổ chức cấp trên"
       [nodes]="treeData"
       [allowClear]="true"
+      [showAddButton]="true"
+      addButtonText="Chọn từ danh sách"
       hint="Để trống nếu là tổ chức cấp cao nhất"
+      (addClick)="openToChucSelector()"
     />
 
     <app-base-textarea

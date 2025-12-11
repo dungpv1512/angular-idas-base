@@ -7,10 +7,12 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { BaseInputComponent } from '@app/shared/components/base-input/base-input.component';
 import { BaseSelectComponent, SelectOption } from '@app/shared/components/base-select/base-select.component';
 import { BaseTextareaComponent } from '@app/shared/components/base-textarea/base-textarea.component';
 import { BaseTreeSelectComponent } from '@app/shared/components/base-tree-select/base-tree-select.component';
+import { ToChucSelectorComponent } from '../tochuc-selector/tochuc-selector.component';
 import { ToChuc } from '@app/core/services/tochuc.service';
 
 @Component({
@@ -25,6 +27,7 @@ import { ToChuc } from '@app/core/services/tochuc.service';
     NzGridModule,
     NzFormModule,
     NzIconModule,
+    NzModalModule,
     BaseInputComponent,
     BaseSelectComponent,
     BaseTextareaComponent,
@@ -35,6 +38,7 @@ import { ToChuc } from '@app/core/services/tochuc.service';
 })
 export class ToChucFormComponent implements OnChanges {
   private fb = inject(FormBuilder);
+  private modal = inject(NzModalService);
 
   @Input() mode: 'create' | 'edit' = 'create';
   @Input() toChuc: ToChuc | null = null;
@@ -112,5 +116,45 @@ export class ToChucFormComponent implements OnChanges {
 
   onCancel(): void {
     this.cancel.emit();
+  }
+
+  /**
+   * Mở modal chọn tổ chức cấp trên
+   */
+  openToChucSelector(): void {
+    const modalRef = this.modal.create({
+      nzTitle: 'Chọn Tổ chức cấp trên',
+      nzContent: ToChucSelectorComponent,
+      nzWidth: '90%',
+      nzStyle: { top: '20px' },
+      nzBodyStyle: { padding: '0' },
+      nzData: {
+        title: 'Chọn Tổ chức cấp trên',
+        subtitle: 'Chọn một tổ chức làm cấp trên',
+        multiple: false,
+        scroll: { y: '500px' },
+        autoLoad: true // Component tự load data
+      },
+      nzFooter: [
+        {
+          label: 'Hủy',
+          onClick: () => modalRef.destroy()
+        },
+        {
+          label: 'Xác nhận',
+          type: 'primary',
+          disabled: (componentInstance) => {
+            return !componentInstance || componentInstance.selectedCount === 0;
+          },
+          onClick: (componentInstance) => {
+            if (componentInstance && componentInstance.selectedItems.length > 0) {
+              const selected = componentInstance.selectedItems[0];
+              this.form.patchValue({ IdToChucCapTren: String(selected.Id) });
+              modalRef.destroy();
+            }
+          }
+        }
+      ]
+    });
   }
 }

@@ -229,12 +229,15 @@ import { TableAction, TableColumn } from '../types/table.types';
     :host {
       display: block;
       min-height: 100vh;
+      height: 100%;
+      overflow-y: auto;
       background: linear-gradient(135deg, #fef2f2 0%, #ffffff 50%, #fef2f2 100%);
     }
 
     .demo-container {
-      padding: 24px;
+      padding: 24px 24px 120px 24px;
       margin: 0 auto;
+      max-width: 1400px;
     }
 
     h1 {
@@ -251,7 +254,7 @@ import { TableAction, TableColumn } from '../types/table.types';
     }
 
     .demo-section:last-child {
-      margin-bottom: 0;
+      margin-bottom: 24px;
     }
 
     .section-header {
