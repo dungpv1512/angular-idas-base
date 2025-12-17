@@ -1,0 +1,8 @@
+{
+  "apiUrl": "https://api.example.com",
+  "version": "1.0.0",
+  "features": {
+    "darkMode": true,
+    "notifications": true
+  }
+}

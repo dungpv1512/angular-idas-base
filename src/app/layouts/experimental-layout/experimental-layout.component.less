@@ -1,0 +1,112 @@
+.experimental-layout {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 24px;
+  padding-bottom: 60px; // Thêm padding bottom để có space cuối trang
+}
+
+.page-header {
+  text-align: center;
+  padding: 40px 20px;
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.65);
+    margin: 0;
+  }
+}
+
+.content-layout {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  min-height: 600px; // Chiều cao tối thiểu thay vì fixed
+}
+
+.sidebar {
+  background: #fafafa;
+  border-right: 1px solid #e8e8e8;
+
+  :global {
+    .ant-menu {
+      background: transparent;
+      border: none;
+    }
+
+    .ant-menu-item {
+      margin: 4px 8px;
+      border-radius: 6px;
+      height: 48px;
+      line-height: 48px;
+      font-size: 15px;
+
+      &:hover {
+        background: rgba(102, 126, 234, 0.1);
+      }
+
+      &.ant-menu-item-selected {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+
+        .anticon {
+          color: #fff;
+        }
+      }
+
+      .anticon {
+        font-size: 18px;
+        margin-right: 12px;
+      }
+    }
+  }
+}
+
+.main-content {
+  padding: 24px;
+  background: #fff;
+  flex: 1;
+  // Không set overflow-y để cho body scroll tự nhiên
+}
+
+@media (max-width: 768px) {
+  .experimental-layout {
+    padding: 16px;
+  }
+
+  .page-header {
+    padding: 24px 16px;
+
+    h1 {
+      font-size: 32px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+    }
+  }
+
+  .content-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+  }
+}

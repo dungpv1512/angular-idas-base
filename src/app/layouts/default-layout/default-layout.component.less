@@ -1,5 +1,4 @@
-// Import Ant Design theme
-@import '../../../theme.less';
+@import '../../../styles/variables.less';
 
 :host {
   display: block;
@@ -10,114 +9,12 @@
   height: 100vh;
 }
 
-/* Sidebar */
-.menu-sidebar {
-  position: relative;
-  z-index: 10;
-  min-height: 100vh;
-  box-shadow: 2px 0 12px rgba(59, 130, 246, 0.12);
-  background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%); // Blue gradient
-}
-
-.sidebar-logo {
-  position: relative;
-  height: 64px;
-  padding-left: @padding-lg;
-  overflow: hidden;
-  line-height: 64px;
-  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); // Blue gradient
-  border-bottom: 3px solid transparent;
-  border-image: linear-gradient(90deg, #3b82f6 0%, #06b6d4 25%, #10b981 50%, #8b5cf6 75%, #ec4899 100%);
-  border-image-slice: 1;
-  transition: all 0.3s;
-  
-  a {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    text-decoration: none;
-    
-    &.collapsed {
-      justify-content: center;
-      padding-left: 0;
-    }
-  }
-  
-  img {
-    height: 40px;
-    width: 40px;
-    vertical-align: middle;
-    border-radius: 50%;
-    background: white;
-    padding: 2px;
-  }
-  
-  h1 {
-    margin: 0 0 0 @margin-md;
-    color: #fff;
-    font-weight: 700;
-    font-size: @font-size-lg + 4px;
-    font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
-    vertical-align: middle;
-    white-space: nowrap;
-    letter-spacing: 1px;
-  }
-}
-
 /* Header */
 nz-header {
   padding: 0 !important;
   width: 100%;
   z-index: 2;
-  background: linear-gradient(90deg, #ffffff 0%, @primary-1 100%) !important;
   box-shadow: @box-shadow-base;
-}
-
-.app-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-  padding: 0 @padding-lg;
-  background: transparent;
-}
-
-.header-trigger {
-  padding: 20px 0;
-  font-size: @font-size-lg + 4px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.trigger {
-  font-size: @font-size-lg + 4px;
-  
-  &:hover {
-    color: @primary-color;
-  }
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: @margin-lg;
-}
-
-.header-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 48px;
-  width: 48px;
-  font-size: @font-size-lg + 2px;
-  cursor: pointer;
-  transition: all 0.3s;
-  border-radius: @border-radius-base;
-  
-  &:hover {
-    background: @primary-1; // Blue-50
-    color: @primary-color;
-  }
 }
 
 /* Content */
@@ -132,118 +29,51 @@ nz-content {
   overflow: hidden;
 }
 
-/* Footer */
-nz-footer {
-  padding: 0 !important;
-  background: linear-gradient(90deg, @primary-1 0%, #ffffff 100%);
-  border-top: 3px solid transparent;
-  border-image: linear-gradient(90deg, #3b82f6 0%, #06b6d4 25%, #10b981 50%, #8b5cf6 75%, #ec4899 100%);
-  border-image-slice: 1;
-}
 
-.footer-content {
-  padding: @padding-sm @padding-lg;
-  text-align: center;
-  color: @heading-color;
-  font-size: @font-size-base;
-  font-weight: 500;
+.sidebar-logo {
+  position: relative;
+  height: 64px;
+  padding-left: @padding-lg;
+  overflow: hidden;
+  line-height: 64px;
+  background: @color-primary-start;
+  border-bottom: 3px solid transparent;
+  border-image-slice: 1;
+  transition: all 0.3s;
+
+  a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    text-decoration: none;
+
+    &.collapsed {
+      justify-content: center;
+      padding-left: 0;
+    }
+  }
+
+  img {
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    border-radius: 50%;
+    background: white;
+    padding: 2px;
+  }
+
+  h1 {
+    margin: 0 0 0 @margin-md;
+    color: #fff;
+    font-weight: 700;
+    font-size: @font-size-lg + 4px;
+    font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+    vertical-align: middle;
+    white-space: nowrap;
+    letter-spacing: 1px;
+  }
 }
 
 .ant-layout-sider-collapsed .sidebar-logo {
-  padding-left: 0;
-}
-
-/* Menu Customization */
-:global {
-.ant-menu-dark .ant-menu-sub {
-      background: rgba(29, 78, 216, 0.25) !important;
-    }
-
-  .ant-menu-dark {
-    // Main menu items
-    > .ant-menu-item,
-    > .ant-menu-submenu > .ant-menu-submenu-title {
-      font-weight: 500;
-      font-size: @font-size-base + 1px;
-      border-radius: 6px;
-      
-      &:hover {
-        background: rgba(255, 255, 255, 0.1) !important;
-      }
-    }
-    
-    // Submenu container - only show when open
-    .ant-menu-submenu-open {
-      > .ant-menu-submenu-title {
-        background: rgba(255, 255, 255, 0.08) !important;
-      }
-      
-      // Submenu list
-      > .ant-menu-sub {
-        background: rgba(29, 78, 216, 0.25) !important; // Blue-700 với opacity
-        padding: 4px 0 !important;
-        margin: 0 !important;
-      }
-    }
-    
-    // Hide closed submenu
-    .ant-menu-submenu:not(.ant-menu-submenu-open) {
-      > .ant-menu-sub {
-        display: none !important;
-      }
-    }
-    
-    // Submenu items - indented and styled differently
-    .ant-menu-sub .ant-menu-item {
-      padding-left: 64px !important;
-      font-size: @font-size-base;
-      font-weight: 400;
-      height: 40px;
-      line-height: 40px;
-      margin: 0 !important;
-      border-radius: 0 !important;
-      background: transparent !important;
-      
-      &:hover {
-        background: rgba(255, 255, 255, 0.15) !important;
-      }
-      
-      &.ant-menu-item-selected {
-        background: rgba(255, 255, 255, 0.2) !important;
-        border-left: 3px solid #06b6d4; // Cyan accent
-        
-        &::after {
-          border-right: none;
-        }
-      }
-    }
-    
-    // Khi sidebar collapsed
-    &.ant-menu-inline-collapsed {
-      .ant-menu-submenu-open > .ant-menu-sub {
-        background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%) !important; // Blue gradient
-        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
-      }
-      
-      .ant-menu-sub .ant-menu-item {
-        padding-left: @padding-lg !important;
-      }
-    }
-  }
-}
-
-/* Responsive */
-@media (max-width: @screen-md) {
-  .header-right {
-    gap: @margin-sm;
-  }
-  
-  .header-action {
-    height: 40px;
-    width: 40px;
-  }
-  
-  .sidebar-logo h1 {
-    font-size: @font-size-base;
-  }
+  padding-left: 0 !important;
 }

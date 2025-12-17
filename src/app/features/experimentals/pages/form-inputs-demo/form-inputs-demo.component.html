@@ -1,0 +1,143 @@
+<div class="demo-container">
+  <!-- Base Input -->
+  <nz-card nzTitle="IdasInputComponent" class="component-card">
+    <div class="component-header">
+      <nz-tag nzColor="blue">Form Control</nz-tag>
+      <nz-tag nzColor="green">ControlValueAccessor</nz-tag>
+    </div>
+    
+    <nz-descriptions nzBordered [nzColumn]="1" class="api-table">
+      <nz-descriptions-item nzTitle="Mô tả">
+        Input component cơ bản với validation, prefix/suffix icons, và error handling
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Selector">
+        <code>app-idas-input</code>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Inputs">
+        <div class="api-list">
+          <div><code>@Input() label: string</code> - Label của input</div>
+          <div><code>@Input() placeholder: string</code> - Placeholder text</div>
+          <div><code>@Input() type: string</code> - Loại input (text, email, password, number)</div>
+          <div><code>@Input() required: boolean</code> - Bắt buộc nhập</div>
+          <div><code>@Input() disabled: boolean</code> - Vô hiệu hóa</div>
+          <div><code>@Input() prefixIcon: string</code> - Icon prefix</div>
+          <div><code>@Input() suffixIcon: string</code> - Icon suffix</div>
+          <div><code>@Input() errorTip: string</code> - Thông báo lỗi</div>
+        </div>
+      </nz-descriptions-item>
+    </nz-descriptions>
+
+    <nz-divider nzText="Demo"></nz-divider>
+    
+    <form nz-form [formGroup]="demoForm" class="demo-form">
+      <app-idas-input
+        formControlName="username"
+        label="Tên đăng nhập"
+        placeholder="Nhập tên đăng nhập"
+        prefixIcon="user"
+        [required]="true"
+        errorTip="Vui lòng nhập tên đăng nhập"
+      />
+
+      <app-idas-input
+        formControlName="email"
+        label="Email"
+        type="email"
+        placeholder="example@email.com"
+        prefixIcon="mail"
+        [required]="true"
+        errorTip="Email không hợp lệ"
+      />
+
+      <app-idas-input
+        formControlName="password"
+        label="Mật khẩu"
+        type="password"
+        placeholder="Nhập mật khẩu"
+        prefixIcon="lock"
+        [required]="true"
+        errorTip="Mật khẩu phải có ít nhất 6 ký tự"
+      />
+    </form>
+  </nz-card>
+
+  <!-- Base Textarea -->
+  <nz-card nzTitle="IdasTextareaComponent" class="component-card">
+    <div class="component-header">
+      <nz-tag nzColor="blue">Form Control</nz-tag>
+      <nz-tag nzColor="green">Auto-resize</nz-tag>
+    </div>
+    
+    <nz-descriptions nzBordered [nzColumn]="1" class="api-table">
+      <nz-descriptions-item nzTitle="Mô tả">
+        Textarea với auto-resize, character counter, và validation
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Inputs">
+        <div class="api-list">
+          <div><code>@Input() label: string</code></div>
+          <div><code>@Input() rows: number</code> - Số dòng mặc định</div>
+          <div><code>@Input() maxLength: number</code> - Giới hạn ký tự</div>
+          <div><code>@Input() showCount: boolean</code> - Hiển thị số ký tự</div>
+          <div><code>@Input() autosize: object</code> - Auto resize config</div>
+        </div>
+      </nz-descriptions-item>
+    </nz-descriptions>
+
+    <nz-divider nzText="Demo"></nz-divider>
+    
+    <form nz-form [formGroup]="demoForm" class="demo-form">
+      <app-idas-textarea
+        formControlName="bio"
+        label="Giới thiệu bản thân"
+        placeholder="Nhập giới thiệu..."
+        [rows]="4"
+        [maxLength]="500"
+        [showCount]="true"
+        [autosize]="{ minRows: 3, maxRows: 8 }"
+      />
+    </form>
+  </nz-card>
+
+  <!-- Base Select -->
+  <nz-card nzTitle="IdasSelectComponent" class="component-card">
+    <div class="component-header">
+      <nz-tag nzColor="blue">Form Control</nz-tag>
+      <nz-tag nzColor="purple">Single/Multiple</nz-tag>
+    </div>
+    
+    <nz-descriptions nzBordered [nzColumn]="1" class="api-table">
+      <nz-descriptions-item nzTitle="Mô tả">
+        Select dropdown với hỗ trợ single/multiple selection, search, và custom options
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Inputs">
+        <div class="api-list">
+          <div><code>@Input() options: SelectOption[]</code> - Danh sách options</div>
+          <div><code>@Input() mode: 'default' | 'multiple' | 'tags'</code></div>
+          <div><code>@Input() showSearch: boolean</code> - Cho phép search</div>
+          <div><code>@Input() maxMultipleCount: number</code> - Giới hạn chọn nhiều</div>
+        </div>
+      </nz-descriptions-item>
+    </nz-descriptions>
+
+    <nz-divider nzText="Demo"></nz-divider>
+    
+    <form nz-form [formGroup]="demoForm" class="demo-form">
+      <app-idas-select
+        formControlName="department"
+        label="Phòng ban (Single)"
+        placeholder="Chọn phòng ban"
+        [options]="departmentOptions"
+        [required]="true"
+      />
+
+      <app-idas-select
+        formControlName="skills"
+        label="Kỹ năng (Multiple)"
+        placeholder="Chọn kỹ năng"
+        mode="multiple"
+        [options]="skillOptions"
+        [maxMultipleCount]="5"
+      />
+    </form>
+  </nz-card>
+</div>

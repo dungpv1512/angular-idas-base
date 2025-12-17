@@ -34,6 +34,19 @@
     "notFound": "Data not found",
     "server": "Server error, please try again later"
   },
+  "ERROR": {
+    "FATAL": {
+      "TITLE": "A critical error has occurred"
+    },
+    "CODE": "Error code",
+    "NOTIFICATIONS": "Error notifications",
+    "ACTION": {
+      "RELOAD": "Reload page",
+      "GO_HOME": "Go home",
+      "DISMISS": "Dismiss",
+      "DISMISS_ALL": "Dismiss all"
+    }
+  },
   "forbidden": {
     "title": "403",
     "subtitle": "Sorry, you are not authorized to access this page.",

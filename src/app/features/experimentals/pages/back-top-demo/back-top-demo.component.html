@@ -1,0 +1,41 @@
+<div class="demo-section">
+  <h2>Basic BackTop</h2>
+  <p>Scroll down to see the BackTop button</p>
+  
+  <div class="long-content">
+    <p>Start of content...</p>
+    <p>Keep scrolling down...</p>
+    <p>The BackTop button will appear when you scroll down 400px</p>
+    
+    <div style="height: 1500px; padding: 20px; background: linear-gradient(to bottom, #f0f0f0, #ffffff);">
+      <p>Long content area...</p>
+      <p style="margin-top: 200px;">Middle of content...</p>
+      <p style="margin-top: 400px;">More content...</p>
+      <p style="margin-top: 400px;">Almost at the bottom...</p>
+    </div>
+    
+    <p>End of content</p>
+  </div>
+
+  <app-idas-back-top 
+    [visibilityHeight]="400"
+    [duration]="450"
+    (click)="onBackTopClick()">
+  </app-idas-back-top>
+</div>
+
+<div class="demo-section">
+  <h2>Custom BackTop</h2>
+  <div class="scrollable-container">
+    <div style="height: 1000px; padding: 20px;">
+      <p>Scroll in this container...</p>
+      <p style="margin-top: 300px;">Custom styled BackTop button</p>
+    </div>
+    
+    <app-idas-back-top 
+      [visibilityHeight]="200"
+      [duration]="300">
+      <div class="custom-back-top">UP</div>
+    </app-idas-back-top>
+  </div>
+</div>

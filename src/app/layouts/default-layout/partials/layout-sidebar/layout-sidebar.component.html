@@ -1,0 +1,27 @@
+<!-- Menu -->
+<ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed()">
+  @for (item of menuItems(); track item.title) {
+  @if (item.children && item.children.length > 0) {
+  <li nz-submenu [nzOpen]="item.open" [nzTitle]="item.title" [nzIcon]="item.icon || null">
+    <ul>
+      @for (child of item.children; track child.title) {
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="child.route">
+          {{ child.titleKey ? (child.titleKey | translate) : child.title }}
+        </a>
+      </li>
+      }
+    </ul>
+  </li>
+  } @else {
+  <li nz-menu-item nzMatchRouter>
+    <a [routerLink]="item.route">
+      @if (item.icon) {
+      <span nz-icon [nzType]="item.icon"></span>
+      }
+      <span>{{ item.title }}</span>
+    </a>
+  </li>
+  }
+  }
+</ul>

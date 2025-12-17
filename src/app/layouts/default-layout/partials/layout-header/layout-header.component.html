@@ -1,0 +1,20 @@
+<nz-header>
+  <div class="app-header">
+    <span class="header-trigger" (click)="toggleMenu.emit()">
+      <span nz-icon class="trigger" [nzType]="menuIcon()"></span>
+    </span>
+
+    <div class="header-right">
+      <app-language-switcher />
+      <span class="header-action">
+        <span nz-icon nzType="question-circle" nzTheme="outline"></span>
+      </span>
+      <span class="header-action">
+        <span nz-icon nzType="bell" nzTheme="outline"></span>
+      </span>
+      <span class="header-action">
+        <span nz-icon nzType="user" nzTheme="outline"></span>
+      </span>
+    </div>
+  </div>
+</nz-header>

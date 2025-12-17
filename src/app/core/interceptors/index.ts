@@ -4,4 +4,4 @@
 export { authInterceptor } from './auth.interceptor';
 export { responseInterceptor } from './response.interceptor';
 export { loadingInterceptor } from './loading.interceptor';
-export { cacheInterceptor } from './cache.interceptor';
+export { cacheInterceptor, clearHttpCache, getCacheInfo } from './cache.interceptor';

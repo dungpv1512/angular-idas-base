@@ -1,0 +1,106 @@
+/* Global Styles - Red & White Theme */
+
+// Import Ant Design theme
+@import "./variables.less";
+
+// Body
+body {
+  background: @body-background; // Red-50 tint
+  margin: 0;
+  padding: 0;
+  color: @text-color; // Red-900
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, @primary-color 0%, @primary-8 100%);
+  border-radius: @border-radius-base;
+  
+  &:hover {
+    background: linear-gradient(180deg, @primary-6 0%, @primary-8 100%);
+  }
+}
+
+// Ant Design overrides
+.ant-btn-primary {
+  background: linear-gradient(135deg, @primary-color 0%, @primary-8 100%);
+  border-color: @primary-color;
+  
+  &:hover,
+  &:focus {
+    background: linear-gradient(135deg, @primary-6 0%, @primary-8 100%);
+    border-color: @primary-6;
+  }
+}
+
+// Card with gradient border
+.ant-card {
+  border-radius: @border-radius-base * 2;
+  box-shadow: @box-shadow-base;
+}
+
+// Form items
+.ant-form-item-label > label {
+  color: @text-color;
+  font-weight: 500;
+}
+
+// Links
+a {
+  color: @link-color;
+  text-decoration: none;
+  transition: color 0.3s;
+  
+  &:hover {
+    color: @primary-6;
+  }
+}
+
+// Utility classes
+.gradient-text {
+  background: linear-gradient(135deg, @primary-color 0%, @primary-8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(90deg, #ffffff 0%, @primary-1 100%);
+}
+
+.gradient-bg-content {
+  background: linear-gradient(135deg, @primary-1 0%, #ffffff 50%, @primary-1 100%);
+}
+
+.ant-menu-submenu.ant-menu-submenu-popup .ant-menu.ant-menu-sub ul {
+  margin-bottom: 0;
+}
+
+.ant-layout-sider-children {
+  border-right: 1px solid #ffffff70;
+}
+
+// Responsive utilities
+@media (max-width: @screen-md) {
+  // Mobile styles
+  body {
+    font-size: @font-size-sm;
+  }
+}
+
+@media (min-width: @screen-md) and (max-width: @screen-lg) {
+  // Tablet styles
+}
+
+@media (min-width: @screen-lg) {
+  // Desktop styles
+}

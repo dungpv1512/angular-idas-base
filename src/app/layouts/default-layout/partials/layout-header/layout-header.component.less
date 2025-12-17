@@ -1,0 +1,66 @@
+@import '../../../../../styles/variables.less';
+
+nz-header {
+  padding: 0 !important;
+  width: 100%;
+  z-index: 2;
+  box-shadow: @box-shadow-base;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 @padding-lg;
+  background: transparent;
+}
+
+.header-trigger {
+  padding: 20px 0;
+  font-size: @font-size-lg + 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.trigger {
+  font-size: @font-size-lg + 4px;
+  
+  &:hover {
+    opacity: .8;
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: @margin-lg;
+}
+
+.header-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 48px;
+  font-size: @font-size-lg + 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: @border-radius-base;
+  
+  &:hover {
+    opacity: .8;
+    // color: @primary-color;
+  }
+}
+
+@media (max-width: @screen-md) {
+  .header-right {
+    gap: @margin-sm;
+  }
+  
+  .header-action {
+    height: 40px;
+    width: 40px;
+  }
+}

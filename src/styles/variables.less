@@ -1,0 +1,60 @@
+// LESS Variables Only - Import này vào component styles
+// Chỉ chứa variables, không có CSS output
+
+// Import ng-zorro variables
+@import "../../node_modules/ng-zorro-antd/ng-zorro-antd.less";
+
+// Custom Brand Colors - Gradient Theme
+@color-primary-start: #3D58A1;  // Blue
+@color-primary-end: #9D3228;    // Red
+
+// Primary Color (sử dụng màu chính từ gradient)
+@primary-color: @color-primary-start;
+
+// Gradient Definitions
+@gradient-primary: linear-gradient(135deg, @color-primary-start 0%, @color-primary-end 100%);
+@gradient-primary-horizontal: linear-gradient(90deg, @color-primary-start 0%, @color-primary-end 100%);
+@gradient-primary-vertical: linear-gradient(180deg, @color-primary-start 0%, @color-primary-end 100%);
+@gradient-primary-soft: lighten(#3D58A1, 50%);
+
+// Derived Colors from Primary (manual shades based on #3D58A1)
+@primary-1: #e8ecf5;  // lightest
+@primary-2: #c5d0e8;
+@primary-3: #a1b4db;
+@primary-4: #7d98ce;
+@primary-5: #5d7bb8;  // lighter
+@primary-6: @color-primary-start;  // base color #3D58A1
+@primary-7: #344d8a;  // darker
+@primary-8: #2b4173;
+@primary-9: #22355c;
+@primary-10: #192945;  // darkest
+
+// Layout với gradient
+@layout-header-background: @gradient-primary-horizontal;
+@layout-header-color: @white;
+@layout-sider-background: @gradient-primary-soft;
+
+// Menu
+@menu-bg: @layout-sider-background;
+
+// Link colors
+@link-color: @primary-color;
+@link-hover-color: @primary-5;
+@link-active-color: @primary-7;
+
+// Border radius
+@border-radius-base: 4px;
+
+// Success, Warning, Error colors (giữ nguyên hoặc tùy chỉnh)
+@success-color: #52c41a;
+@warning-color: #faad14;
+@error-color: @color-primary-end;  // Sử dụng màu đỏ từ gradient
+
+// Text colors
+@heading-color: rgba(0, 0, 0, 0.85);
+@text-color: rgba(0, 0, 0, 0.65);
+@text-color-secondary: rgba(0, 0, 0, 0.45);
+
+// Background colors
+@body-background: #f0f2f5;
+@component-background: #ffffff;

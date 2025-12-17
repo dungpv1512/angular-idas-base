@@ -1,0 +1,44 @@
+import { Routes } from '@angular/router';
+
+/**
+ * Routes cho feature {{FEATURE_NAME_PASCAL}}
+ */
+export const {{FEATURE_NAME_UPPER}}_ROUTES: Routes = [
+  {
+    path: '',
+    redirectTo: 'list',
+    pathMatch: 'full'
+  },
+  {
+    path: 'list',
+    loadComponent: () =>
+      import('../pages/{{FEATURE_NAME}}-list/{{FEATURE_NAME}}-list.page').then(
+        (m) => m.{{FEATURE_NAME_PASCAL}}ListPage
+      ),
+    title: '{{FEATURE_NAME_TITLE}} - Danh sách'
+  },
+  {
+    path: 'create',
+    loadComponent: () =>
+      import('../pages/{{FEATURE_NAME}}-create/{{FEATURE_NAME}}-create.page').then(
+        (m) => m.{{FEATURE_NAME_PASCAL}}CreatePage
+      ),
+    title: '{{FEATURE_NAME_TITLE}} - Thêm mới'
+  },
+  {
+    path: ':id',
+    loadComponent: () =>
+      import('../pages/{{FEATURE_NAME}}-detail/{{FEATURE_NAME}}-detail.page').then(
+        (m) => m.{{FEATURE_NAME_PASCAL}}DetailPage
+      ),
+    title: '{{FEATURE_NAME_TITLE}} - Chi tiết'
+  },
+  {
+    path: ':id/edit',
+    loadComponent: () =>
+      import('../pages/{{FEATURE_NAME}}-edit/{{FEATURE_NAME}}-edit.page').then(
+        (m) => m.{{FEATURE_NAME_PASCAL}}EditPage
+      ),
+    title: '{{FEATURE_NAME_TITLE}} - Chỉnh sửa'
+  }
+];

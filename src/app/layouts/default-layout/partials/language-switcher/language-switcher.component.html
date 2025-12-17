@@ -1,0 +1,31 @@
+<button 
+  nz-button 
+  nzType="text"
+  nz-dropdown 
+  [nzDropdownMenu]="menu"
+  nzPlacement="bottomRight"
+  class="language-switcher"
+>
+  <span nz-icon nzType="global" nzTheme="outline"></span>
+  <span class="language-label">{{ getCurrentLanguageLabel() }}</span>
+  <span nz-icon nzType="down" nzTheme="outline"></span>
+</button>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    @for (lang of i18nService.availableLanguages; track lang.code) {
+      <li 
+        nz-menu-item 
+        [class.active]="lang.code === i18nService.language()"
+        (click)="changeLanguage(lang.code)"
+      >
+        <span nz-icon 
+          [nzType]="lang.code === i18nService.language() ? 'check' : ''" 
+          nzTheme="outline"
+          class="check-icon"
+        ></span>
+        {{ lang.label }}
+      </li>
+    }
+  </ul>
+</nz-dropdown-menu>

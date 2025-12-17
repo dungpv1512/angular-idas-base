@@ -1,0 +1,9 @@
+/**
+ * Interface cho {{FEATURE_NAME_PASCAL}}
+ */
+export interface {{FEATURE_NAME_PASCAL}} {
+  id: string;
+  // TODO: Thêm các fields
+  createdAt?: string;
+  updatedAt?: string;
+}

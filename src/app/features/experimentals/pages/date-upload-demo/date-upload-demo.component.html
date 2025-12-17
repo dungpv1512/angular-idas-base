@@ -1,0 +1,8 @@
+<div class="demo-container">
+  <h2>Date & Upload Components</h2>
+  <form nz-form [formGroup]="demoForm" class="demo-form">
+    <app-idas-datepicker formControlName="birthDate" label="Ngày sinh" />
+    <app-idas-datepicker formControlName="dateRange" label="Khoảng thời gian" mode="range" />
+    <app-idas-upload formControlName="avatar" label="Ảnh đại diện" listType="picture-card" [limit]="1" />
+  </form>
+</div>

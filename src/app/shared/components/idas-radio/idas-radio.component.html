@@ -1,0 +1,27 @@
+<nz-form-item>
+  @if (label) {
+    <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
+  }
+  <nz-form-control 
+    [nzErrorTip]="errorTip"
+    [nzValidateStatus]="validateStatus"
+  >
+    <nz-radio-group
+      [(ngModel)]="value"
+      (ngModelChange)="onValueChange($event)"
+      [nzButtonStyle]="buttonStyle"
+    >
+      @for (option of options; track option.value) {
+        @if (buttonStyle === 'solid') {
+          <label nz-radio-button [nzValue]="option.value" [nzDisabled]="option.disabled || disabled">
+            {{ option.label }}
+          </label>
+        } @else {
+          <label nz-radio [nzValue]="option.value" [nzDisabled]="option.disabled || disabled">
+            {{ option.label }}
+          </label>
+        }
+      }
+    </nz-radio-group>
+  </nz-form-control>
+</nz-form-item>

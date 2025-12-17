@@ -1,0 +1,39 @@
+<div class="demo-container">
+  <h2>Selection Controls Components</h2>
+  <p>Demo cho Radio, Checkbox, và Switch components</p>
+  
+  <form nz-form [formGroup]="demoForm" class="demo-form">
+    <app-idas-radio
+      formControlName="gender"
+      label="Giới tính"
+      [options]="genderOptions"
+    />
+
+    <app-idas-radio
+      formControlName="status"
+      label="Trạng thái (Button Style)"
+      [options]="statusOptions"
+      buttonStyle="solid"
+    />
+
+    <app-idas-checkbox
+      formControlName="agree"
+      label="Tôi đồng ý với điều khoản"
+      mode="single"
+    />
+
+    <app-idas-checkbox
+      formControlName="interests"
+      label="Sở thích"
+      mode="group"
+      [options]="interestOptions"
+    />
+
+    <app-idas-switch
+      formControlName="notifications"
+      label="Nhận thông báo"
+      checkedText="Bật"
+      uncheckedText="Tắt"
+    />
+  </form>
+</div>

@@ -1,0 +1,91 @@
+<div class="demo-section">
+  <h2>Basic Badge</h2>
+  <nz-space>
+    <app-idas-badge *nzSpaceItem [count]="5">
+      <div class="badge-content">Badge</div>
+    </app-idas-badge>
+    
+    <app-idas-badge *nzSpaceItem [count]="0" [showZero]="true">
+      <div class="badge-content">Zero</div>
+    </app-idas-badge>
+    
+    <app-idas-badge *nzSpaceItem [count]="100">
+      <div class="badge-content">99+</div>
+    </app-idas-badge>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Dot Badge</h2>
+  <nz-space>
+    <app-idas-badge *nzSpaceItem [dot]="true">
+      <span nz-icon nzType="notification" style="font-size: 20px;"></span>
+    </app-idas-badge>
+    
+    <app-idas-badge *nzSpaceItem [dot]="true">
+      <div class="badge-content">Notification</div>
+    </app-idas-badge>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Status Badge</h2>
+  <nz-space nzDirection="vertical">
+    <app-idas-badge *nzSpaceItem status="success" text="Success"></app-idas-badge>
+    <app-idas-badge *nzSpaceItem status="error" text="Error"></app-idas-badge>
+    <app-idas-badge *nzSpaceItem status="default" text="Default"></app-idas-badge>
+    <app-idas-badge *nzSpaceItem status="processing" text="Processing"></app-idas-badge>
+    <app-idas-badge *nzSpaceItem status="warning" text="Warning"></app-idas-badge>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Custom Color</h2>
+  <nz-space>
+    <app-idas-badge *nzSpaceItem color="#f50" [count]="5">
+      <div class="badge-content">Red</div>
+    </app-idas-badge>
+    
+    <app-idas-badge *nzSpaceItem color="#2db7f5" [count]="5">
+      <div class="badge-content">Blue</div>
+    </app-idas-badge>
+    
+    <app-idas-badge *nzSpaceItem color="#87d068" [count]="5">
+      <div class="badge-content">Green</div>
+    </app-idas-badge>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Dynamic Badge</h2>
+  <nz-space>
+    <app-idas-badge *nzSpaceItem [count]="show() ? count() : 0">
+      <div class="badge-content">Dynamic</div>
+    </app-idas-badge>
+    
+    <app-idas-button *nzSpaceItem type="primary" (click)="increase()">
+      <span nz-icon nzType="plus"></span>
+    </app-idas-button>
+    
+    <app-idas-button *nzSpaceItem type="primary" (click)="decrease()">
+      <span nz-icon nzType="minus"></span>
+    </app-idas-button>
+    
+    <app-idas-button *nzSpaceItem type="default" (click)="toggle()">
+      Toggle
+    </app-idas-button>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>With Avatar</h2>
+  <nz-space [nzSize]="24">
+    <app-idas-badge *nzSpaceItem [count]="5">
+      <app-idas-avatar shape="square" size="large"></app-idas-avatar>
+    </app-idas-badge>
+    
+    <app-idas-badge *nzSpaceItem [dot]="true">
+      <app-idas-avatar shape="square" size="large"></app-idas-avatar>
+    </app-idas-badge>
+  </nz-space>
+</div>

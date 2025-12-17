@@ -1,0 +1,20 @@
+<nz-form-item>
+  @if (label) {
+    <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
+  }
+  <nz-form-control 
+    [nzErrorTip]="errorTip"
+    [nzValidateStatus]="validateStatus"
+  >
+    <input
+      nz-input
+      [type]="type"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [value]="value"
+      [nzSize]="size"
+      (input)="onInput($event)"
+      (blur)="onTouched()"
+    />
+  </nz-form-control>
+</nz-form-item>

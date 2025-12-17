@@ -1,0 +1,58 @@
+<nz-form-item>
+  <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
+  <nz-form-control 
+    [nzErrorTip]="errorTip"
+    [nzValidateStatus]="validateStatus"
+  >
+    <nz-tree-select
+      [nzNodes]="nodes"
+      [nzPlaceHolder]="placeholder"
+      [nzDisabled]="disabled"
+      [nzShowSearch]="showSearch"
+      [nzAllowClear]="allowClear"
+      [nzDropdownMatchSelectWidth]="dropdownMatchSelectWidth"
+      [nzMultiple]="multiple"
+      [nzCheckable]="checkable"
+      [nzShowExpand]="showExpand"
+      [nzShowLine]="showLine"
+      [nzExpandedKeys]="expandedKeys"
+      [(ngModel)]="value"
+      (ngModelChange)="onChange($event)"
+      (nzExpandChange)="onExpandChange($event)"
+    >
+      @if (showAddButton) {
+        <ng-template #nzNotFoundContent>
+          <div class="tree-select-footer">
+            <button 
+              nz-button 
+              nzType="link" 
+              nzSize="small"
+              (click)="onAddClick($event)"
+              class="add-button"
+            >
+              <span nz-icon nzType="plus"></span>
+              {{ addButtonText }}
+            </button>
+          </div>
+        </ng-template>
+      }
+    </nz-tree-select>
+    @if (showAddButton) {
+      <div class="external-add-button">
+        <button 
+          nz-button 
+          nzType="dashed" 
+          nzSize="small"
+          (click)="onAddClick($event)"
+          [disabled]="disabled"
+        >
+          <span nz-icon nzType="plus"></span>
+          {{ addButtonText }}
+        </button>
+      </div>
+    }
+    @if (hint) {
+      <small class="hint-text">{{ hint }}</small>
+    }
+  </nz-form-control>
+</nz-form-item>

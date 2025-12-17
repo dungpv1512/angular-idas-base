@@ -1,0 +1,6 @@
+/**
+ * {{FEATURE_NAME_PASCAL}} Feature - Entry Point
+ * {{FEATURE_DESCRIPTION}}
+ */
+
+export { {{FEATURE_NAME_UPPER}}_ROUTES } from './routes/{{FEATURE_NAME}}.routes';

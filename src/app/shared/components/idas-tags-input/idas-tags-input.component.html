@@ -1,0 +1,44 @@
+<div class="tags-input-container">
+  <div class="tags-wrapper" [class.focused]="isFocused" [class.disabled]="disabled">
+    <span nz-icon [nzType]="prefixIcon" class="prefix-icon"></span>
+    
+    <div class="tags-content">
+      @for (tag of tags; track $index) {
+        <nz-tag
+          [nzMode]="'closeable'"
+          (nzOnClose)="removeTag($index)"
+          [nzColor]="tagColor"
+        >
+          {{ tag }}
+        </nz-tag>
+      }
+      
+      <input
+        #inputElement
+        type="text"
+        class="tag-input"
+        [placeholder]="tags.length === 0 ? placeholder : ''"
+        [(ngModel)]="inputValue"
+        (keydown.enter)="addTag()"
+        (keydown.backspace)="onBackspace()"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        [disabled]="disabled"
+      />
+    </div>
+
+    @if (showClearButton && tags.length > 0) {
+      <span
+        nz-icon
+        nzType="close-circle"
+        nzTheme="fill"
+        class="clear-icon"
+        (click)="clearAll()"
+      ></span>
+    }
+  </div>
+  
+  @if (showCount && tags.length > 0) {
+    <div class="tags-count">{{ tags.length }} giá trị</div>
+  }
+</div>

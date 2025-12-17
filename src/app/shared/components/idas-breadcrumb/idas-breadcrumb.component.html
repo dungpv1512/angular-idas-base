@@ -1,0 +1,27 @@
+<nz-breadcrumb [nzAutoGenerate]="autoGenerate" [nzSeparator]="separator" [nzRouteLabel]="routeLabel">
+  @if (items && items.length > 0) {
+    @for (item of items; track $index) {
+      @if (item.icon) {
+        <nz-breadcrumb-item>
+          @if (item.href) {
+            <a [href]="item.href">
+              <nz-icon [nzType]="item.icon" />
+              <span>{{item.label}}</span>
+            </a>
+          } @else {
+              <nz-icon [nzType]="item.icon" />
+              <span>{{item.label}}</span>
+          }
+        </nz-breadcrumb-item>
+      } @else if (item.href) {
+        <nz-breadcrumb-item>
+          <a [href]="item.href">{{item.label}}</a>
+        </nz-breadcrumb-item>
+      } @else {
+        <nz-breadcrumb-item>
+          <span>{{item.label}}</span>
+        </nz-breadcrumb-item>
+      }
+    }
+  }
+</nz-breadcrumb>

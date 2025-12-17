@@ -1,0 +1,36 @@
+<nz-form-item>
+  @if (label) {
+    <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
+  }
+  <nz-form-control 
+    [nzErrorTip]="errorTip"
+    [nzValidateStatus]="validateStatus"
+  >
+    <nz-upload
+      [nzAction]="uploadUrl"
+      [nzListType]="listType"
+      [nzMultiple]="multiple"
+      [nzLimit]="limit"
+      [nzAccept]="accept"
+      [nzFileList]="fileList"
+      [nzDisabled]="disabled"
+      [nzShowUploadList]="showUploadList"
+      (nzChange)="handleChange($event)"
+    >
+      @if (listType === 'picture-card') {
+        <div>
+          <span nz-icon nzType="plus"></span>
+          <div style="margin-top: 8px">{{ uploadText }}</div>
+        </div>
+      } @else {
+        <button nz-button type="button" [disabled]="disabled">
+          <span nz-icon nzType="upload"></span>
+          {{ uploadText }}
+        </button>
+      }
+    </nz-upload>
+    @if (hint) {
+      <div class="upload-hint">{{ hint }}</div>
+    }
+  </nz-form-control>
+</nz-form-item>

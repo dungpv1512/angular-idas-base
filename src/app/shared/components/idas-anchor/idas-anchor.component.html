@@ -1,0 +1,18 @@
+<nz-anchor
+  [nzAffix]="affix"
+  [nzBounds]="bounds"
+  [nzOffsetTop]="offsetTop"
+  [nzShowInkInFixed]="showInkInFixed"
+  [nzTargetOffset]="targetOffset"
+  (nzClick)="onClick($event)"
+  (nzScroll)="onScroll($event)">
+  @for (item of items; track item.href) {
+    <nz-link [nzHref]="item.href" [nzTitle]="item.title">
+      @if (item.children && item.children.length > 0) {
+        @for (child of item.children; track child.href) {
+          <nz-link [nzHref]="child.href" [nzTitle]="child.title"></nz-link>
+        }
+      }
+    </nz-link>
+  }
+</nz-anchor>

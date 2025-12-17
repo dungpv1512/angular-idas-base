@@ -1,0 +1,135 @@
+@import '../../../../styles/variables.less';
+
+// Fatal Error Overlay - Block toàn bộ màn hình
+.fatal-error-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+
+  :host ::ng-deep .ant-result {
+    max-width: 600px;
+    padding: @padding-lg * 2;
+  }
+
+  .error-code {
+    color: @error-color;
+    font-family: monospace;
+    font-size: @font-size-sm;
+    margin-bottom: @margin-xs;
+  }
+
+  .error-details {
+    color: @text-color-secondary;
+    font-size: @font-size-sm;
+    margin-bottom: @margin-md;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: @margin-sm;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+// Error Notifications - Góc phải màn hình
+.error-notifications {
+  position: fixed;
+  top: 70px; // Dưới header
+  right: @margin-md;
+  z-index: 1000;
+  width: 380px;
+  max-height: calc(100vh - 100px);
+  background: @component-background;
+  border-radius: @border-radius-base;
+  box-shadow: @box-shadow-base;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .notifications-header {
+    display: flex;
+    align-items: center;
+    gap: @margin-sm;
+    padding: @padding-sm @padding-md;
+    background: @background-color-light;
+    border-bottom: 1px solid @border-color-split;
+
+    .header-icon {
+      font-size: 18px;
+      color: @warning-color;
+    }
+
+    .header-title {
+      flex: 1;
+      font-weight: 500;
+      color: @heading-color;
+    }
+
+    .dismiss-all-btn {
+      padding: 0;
+      height: auto;
+      font-size: @font-size-sm;
+    }
+  }
+
+  .notifications-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: @padding-sm;
+    display: flex;
+    flex-direction: column;
+    gap: @margin-xs;
+
+    .error-alert {
+      margin: 0;
+
+      // Animation khi xuất hiện
+      animation: slideIn 0.3s ease-out;
+    }
+  }
+}
+
+// Animation
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Responsive
+@media (max-width: @screen-sm) {
+  .error-notifications {
+    width: calc(100vw - @margin-md * 2);
+    right: @margin-md;
+    left: @margin-md;
+  }
+
+  .fatal-error-overlay {
+    padding: @padding-md;
+
+    :host ::ng-deep .ant-result {
+      padding: @padding-md;
+    }
+
+    .error-actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

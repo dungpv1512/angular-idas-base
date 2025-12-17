@@ -1,0 +1,7 @@
+<div class="demo-container">
+  <h2>Search & Tags Components</h2>
+  <div class="demo-form">
+    <app-idas-search placeholder="Tìm kiếm..." (search)="onSearchChange($event)" />
+    <app-idas-tags-input [(tags)]="searchTags" (tagsChange)="onTagsChange($event)" />
+  </div>
+</div>

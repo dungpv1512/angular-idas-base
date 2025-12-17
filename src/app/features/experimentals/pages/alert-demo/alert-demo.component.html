@@ -1,0 +1,103 @@
+<div class="demo-section">
+  <h2>Basic Alert</h2>
+  <nz-space nzDirection="vertical" style="width: 100%;">
+    <app-idas-alert *nzSpaceItem type="success" message="Success Text"></app-idas-alert>
+    <app-idas-alert *nzSpaceItem type="info" message="Info Text"></app-idas-alert>
+    <app-idas-alert *nzSpaceItem type="warning" message="Warning Text"></app-idas-alert>
+    <app-idas-alert *nzSpaceItem type="error" message="Error Text"></app-idas-alert>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Closeable Alert</h2>
+  <nz-space nzDirection="vertical" style="width: 100%;">
+    <app-idas-alert 
+      *nzSpaceItem 
+      type="success" 
+      message="Success Alert" 
+      [closeable]="true"
+      (close)="onAlertClose()">
+    </app-idas-alert>
+    <app-idas-alert 
+      *nzSpaceItem 
+      type="info" 
+      message="Info Alert" 
+      [closeable]="true">
+    </app-idas-alert>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Alert with Description</h2>
+  <nz-space nzDirection="vertical" style="width: 100%;">
+    <app-idas-alert 
+      *nzSpaceItem 
+      type="success" 
+      message="Success Title"
+      description="Success Description Success Description Success Description">
+    </app-idas-alert>
+    <app-idas-alert 
+      *nzSpaceItem 
+      type="info" 
+      message="Info Title"
+      description="Info Description Info Description Info Description">
+    </app-idas-alert>
+    <app-idas-alert 
+      *nzSpaceItem 
+      type="warning" 
+      message="Warning Title"
+      description="Warning Description Warning Description Warning Description">
+    </app-idas-alert>
+    <app-idas-alert 
+      *nzSpaceItem 
+      type="error" 
+      message="Error Title"
+      description="Error Description Error Description Error Description">
+    </app-idas-alert>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Alert with Icon</h2>
+  <nz-space nzDirection="vertical" style="width: 100%;">
+    <app-idas-alert 
+      *nzSpaceItem 
+      type="success" 
+      message="Success Tips"
+      [showIcon]="true">
+    </app-idas-alert>
+    <app-idas-alert 
+      *nzSpaceItem 
+      type="info" 
+      message="Informational Notes"
+      [showIcon]="true">
+    </app-idas-alert>
+    <app-idas-alert 
+      *nzSpaceItem 
+      type="warning" 
+      message="Warning"
+      [showIcon]="true">
+    </app-idas-alert>
+    <app-idas-alert 
+      *nzSpaceItem 
+      type="error" 
+      message="Error"
+      [showIcon]="true">
+    </app-idas-alert>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Banner Alert</h2>
+  <app-idas-alert 
+    type="warning" 
+    message="Warning text"
+    [banner]="true">
+  </app-idas-alert>
+  <br>
+  <app-idas-alert 
+    type="error" 
+    message="Error text"
+    [banner]="true">
+  </app-idas-alert>
+</div>

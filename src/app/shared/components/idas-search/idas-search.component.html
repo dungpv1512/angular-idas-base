@@ -1,0 +1,26 @@
+<nz-input-group [nzPrefix]="prefixTemplate" [nzSuffix]="suffixTemplate" [nzSize]="size">
+  <input
+    type="text"
+    nz-input
+    [placeholder]="placeholder"
+    [(ngModel)]="inputValue"
+    (ngModelChange)="onInputChange($event)"
+    [disabled]="disabled"
+  />
+</nz-input-group>
+
+<ng-template #prefixTemplate>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<ng-template #suffixTemplate>
+  @if (showClearButton && inputValue) {
+    <span
+      nz-icon
+      nzType="close-circle"
+      nzTheme="fill"
+      class="clear-icon"
+      (click)="onClear()"
+    ></span>
+  }
+</ng-template>

@@ -34,6 +34,19 @@
     "notFound": "Không tìm thấy dữ liệu",
     "server": "Lỗi server, vui lòng thử lại sau"
   },
+  "ERROR": {
+    "FATAL": {
+      "TITLE": "Đã xảy ra lỗi nghiêm trọng"
+    },
+    "CODE": "Mã lỗi",
+    "NOTIFICATIONS": "Thông báo lỗi",
+    "ACTION": {
+      "RELOAD": "Tải lại trang",
+      "GO_HOME": "Về trang chủ",
+      "DISMISS": "Bỏ qua",
+      "DISMISS_ALL": "Bỏ qua tất cả"
+    }
+  },
   "forbidden": {
     "title": "403",
     "subtitle": "Xin lỗi, bạn không có quyền truy cập trang này.",

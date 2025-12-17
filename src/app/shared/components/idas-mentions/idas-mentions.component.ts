@@ -1,0 +1,67 @@
+import { Component, Input, Optional, Self, ChangeDetectionStrategy } from '@angular/core';
+import { ControlValueAccessor, ReactiveFormsModule, NgControl } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NzMentionModule } from 'ng-zorro-antd/mention';
+import { NzFormModule } from 'ng-zorro-antd/form';
+
+/**
+ * IDAS Mentions Component - Wrapper cho nz-mentions với form control support
+ */
+@Component({
+  selector: 'app-idas-mentions',
+  standalone: true,
+  imports: [CommonModule, NzMentionModule, NzFormModule, ReactiveFormsModule],
+  templateUrl: './idas-mentions.component.html',
+  styleUrl: './idas-mentions.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class IdasMentionsComponent implements ControlValueAccessor {
+  @Input() label = '';
+  @Input() placeholder = '';
+  @Input() required = false;
+  @Input() disabled = false;
+  @Input() errorTip = '';
+
+  value: any = null;
+
+  constructor(@Optional() @Self() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  get validateStatus(): string {
+    if (!this.ngControl || !this.ngControl.control) {
+      return '';
+    }
+    const control = this.ngControl.control;
+    if (control.invalid && (control.dirty || control.touched)) {
+      return 'error';
+    }
+    return '';
+  }
+
+  onChange: any = () => {};
+  onTouched: any = () => {};
+
+  onValueChange(value: any): void {
+    this.value = value;
+    this.onChange(value);
+  }
+
+  writeValue(value: any): void {
+    this.value = value;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+}

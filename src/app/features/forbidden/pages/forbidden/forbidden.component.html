@@ -1,0 +1,16 @@
+<div class="forbidden-container">
+  <nz-result
+    nzStatus="403"
+    [nzTitle]="'forbidden.title' | translate"
+    [nzSubTitle]="'forbidden.subtitle' | translate"
+  >
+    <div nz-result-extra>
+      <button nz-button nzType="primary" (click)="goHome()">
+        {{ 'forbidden.goHome' | translate }}
+      </button>
+      <button nz-button (click)="goBack()">
+        {{ 'forbidden.goBack' | translate }}
+      </button>
+    </div>
+  </nz-result>
+</div>

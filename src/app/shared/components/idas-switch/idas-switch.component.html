@@ -1,0 +1,18 @@
+<nz-form-item>
+  @if (label) {
+    <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
+  }
+  <nz-form-control 
+    [nzErrorTip]="errorTip"
+    [nzValidateStatus]="validateStatus"
+  >
+    <nz-switch
+      [(ngModel)]="value"
+      (ngModelChange)="onValueChange($event)"
+      [nzDisabled]="disabled"
+      [nzSize]="size"
+      [nzCheckedChildren]="checkedText"
+      [nzUnCheckedChildren]="uncheckedText"
+    ></nz-switch>
+  </nz-form-control>
+</nz-form-item>

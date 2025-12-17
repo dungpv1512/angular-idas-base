@@ -1,21 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-import { TranslateModule } from '@ngx-translate/core';
-import { LanguageSwitcherComponent } from '../../shared/components/language-switcher.component';
-
-export interface MenuItem {
-  title: string;
-  titleKey?: string; // Translation key
-  icon?: string;
-  route?: string;
-  children?: MenuItem[];
-  open?: boolean;
-}
+import { LayoutHeaderComponent, LayoutSidebarComponent, LayoutFooterComponent } from './partials';
+import { MenuItem } from './default-layout.model';
 
 /**
  * Default Layout Component - Layout mặc định với sidebar menu
@@ -27,17 +15,16 @@ export interface MenuItem {
     CommonModule,
     RouterModule,
     NzLayoutModule,
-    NzMenuModule,
-    NzIconModule,
-    NzBreadCrumbModule,
-    TranslateModule,
-    LanguageSwitcherComponent
+    LayoutHeaderComponent,
+    LayoutSidebarComponent,
+    LayoutFooterComponent
   ],
   templateUrl: './default-layout.component.html',
   styleUrl: './default-layout.component.less'
 })
 export class DefaultLayoutComponent {
   isCollapsed = signal(false);
+  menuIcon = computed(() => this.isCollapsed() ? 'menu-unfold' : 'menu-fold');
 
   menuItems: MenuItem[] = [
     {

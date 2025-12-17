@@ -1,0 +1,24 @@
+<nz-form-item>
+  @if (label) {
+    <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
+  }
+  <nz-form-control 
+    [nzErrorTip]="errorTip"
+    [nzValidateStatus]="validateStatus"
+  >
+    <textarea
+      nz-input
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [rows]="rows"
+      [value]="value"
+      [attr.maxlength]="maxLength"
+      [nzAutosize]="autosize"
+      (input)="onInput($event)"
+      (blur)="onTouched()"
+    ></textarea>
+    @if (showCount && maxLength) {
+      <div class="char-count">{{ value.length }} / {{ maxLength }}</div>
+    }
+  </nz-form-control>
+</nz-form-item>

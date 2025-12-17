@@ -1,18 +1,23 @@
 import { HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-
 import { inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { ErrorService } from '@core/services/error.service';
 
 /**
  * Response Interceptor - Transform response data và xử lý errors
+ * Tự động hiển thị error message cho tất cả API calls
+ * Tích hợp với ErrorService để quản lý lỗi toàn cục
  */
 export const responseInterceptor: HttpInterceptorFn = (req, next) => {
   const translate = inject(TranslateService);
-  
+  const message = inject(NzMessageService);
+  const errorService = inject(ErrorService);
+
   return next(req).pipe(
-    tap(event => {
+    tap((event) => {
       // Xử lý response thành công
       if (event instanceof HttpResponse) {
         console.log('API Response:', {
@@ -29,7 +34,7 @@ export const responseInterceptor: HttpInterceptorFn = (req, next) => {
         }
       }
     }),
-    catchError(error => {
+    catchError((error) => {
       // Xử lý errors
       console.error('API Error:', {
         url: req.url,
@@ -40,9 +45,11 @@ export const responseInterceptor: HttpInterceptorFn = (req, next) => {
 
       // Transform error message using i18n
       let errorMessage = translate.instant('errors.general');
-      
+      let errorCode = `HTTP_${error.status}`;
+
       if (error.status === 0) {
         errorMessage = translate.instant('errors.network');
+        errorCode = 'NETWORK_ERROR';
       } else if (error.status === 401) {
         errorMessage = translate.instant('errors.unauthorized');
         // Có thể redirect đến trang login
@@ -56,9 +63,19 @@ export const responseInterceptor: HttpInterceptorFn = (req, next) => {
         errorMessage = error.error.message;
       }
 
+      // Hiển thị toast message
+      message.error(errorMessage);
+
+      // Thêm vào ErrorService để hiển thị trong Error Boundary
+      // Chỉ thêm các lỗi nghiêm trọng (500+) hoặc network error
+      if (error.status === 0 || error.status >= 500) {
+        errorService.addHttpError(error.status, errorMessage, req.url);
+      }
+
       return throwError(() => ({
         ...error,
-        userMessage: errorMessage
+        userMessage: errorMessage,
+        errorCode
       }));
     })
   );

@@ -9,18 +9,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-blank-layout',
   standalone: true,
   imports: [RouterModule],
-  template: `
-    <div class="blank-layout">
-      <router-outlet></router-outlet>
-    </div>
-  `,
-  styles: [
-    `
-      .blank-layout {
-        min-height: 100vh;
-        background: #f0f2f5;
-      }
-    `
-  ]
+  templateUrl: './blank-layout.component.html',
+  styleUrl: './blank-layout.component.less'
 })
 export class BlankLayoutComponent {}

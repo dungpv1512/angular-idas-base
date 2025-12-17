@@ -1,0 +1,24 @@
+import { Injectable } from '@angular/core';
+import { BaseApiService } from '@core/base';
+import { {{FEATURE_NAME_PASCAL}} } from '../models/{{FEATURE_NAME}}.model';
+import { Create{{FEATURE_NAME_PASCAL}}Dto } from '../models/create-{{FEATURE_NAME}}.dto';
+import { Update{{FEATURE_NAME_PASCAL}}Dto } from '../models/update-{{FEATURE_NAME}}.dto';
+
+/**
+ * API Service cho {{FEATURE_NAME_PASCAL}}
+ * Kế thừa BaseApiService với các phương thức CRUD chuẩn
+ */
+@Injectable({ providedIn: 'root' })
+export class {{FEATURE_NAME_PASCAL}}ApiService extends BaseApiService<
+  {{FEATURE_NAME_PASCAL}},
+  Create{{FEATURE_NAME_PASCAL}}Dto,
+  Update{{FEATURE_NAME_PASCAL}}Dto
+> {
+  protected override endpoint = '{{FEATURE_NAME_PLURAL}}';
+
+  // Thêm các phương thức custom nếu cần
+  // Ví dụ:
+  // getByDepartment(departmentId: string): Observable<{{FEATURE_NAME_PASCAL}}[]> {
+  //   return this.http.get<{{FEATURE_NAME_PASCAL}}[]>(`${this.url}/by-department/${departmentId}`);
+  // }
+}

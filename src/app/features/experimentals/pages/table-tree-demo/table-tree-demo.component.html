@@ -1,0 +1,10 @@
+<div class="demo-container">
+  <h2>Table & Tree Components</h2>
+  <nz-card>
+    <app-idas-table [data]="tableData" [columns]="tableColumns" [actions]="tableActions" [bordered]="true" />
+  </nz-card>
+  <form nz-form [formGroup]="demoForm" class="demo-form">
+    <app-idas-tree formControlName="selectedCategories" label="Tree" [nodes]="treeData" [checkable]="true" />
+    <app-idas-tree-select formControlName="selectedTree" label="Tree Select" [nodes]="treeSelectData" />
+  </form>
+</div>

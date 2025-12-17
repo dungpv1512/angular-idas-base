@@ -1,0 +1,24 @@
+<nz-form-item>
+  @if (label) {
+    <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
+  }
+  <nz-form-control [nzErrorTip]="errorTip">
+    <nz-tree
+      [nzData]="nodes"
+      [nzCheckable]="checkable"
+      [nzShowExpand]="showExpand"
+      [nzShowLine]="showLine"
+      [nzExpandAll]="expandAll"
+      [nzMultiple]="multiple"
+      [nzSearchValue]="searchValue"
+      [nzDraggable]="draggable"
+      [nzCheckedKeys]="checkedKeys"
+      [nzSelectedKeys]="selectedKeys"
+      [nzExpandedKeys]="expandedKeys"
+      (nzClick)="onNodeClick($event)"
+      (nzCheckBoxChange)="onCheckBoxChange($event)"
+      (nzExpandChange)="onExpandChange($event)"
+      (nzOnDrop)="onDrop($event)"
+    ></nz-tree>
+  </nz-form-control>
+</nz-form-item>

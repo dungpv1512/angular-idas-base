@@ -1,0 +1,73 @@
+<div class="experimental-layout">
+  <div class="page-header">
+    <h1>🧪 Component Showcase</h1>
+    <p class="subtitle">Tài liệu và demo tương tác cho tất cả shared components</p>
+  </div>
+
+  <nz-layout class="content-layout">
+    <nz-sider nzWidth="250px" nzTheme="light" class="sidebar">
+      <ul nz-menu nzMode="inline" [nzInlineCollapsed]="false">
+        <li nz-submenu nzTitle="Basic Components" nzIcon="appstore">
+          <ul>
+            <li nz-menu-item [nzSelected]="isActive('affix')" routerLink="affix">
+              <span>Affix</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('alert')" routerLink="alert">
+              <span>Alert</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('anchor')" routerLink="anchor">
+              <span>Anchor</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('avatar')" routerLink="avatar">
+              <span>Avatar</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('back-top')" routerLink="back-top">
+              <span>BackTop</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('badge')" routerLink="badge">
+              <span>Badge</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('breadcrumb')" routerLink="breadcrumb">
+              <span>Breadcrumb</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('button')" routerLink="button">
+              <span>Button</span>
+            </li>
+          </ul>
+        </li>
+        
+        <li nz-submenu nzTitle="Form Components" nzIcon="form">
+          <ul>
+            <li nz-menu-item [nzSelected]="isActive('form-inputs')" routerLink="form-inputs">
+              <span>Form Inputs</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('selection-controls')" routerLink="selection-controls">
+              <span>Selection Controls</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('date-upload')" routerLink="date-upload">
+              <span>Date & Upload</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('search-tags')" routerLink="search-tags">
+              <span>Search & Tags</span>
+            </li>
+            <li nz-menu-item [nzSelected]="isActive('form-demo')" routerLink="form-demo">
+              <span>Complete Form</span>
+            </li>
+          </ul>
+        </li>
+        
+        <li nz-submenu nzTitle="Data Display" nzIcon="table">
+          <ul>
+            <li nz-menu-item [nzSelected]="isActive('table-tree')" routerLink="table-tree">
+              <span>Table & Tree</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+
+    <nz-content class="main-content">
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</div>

@@ -1,0 +1,33 @@
+<div class="demo-container">
+  <div class="demo-sidebar">
+    <app-idas-anchor 
+      [items]="anchorLinks"
+      [offsetTop]="80"
+      (click)="onAnchorClick($event)"
+      (scroll)="onAnchorScroll($event)">
+    </app-idas-anchor>
+  </div>
+
+  <div class="demo-content">
+    <h2 id="section-1">Section 1</h2>
+    <p>Content for section 1...</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    
+    <h2 id="section-2">Section 2</h2>
+    <p>Content for section 2...</p>
+    <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    
+    <h2 id="section-3">Section 3</h2>
+    <p>Content for section 3...</p>
+    
+    <h3 id="section-3-1">Section 3.1</h3>
+    <p>Subsection 3.1 content...</p>
+    
+    <h3 id="section-3-2">Section 3.2</h3>
+    <p>Subsection 3.2 content...</p>
+    
+    <h2 id="section-4">Section 4</h2>
+    <p>Content for section 4...</p>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+  </div>
+</div>

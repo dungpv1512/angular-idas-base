@@ -1,0 +1,7 @@
+/**
+ * Interface cho {{FEATURE_NAME_PASCAL}} Filter
+ */
+export interface {{FEATURE_NAME_PASCAL}}Filter {
+  keyword?: string;
+  // TODO: Thêm các filter fields
+}

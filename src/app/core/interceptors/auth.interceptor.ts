@@ -1,4 +1,5 @@
 import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
+import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
 /**
@@ -9,7 +10,7 @@ export const authInterceptor: HttpInterceptorFn = (
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
   // Lấy token từ localStorage hoặc sử dụng token mặc định
-  let token = localStorage.getItem('access_token');
+  let token = environment.apiToken;
   
   // Nếu không có token trong localStorage, sử dụng token demo
   if (!token) {

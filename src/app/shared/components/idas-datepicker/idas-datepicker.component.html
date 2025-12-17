@@ -1,0 +1,33 @@
+<nz-form-item>
+  @if (label) {
+    <nz-form-label [nzRequired]="required">{{ label }}</nz-form-label>
+  }
+  <nz-form-control 
+    [nzErrorTip]="errorTip"
+    [nzValidateStatus]="validateStatus"
+  >
+    @if (mode === 'range') {
+      <nz-range-picker
+        [nzPlaceHolder]="[startPlaceholder, endPlaceholder]"
+        [nzDisabled]="disabled"
+        [nzSize]="size"
+        [nzFormat]="format"
+        [nzShowTime]="showTime"
+        [nzAllowClear]="allowClear"
+        [(ngModel)]="value"
+        (ngModelChange)="onValueChange($event)"
+      ></nz-range-picker>
+    } @else {
+      <nz-date-picker
+        [nzPlaceHolder]="placeholder"
+        [nzDisabled]="disabled"
+        [nzSize]="size"
+        [nzFormat]="format"
+        [nzShowTime]="showTime"
+        [nzAllowClear]="allowClear"
+        [(ngModel)]="value"
+        (ngModelChange)="onValueChange($event)"
+      ></nz-date-picker>
+    }
+  </nz-form-control>
+</nz-form-item>

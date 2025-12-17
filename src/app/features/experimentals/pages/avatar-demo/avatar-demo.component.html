@@ -1,0 +1,51 @@
+<div class="demo-section">
+  <h2>Basic Avatar</h2>
+  <nz-space [nzSize]="16">
+    <app-idas-avatar *nzSpaceItem [size]="64" icon="user"></app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem size="large" icon="user"></app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem icon="user"></app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem size="small" icon="user"></app-idas-avatar>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Avatar Types</h2>
+  <nz-space [nzSize]="16">
+    <app-idas-avatar *nzSpaceItem icon="user"></app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem text="U"></app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem text="USER"></app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem style="color: #f56a00; background-color: #fde3cf;">U</app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem style="background-color: #87d068;" icon="user"></app-idas-avatar>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Avatar Shapes</h2>
+  <nz-space [nzSize]="16">
+    <app-idas-avatar *nzSpaceItem shape="circle" icon="user"></app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem shape="square" icon="user"></app-idas-avatar>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Avatar with Badge</h2>
+  <nz-space [nzSize]="24">
+    <app-idas-badge *nzSpaceItem [count]="1">
+      <app-idas-avatar shape="square" icon="user"></app-idas-avatar>
+    </app-idas-badge>
+    <app-idas-badge *nzSpaceItem [dot]="true">
+      <app-idas-avatar shape="square" icon="user"></app-idas-avatar>
+    </app-idas-badge>
+  </nz-space>
+</div>
+
+<div class="demo-section">
+  <h2>Avatar Group</h2>
+  <nz-space [nzSize]="16">
+    <app-idas-avatar *nzSpaceItem src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem style="background-color: #f56a00;">K</app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem style="background-color: #87d068;" icon="user"></app-idas-avatar>
+    <app-idas-avatar *nzSpaceItem style="background-color: #1890ff;" icon="ant-design"></app-idas-avatar>
+  </nz-space>
+</div>

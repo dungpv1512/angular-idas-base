@@ -1,0 +1,25 @@
+<div class="demo-section">
+  <h2>Basic Affix</h2>
+  <div class="scrollable-container" style="height: 400px; overflow-y: scroll; background: #f5f5f5; padding: 20px;">
+    <div style="height: 200px;">Scroll down...</div>
+    <app-idas-affix [offsetTop]="120" (change)="onAffixChange($event)">
+      <app-idas-button type="primary">Affix Top</app-idas-button>
+    </app-idas-affix>
+    <div style="height: 800px; padding-top: 60px;">
+      <p>Content here...</p>
+      <p>Keep scrolling...</p>
+    </div>
+  </div>
+</div>
+
+<div class="demo-section">
+  <h2>Affix Bottom</h2>
+  <div class="scrollable-container" style="height: 400px; overflow-y: scroll; background: #f5f5f5; padding: 20px;">
+    <div style="height: 800px;">
+      <p>Scroll to bottom...</p>
+    </div>
+    <app-idas-affix [offsetBottom]="20">
+      <app-idas-button type="primary">Affix Bottom</app-idas-button>
+    </app-idas-affix>
+  </div>
+</div>

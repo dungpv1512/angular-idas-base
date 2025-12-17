@@ -1,0 +1,32 @@
+<div class="demo-container">
+  <nz-card nzTitle="Complete Form Example">
+    <form nz-form [formGroup]="demoForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+      <div class="form-grid">
+        <app-idas-input formControlName="username" label="Tên đăng nhập" [required]="true" />
+        <app-idas-input formControlName="email" label="Email" type="email" [required]="true" />
+      </div>
+      <app-idas-select formControlName="department" label="Phòng ban" [options]="departmentOptions" [required]="true" />
+      <app-idas-radio formControlName="gender" label="Giới tính" [options]="genderOptions" />
+      <app-idas-checkbox formControlName="interests" label="Sở thích" mode="group" [options]="interestOptions" />
+      <app-idas-datepicker formControlName="birthDate" label="Ngày sinh" />
+      <app-idas-textarea formControlName="bio" label="Giới thiệu" [rows]="4" />
+
+      <div class="form-actions">
+        <button nz-button nzType="primary" [disabled]="demoForm.invalid">
+          <span nz-icon nzType="save"></span> Lưu
+        </button>
+        <button nz-button type="button" (click)="onReset()">
+          <span nz-icon nzType="reload"></span> Reset
+        </button>
+        <button nz-button nzType="dashed" type="button" (click)="fillSample()">
+          <span nz-icon nzType="file-text"></span> Fill Sample
+        </button>
+      </div>
+    </form>
+
+    <nz-divider nzText="Form Value"></nz-divider>
+    <div class="form-value-display">
+      <pre>{{ demoForm.value | json }}</pre>
+    </div>
+  </nz-card>
+</div>

@@ -2,7 +2,7 @@
 
 > **Lưu ý**: Tài liệu này được cập nhật liên tục mỗi khi có thay đổi về cấu trúc project.
 
-**Ngày cập nhật**: 11/12/2025  
+**Ngày cập nhật**: 17/12/2025  
 **Phiên bản Angular**: 20.3.0  
 **Phiên bản ng-zorro-antd**: 20.4.3  
 **Phiên bản @ngx-translate**: 17.0.0
@@ -49,70 +49,129 @@ angular-idas/
 │   │   │   │   └── permission.guard.ts
 │   │   │   ├── interceptors/
 │   │   │   │   ├── auth.interceptor.ts
-│   │   │   │   ├── cache.interceptor.ts
 │   │   │   │   ├── loading.interceptor.ts
 │   │   │   │   ├── response.interceptor.ts
 │   │   │   │   ├── index.ts
-│   │   │   │   ├── README.md
-│   │   │   │   └── USAGE_EXAMPLE.md
-│   │   │   └── services/
-│   │   │       ├── api.service.ts
-│   │   │       ├── auth.service.ts
-│   │   │       ├── etcd-config.service.ts
-│   │   │       ├── i18n.service.ts
-│   │   │       ├── loading.service.ts
-│   │   │       ├── tochuc.service.ts
-│   │   │       ├── user.service.ts
-│   │   │       └── README.md
+│   │   │   │   └── README.md
+│   │   │   ├── services/
+│   │   │   │   ├── api.service.ts
+│   │   │   │   ├── auth.service.ts
+│   │   │   │   ├── etcd-config.service.ts
+│   │   │   │   ├── i18n.service.ts
+│   │   │   │   ├── loading.service.ts
+│   │   │   │   ├── user.service.ts
+│   │   │   │   └── README.md
+│   │   │   ├── startup/        # Startup tasks
+│   │   │   │   ├── tasks/
+│   │   │   │   ├── startup-order.constants.ts
+│   │   │   │   ├── startup-task.interface.ts
+│   │   │   │   └── startup-task.runner.ts
+│   │   │   └── base/           # Base classes
+│   │   │       ├── base-api.service.ts
+│   │   │       ├── base-store.ts
+│   │   │       └── index.ts
 │   │   ├── layouts/            # Layout components
 │   │   │   ├── default-layout/
+│   │   │   │   ├── partials/   # Layout partials (header, footer, sidebar)
 │   │   │   │   ├── default-layout.component.ts
 │   │   │   │   ├── default-layout.component.html
-│   │   │   │   └── default-layout.component.less
+│   │   │   │   ├── default-layout.component.less
+│   │   │   │   └── default-layout.model.ts
 │   │   │   ├── blank-layout/
-│   │   │   │   └── blank-layout.component.ts
-│   │   │   ├── index.ts
-│   │   │   └── README.md
-│   │   ├── pages/              # Feature modules (lazy-loaded)
-│   │   │   ├── welcome/
-│   │   │   │   ├── welcome.ts
-│   │   │   │   ├── welcome.html
-│   │   │   │   ├── welcome.less
-│   │   │   │   └── welcome.routes.ts
-│   │   │   ├── tochuc/         # Organization management
-│   │   │   │   ├── components/
-│   │   │   │   ├── tochuc.component.ts
-│   │   │   │   ├── tochuc.component.html
-│   │   │   │   ├── tochuc.component.less
-│   │   │   │   ├── tochuc.routes.ts
-│   │   │   │   ├── README.md
-│   │   │   │   ├── I18N_USAGE.md
-│   │   │   │   └── TREE_SEARCH_GUIDE.md
-│   │   │   ├── forbidden/      # 403 page
-│   │   │   │   ├── forbidden.component.ts
-│   │   │   │   ├── forbidden.routes.ts
+│   │   │   │   ├── blank-layout.component.ts
+│   │   │   │   ├── blank-layout.component.html
+│   │   │   │   └── blank-layout.component.less
+│   │   │   ├── experimental-layout/
+│   │   │   │   ├── experimental-layout.component.ts
+│   │   │   │   ├── experimental-layout.component.html
+│   │   │   │   └── experimental-layout.component.less
+│   │   │   └── index.ts
+│   │   ├── features/           # Feature modules (lazy-loaded)
+│   │   │   ├── experimentals/  # Component Showcase
+│   │   │   │   ├── routes/
+│   │   │   │   │   └── experimentals.routes.ts
+│   │   │   │   ├── pages/      # page-level demo components
+│   │   │   │   │   ├── affix-demo/
+│   │   │   │   │   ├── alert-demo/
+│   │   │   │   │   ├── form-inputs-demo/
+│   │   │   │   │   └── ...
+│   │   │   │   ├── experimentals.feature.ts  # entry point
 │   │   │   │   └── README.md
-│   │   │   └── virtual-table-demo/
-│   │   │       └── virtual-table-demo.component.ts
+│   │   │   └── forbidden/      # 403 page
+│   │   │       ├── routes/
+│   │   │       │   └── forbidden.routes.ts
+│   │   │       ├── pages/
+│   │   │       │   └── forbidden/
+│   │   │       ├── forbidden.feature.ts      # entry point
+│   │   │       └── README.md
 │   │   ├── shared/             # Shared components, types, utils
-│   │   │   ├── components/
-│   │   │   │   ├── base-input/
-│   │   │   │   ├── base-textarea/
-│   │   │   │   ├── base-select/
-│   │   │   │   ├── base-checkbox/
-│   │   │   │   ├── base-radio/
-│   │   │   │   ├── base-switch/
-│   │   │   │   ├── base-datepicker/
-│   │   │   │   ├── base-search/
-│   │   │   │   ├── base-tags-input/
-│   │   │   │   ├── base-table/
-│   │   │   │   ├── base-tree/
-│   │   │   │   ├── base-tree-select/
-│   │   │   │   ├── base-tree-table/
-│   │   │   │   ├── base-upload/
-│   │   │   │   ├── language-switcher.component.ts
+│   │   │   ├── components/     # 60+ IDAS components (wrapper ng-zorro-antd)
+│   │   │   │   ├── idas-affix/
+│   │   │   │   ├── idas-alert/
+│   │   │   │   ├── idas-anchor/
+│   │   │   │   ├── idas-avatar/
+│   │   │   │   ├── idas-back-top/
+│   │   │   │   ├── idas-badge/
+│   │   │   │   ├── idas-breadcrumb/
+│   │   │   │   ├── idas-button/
+│   │   │   │   ├── idas-calendar/
+│   │   │   │   ├── idas-card/
+│   │   │   │   ├── idas-carousel/
+│   │   │   │   ├── idas-cascader/
+│   │   │   │   ├── idas-checkbox/
+│   │   │   │   ├── idas-collapse/
+│   │   │   │   ├── idas-comment/
+│   │   │   │   ├── idas-datepicker/
+│   │   │   │   ├── idas-descriptions/
+│   │   │   │   ├── idas-divider/
+│   │   │   │   ├── idas-drawer/
+│   │   │   │   ├── idas-dropdown/
+│   │   │   │   ├── idas-empty/
+│   │   │   │   ├── idas-form/
+│   │   │   │   ├── idas-grid/
+│   │   │   │   ├── idas-icon/
+│   │   │   │   ├── idas-image/
+│   │   │   │   ├── idas-input/
+│   │   │   │   ├── idas-input-number/
+│   │   │   │   ├── idas-layout/
+│   │   │   │   ├── idas-list/
+│   │   │   │   ├── idas-mentions/
+│   │   │   │   ├── idas-menu/
+│   │   │   │   ├── idas-modal/
+│   │   │   │   ├── idas-page-header/
+│   │   │   │   ├── idas-pagination/
+│   │   │   │   ├── idas-popconfirm/
+│   │   │   │   ├── idas-popover/
+│   │   │   │   ├── idas-progress/
+│   │   │   │   ├── idas-qr-code/
+│   │   │   │   ├── idas-radio/
+│   │   │   │   ├── idas-rate/
+│   │   │   │   ├── idas-result/
+│   │   │   │   ├── idas-search/
+│   │   │   │   ├── idas-select/
+│   │   │   │   ├── idas-skeleton/
+│   │   │   │   ├── idas-slider/
+│   │   │   │   ├── idas-space/
+│   │   │   │   ├── idas-spin/
+│   │   │   │   ├── idas-statistic/
+│   │   │   │   ├── idas-steps/
+│   │   │   │   ├── idas-switch/
+│   │   │   │   ├── idas-table/
+│   │   │   │   ├── idas-tabs/
+│   │   │   │   ├── idas-tag/
+│   │   │   │   ├── idas-tags-input/
+│   │   │   │   ├── idas-textarea/
+│   │   │   │   ├── idas-time-picker/
+│   │   │   │   ├── idas-timeline/
+│   │   │   │   ├── idas-tooltip/
+│   │   │   │   ├── idas-transfer/
+│   │   │   │   ├── idas-tree/
+│   │   │   │   ├── idas-tree-select/
+│   │   │   │   ├── idas-typography/
+│   │   │   │   ├── idas-upload/
+│   │   │   │   ├── idas-watermark/
+│   │   │   │   ├── types/      # Component types
 │   │   │   │   ├── index.ts
-│   │   │   │   ├── DEMO.component.ts
 │   │   │   │   ├── README.md
 │   │   │   │   └── QUICK_START.md
 │   │   │   ├── types/
@@ -127,10 +186,14 @@ angular-idas/
 │   │   ├── app.spec.ts         # Root component tests
 │   │   └── icons-provider.ts   # Ant Design icons configuration
 │   ├── environments/           # Environment configurations
+│   │   ├── environment.ts      # Development environment
+│   │   └── environment.prod.ts # Production environment
+│   ├── styles/                 # Global styles
+│   │   ├── styles.less         # Main global styles
+│   │   ├── variables.less      # LESS variables
+│   │   └── ng-zorro-antd-less-variables.md
 │   ├── index.html              # Main HTML file
-│   ├── main.ts                 # Application entry point
-│   ├── styles.less             # Global styles
-│   └── theme.less              # Ant Design theme customization
+│   └── main.ts                 # Application entry point
 ├── .editorconfig               # Editor configuration
 ├── .env                        # Environment variables
 ├── .gitignore                  # Git ignore rules
@@ -189,22 +252,44 @@ angular-idas/
 
 ---
 
-### 3. **src/app/pages/** - Feature Modules
+### 3. **src/app/features/** - Feature Modules
 
-Mỗi feature module nên có cấu trúc:
+Mỗi feature module nên có cấu trúc chuẩn:
 ```
 feature-name/
-├── feature-name.ts          # Component
-├── feature-name.html        # Template
-├── feature-name.css         # Styles
-├── feature-name.routes.ts   # Routes (nếu có sub-routes)
-└── components/              # Sub-components (nếu cần)
+├── routes/
+│   └── feature-name.routes.ts
+├── pages/                        # page-level components
+│   ├── feature-list/
+│   │   ├── feature-list.page.ts
+│   │   ├── feature-list.page.html
+│   │   └── feature-list.page.less
+│   ├── feature-detail/
+│   └── feature-create/
+├── components/                   # components dùng trong feature
+│   ├── feature-form/
+│   └── feature-table/
+├── services/
+│   ├── feature-api.service.ts
+│   ├── feature.facade.ts         # optional
+│   └── feature.mapper.ts
+├── models/
+│   ├── feature.model.ts
+│   └── feature-filter.model.ts
+├── store/                        # nếu dùng signal / ngrx
+│   ├── feature.store.ts
+│   └── feature.selectors.ts
+├── constants/
+│   └── feature-permission.constant.ts
+├── feature-name.feature.ts       # entry point
+└── README.md
 ```
 
-#### Ví dụ: `welcome/`
-- Standalone component
-- Lazy-loaded qua routing
+#### Ví dụ: `experimentals/`
+- Standalone components
+- Lazy-loaded qua routing từ entry point
 - Sử dụng ng-zorro-antd components
+- Entry point: `experimentals.feature.ts`
 
 ---
 
@@ -250,39 +335,32 @@ src/app/
 │   ├── interceptors/
 │   │   ├── auth.interceptor.ts
 │   │   ├── loading.interceptor.ts
-│   │   ├── cache.interceptor.ts
 │   │   ├── response.interceptor.ts
 │   │   ├── index.ts
-│   │   ├── README.md
-│   │   └── USAGE_EXAMPLE.md
-│   └── services/
-│       ├── api.service.ts
-│       ├── auth.service.ts
-│       ├── etcd-config.service.ts
-│       ├── i18n.service.ts
-│       ├── loading.service.ts
-│       ├── tochuc.service.ts
-│       ├── user.service.ts
-│       └── README.md
+│   │   └── README.md
+│   ├── services/
+│   │   ├── api.service.ts
+│   │   ├── auth.service.ts
+│   │   ├── etcd-config.service.ts
+│   │   ├── i18n.service.ts
+│   │   ├── loading.service.ts
+│   │   ├── user.service.ts
+│   │   └── README.md
+│   └── startup/             # Startup tasks
+│       ├── tasks/
+│       ├── startup-order.constants.ts
+│       ├── startup-task.interface.ts
+│       └── startup-task.runner.ts
 ├── shared/                  # Shared components, types, utils
-│   ├── components/
-│   │   ├── base-input/
-│   │   ├── base-textarea/
-│   │   ├── base-select/
-│   │   ├── base-checkbox/
-│   │   ├── base-radio/
-│   │   ├── base-switch/
-│   │   ├── base-datepicker/
-│   │   ├── base-search/
-│   │   ├── base-tags-input/
-│   │   ├── base-table/
-│   │   ├── base-tree/
-│   │   ├── base-tree-select/
-│   │   ├── base-tree-table/
-│   │   ├── base-upload/
-│   │   ├── language-switcher.component.ts
+│   ├── components/          # 60+ IDAS components (wrapper ng-zorro-antd)
+│   │   ├── idas-button/
+│   │   ├── idas-input/
+│   │   ├── idas-select/
+│   │   ├── idas-table/
+│   │   ├── idas-tree/
+│   │   ├── ... (60+ components)
+│   │   ├── types/
 │   │   ├── index.ts
-│   │   ├── DEMO.component.ts
 │   │   ├── README.md
 │   │   └── QUICK_START.md
 │   ├── types/
@@ -290,20 +368,45 @@ src/app/
 │   └── utils/
 │       ├── filter.utils.ts
 │       └── README.md
-├── pages/                   # Feature modules (lazy-loaded)
-│   ├── welcome/
-│   ├── tochuc/
-│   ├── forbidden/
-│   └── virtual-table-demo/
+├── features/                # Feature modules (lazy-loaded)
+│   ├── experimentals/
+│   │   ├── routes/
+│   │   │   └── experimentals.routes.ts
+│   │   ├── pages/           # page-level demo components
+│   |   ├── models/          # models demo components
+│   |   ├── store/           # store demo components
+│   |   ├── constants/       # constants demo components
+│   |   ├── services/        # services demo components
+│   |   ├── components/      # components demo components
+│   │   ├── experimentals.feature.ts  # entry point
+│   │   └── README.md
+│   └── forbidden/
+│       ├── routes/
+│       │   └── forbidden.routes.ts
+│       ├── pages/
+│       ├── models/
+│       ├── store/
+│       ├── constants/
+│       ├── services/
+│       ├── components/
+│       ├── forbidden.feature.ts      # entry point
+│       └── README.md
 └── layouts/                 # Layout components
     ├── default-layout/
+    │   ├── partials/
     │   ├── default-layout.component.ts
     │   ├── default-layout.component.html
-    │   └── default-layout.component.less
+    │   ├── default-layout.component.less
+    │   └── default-layout.model.ts
     ├── blank-layout/
-    │   └── blank-layout.component.ts
-    ├── index.ts
-    └── README.md
+    │   ├── blank-layout.component.ts
+    │   ├── blank-layout.component.html
+    │   └── blank-layout.component.less
+    ├── experimental-layout/
+    │   ├── experimental-layout.component.ts
+    │   ├── experimental-layout.component.html
+    │   └── experimental-layout.component.less
+    └── index.ts
 ```
 
 ### 5. **State Management**
@@ -338,8 +441,7 @@ src/app/
 #### Styles
 ```json
 "styles": [
-  "src/theme.less",    // Ant Design theme
-  "src/styles.less"    // Global styles
+  "src/styles/styles.less"    // Global styles (imports theme & variables)
 ]
 ```
 
@@ -451,7 +553,7 @@ Edit `src/theme.less`:
 
 ## 🔌 HTTP Interceptors
 
-Project sử dụng 4 interceptors chính:
+Project sử dụng 3 interceptors chính:
 
 ### 1. authInterceptor
 - Tự động thêm `Authorization: Bearer {token}` vào headers
@@ -462,12 +564,7 @@ Project sử dụng 4 interceptors chính:
 - Sử dụng `LoadingService` với Angular Signals
 - Skip loading: thêm header `X-Skip-Loading: true`
 
-### 3. cacheInterceptor
-- Cache GET requests trong 5 phút
-- Giảm số lượng API calls không cần thiết
-- Skip cache: thêm header `X-Skip-Cache: true`
-
-### 4. responseInterceptor
+### 3. responseInterceptor
 - Transform response data
 - Xử lý errors thống nhất
 - Log requests/responses (dev mode)
@@ -476,32 +573,40 @@ Project sử dụng 4 interceptors chính:
 
 ---
 
-## 🎨 Shared Components
+## 🎨 Shared Components (IDAS Components)
 
-Project có sẵn 14 base components được xây dựng trên ng-zorro-antd để tái sử dụng:
+Project có sẵn **60+ IDAS components** - wrapper components của ng-zorro-antd với prefix `idas-`:
 
-### Form Controls (với ControlValueAccessor)
-- **BaseInputComponent** - Text input với validation
-- **BaseTextareaComponent** - Textarea với character count
-- **BaseSelectComponent** - Single & Multiple select
-- **BaseCheckboxComponent** - Checkbox & Checkbox group
-- **BaseRadioComponent** - Radio group (normal & button style)
-- **BaseSwitchComponent** - Toggle switch
-- **BaseDatepickerComponent** - Date & Range picker
-- **BaseSearchComponent** - Search input với debounce
-- **BaseTagsInputComponent** - Tags input với autocomplete
-- **BaseUploadComponent** - File upload
+### Component Categories
 
-### Data Display & Selection
-- **BaseTableComponent** - Table với pagination, sorting, actions
-- **BaseTreeComponent** - Tree view với checkbox, search, drag-drop
-- **BaseTreeSelectComponent** - Tree select dropdown
-- **BaseTreeTableComponent** - Tree table với expand/collapse
+#### General
+- idas-button, idas-icon, idas-typography
 
-### Utility Components
-- **LanguageSwitcherComponent** - Language switcher (vi/en)
+#### Layout
+- idas-divider, idas-grid, idas-layout, idas-space
+
+#### Navigation
+- idas-affix, idas-anchor, idas-breadcrumb, idas-dropdown, idas-menu, idas-page-header, idas-pagination, idas-steps
+
+#### Data Entry
+- idas-checkbox, idas-cascader, idas-datepicker, idas-form, idas-input, idas-input-number, idas-mentions, idas-radio, idas-rate, idas-select, idas-slider, idas-switch, idas-time-picker, idas-transfer, idas-tree-select, idas-upload
+
+#### Data Display
+- idas-avatar, idas-badge, idas-calendar, idas-card, idas-carousel, idas-collapse, idas-comment, idas-descriptions, idas-empty, idas-image, idas-list, idas-popover, idas-qr-code, idas-statistic, idas-table, idas-tabs, idas-tag, idas-timeline, idas-tooltip, idas-tree
+
+#### Feedback
+- idas-alert, idas-drawer, idas-modal, idas-popconfirm, idas-progress, idas-result, idas-skeleton, idas-spin
+
+#### Other
+- idas-back-top, idas-watermark
+
+### Custom Components
+- **idas-search** - Search input với debounce
+- **idas-tags-input** - Tags input với autocomplete
+- **idas-textarea** - Textarea với character count
 
 **Tính năng:**
+- ✅ Wrapper ng-zorro-antd với naming convention `idas-*`
 - ✅ Tích hợp Reactive Forms (ControlValueAccessor)
 - ✅ Validation & error messages
 - ✅ Disabled state support
@@ -511,14 +616,13 @@ Project có sẵn 14 base components được xây dựng trên ng-zorro-antd đ
 - ✅ i18n support
 
 **Chi tiết:** Xem `src/app/shared/components/README.md`  
-**Quick Start:** `src/app/shared/components/QUICK_START.md`  
-**Demo:** `src/app/shared/components/DEMO.component.ts`
+**Quick Start:** `src/app/shared/components/QUICK_START.md`
 
 ---
 
 ## 🎭 Layouts
 
-Project có 2 layout components chính:
+Project có 3 layout components chính:
 
 ### 1. DefaultLayoutComponent
 Layout mặc định với sidebar menu, header, footer.
@@ -530,6 +634,7 @@ Layout mặc định với sidebar menu, header, footer.
 - Footer
 - Configurable menu items
 - Router outlet
+- Partials: header, footer, sidebar
 
 **Sử dụng cho:** Dashboard, forms, tables, và tất cả trang chính
 
@@ -538,7 +643,10 @@ Layout trống không có sidebar/header/footer.
 
 **Sử dụng cho:** Login, Register, 404, 500, Landing pages
 
-**Chi tiết:** Xem `src/app/layouts/README.md`
+### 3. ExperimentalLayoutComponent
+Layout dành cho các tính năng thử nghiệm.
+
+**Sử dụng cho:** Experimental features, testing new layouts
 
 ---
 
@@ -549,17 +657,23 @@ Project sử dụng LESS để tái sử dụng trực tiếp biến của Ant D
 ### Structure
 ```
 src/
-├── styles.less                    # Global styles
-├── theme.less                     # Ant Design theme & variables
+├── styles/
+│   ├── styles.less                # Main global styles
+│   ├── variables.less             # LESS variables
+│   └── ng-zorro-antd-less-variables.md
 └── app/
     ├── layouts/
-    │   └── default-layout/
-    │       └── default-layout.component.less
-    └── pages/
-        ├── welcome/
-        │   └── welcome.less
-        └── tochuc/
-            └── tochuc.component.less
+    │   ├── default-layout/
+    │   │   └── default-layout.component.less
+    │   ├── blank-layout/
+    │   │   └── blank-layout.component.less
+    │   └── experimental-layout/
+    │       └── experimental-layout.component.less
+    └── features/
+        ├── experimentals/
+        │   └── pages/
+        └── forbidden/
+            └── pages/
 ```
 
 ### Features
@@ -571,7 +685,7 @@ src/
 
 ### Usage
 ```less
-@import '../../../theme.less';
+@import '../../../styles/variables.less';
 
 .component {
   color: @primary-color;
@@ -584,7 +698,7 @@ src/
 }
 ```
 
-**Chi tiết:** Xem `LESS_VARIABLES_GUIDE.md`
+**Chi tiết:** Xem `src/styles/ng-zorro-antd-less-variables.md`
 
 ---
 
@@ -620,11 +734,16 @@ npm run hung.dang            # Switch to hung.dang profile
 - **EtcdConfigService** - Etcd configuration management
 - **I18nService** - Internationalization service
 - **LoadingService** - Global loading state management
-- **TochucService** - Organization management
 - **UserService** - User management
 
 ### Guards (`src/app/core/guards/`)
 - **PermissionGuard** - Route permission guard
+
+### Startup (`src/app/core/startup/`)
+- **Startup Tasks** - Application initialization tasks
+- **StartupTaskRunner** - Task runner với order management
+- **StartupTaskInterface** - Interface cho startup tasks
+- **StartupOrderConstants** - Constants cho task order
 
 **Chi tiết:** Xem `src/app/core/services/README.md`
 
@@ -642,30 +761,44 @@ npm run hung.dang            # Switch to hung.dang profile
 
 ---
 
-## 📄 Feature Pages
+## 📄 Features
 
-### Current Pages (`src/app/pages/`)
+### Current Features (`src/app/features/`)
 
-#### 1. Welcome Page (`welcome/`)
-- Landing page mặc định
-- Lazy-loaded
-- Route: `/welcome`
+#### 1. Experimentals Feature (`experimentals/`)
+- Component Showcase - trang demo các shared components
+- Lazy-loaded từ entry point
+- Route: `/experimental`
+- **Structure:**
+  ```
+  experimentals/
+  ├── routes/
+  │   └── experimentals.routes.ts
+  ├── pages/                      # page-level demo components
+  │   ├── affix-demo/
+  │   ├── alert-demo/
+  │   ├── form-inputs-demo/
+  │   └── ...
+  ├── experimentals.feature.ts    # entry point
+  └── README.md
+  ```
 
-#### 2. Tochuc Page (`tochuc/`)
-- Organization management module
-- Tree view với search, filter, CRUD operations
-- i18n support (vi/en)
-- Route: `/tochuc`
-- **Docs**: `README.md`, `I18N_USAGE.md`, `TREE_SEARCH_GUIDE.md`
-
-#### 3. Forbidden Page (`forbidden/`)
+#### 2. Forbidden Feature (`forbidden/`)
 - 403 Access Denied page
-- Route: `/forbidden`
-- **Docs**: `README.md`
-
-#### 4. Virtual Table Demo (`virtual-table-demo/`)
-- Demo virtual scrolling table
-- Performance optimization example
+- Route: `/403`
+- **Structure:**
+  ```
+  forbidden/
+  ├── routes/
+  │   └── forbidden.routes.ts
+  ├── pages/
+  │   └── forbidden/
+  │       ├── forbidden.component.ts
+  │       ├── forbidden.component.html
+  │       └── forbidden.component.less
+  ├── forbidden.feature.ts        # entry point
+  └── README.md
+  ```
 
 ---
 
@@ -691,6 +824,15 @@ npm run hung.dang            # Switch to hung.dang profile
 | 11/12/2025 | Thêm PermissionGuard | - |
 | 11/12/2025 | Thêm utility scripts (profile switching, etcd config) | - |
 | 11/12/2025 | Cập nhật PROJECT_STRUCTURE.md với cấu trúc mới nhất | - |
+| 17/12/2025 | Cập nhật cấu trúc với 60+ IDAS components | - |
+| 17/12/2025 | Thêm Startup Tasks system | - |
+| 17/12/2025 | Thêm ExperimentalLayout | - |
+| 17/12/2025 | Cập nhật cấu trúc pages (experimentals, forbidden) | - |
+| 17/12/2025 | Cập nhật styles structure (styles folder) | - |
+| 17/12/2025 | Tái cấu trúc: đổi `pages/` thành `features/` | - |
+| 17/12/2025 | Tái cấu trúc: đổi `components/` thành `pages/` trong features | - |
+| 17/12/2025 | Thêm entry point `*.feature.ts` cho mỗi feature | - |
+| 17/12/2025 | Cập nhật cấu trúc feature theo chuẩn mới | - |
 
 ---
 

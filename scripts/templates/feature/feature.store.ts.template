@@ -1,0 +1,93 @@
+import { Injectable, inject } from '@angular/core';
+import { BaseStore, BaseState } from '@core/base';
+import { {{FEATURE_NAME_PASCAL}} } from '../models/{{FEATURE_NAME}}.model';
+import { {{FEATURE_NAME_PASCAL}}Filter } from '../models/{{FEATURE_NAME}}-filter.model';
+import { {{FEATURE_NAME_PASCAL}}ApiService } from '../services/{{FEATURE_NAME}}-api.service';
+import { firstValueFrom } from 'rxjs';
+
+/**
+ * State interface cho {{FEATURE_NAME_PASCAL}}
+ */
+export interface {{FEATURE_NAME_PASCAL}}State extends BaseState<{{FEATURE_NAME_PASCAL}}> {
+  filter: {{FEATURE_NAME_PASCAL}}Filter;
+}
+
+/**
+ * Initial state
+ */
+const initialState: {{FEATURE_NAME_PASCAL}}State = {
+  data: [],
+  selectedItem: null,
+  total: 0,
+  page: 1,
+  pageSize: 20,
+  loading: false,
+  error: null,
+  filter: {}
+};
+
+/**
+ * Store cho {{FEATURE_NAME_PASCAL}}
+ * Quản lý state và business logic
+ */
+@Injectable({ providedIn: 'root' })
+export class {{FEATURE_NAME_PASCAL}}Store extends BaseStore<{{FEATURE_NAME_PASCAL}}, {{FEATURE_NAME_PASCAL}}State> {
+  private readonly api = inject({{FEATURE_NAME_PASCAL}}ApiService);
+
+  constructor() {
+    super(initialState);
+  }
+
+  /**
+   * Load danh sách {{FEATURE_NAME}}
+   */
+  async loadData(): Promise<void> {
+    try {
+      this.setLoading(true);
+      const { page, pageSize, filter } = this.state();
+
+      const response = await firstValueFrom(
+        this.api.getAll({ page, pageSize, ...filter })
+      );
+
+      if (Array.isArray(response)) {
+        this.setData(response);
+      } else {
+        this.setData(response.data, response.total);
+      }
+    } catch (error) {
+      this.setError(error instanceof Error ? error.message : 'Có lỗi xảy ra');
+    }
+  }
+
+  /**
+   * Load chi tiết {{FEATURE_NAME}}
+   */
+  async loadById(id: string): Promise<void> {
+    try {
+      this.setLoading(true);
+      const item = await firstValueFrom(this.api.getById(id));
+      this.setSelectedItem(item);
+      this.setLoading(false);
+    } catch (error) {
+      this.setError(error instanceof Error ? error.message : 'Có lỗi xảy ra');
+    }
+  }
+
+  /**
+   * Cập nhật filter
+   */
+  setFilter(filter: Partial<{{FEATURE_NAME_PASCAL}}Filter>): void {
+    this.setState({
+      filter: { ...this.state().filter, ...filter },
+      page: 1 // Reset về trang 1 khi filter thay đổi
+    });
+  }
+
+  /**
+   * Reset state về initial
+   */
+  override reset(): void {
+    this.setState(initialState);
+  }
+}
