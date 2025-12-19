@@ -27,9 +27,7 @@ import {
   OrganizationViewActionEvent,
   OrganizationViewCheckEvent
 } from '@app/shared/components/types/organization-view.model';
-import { VIEW_MODE, ToChucViewMode } from '@app/shared/constants/view-mode.constant';
-import { I18N_TOCHUC, I18N_COMMON } from '@app/shared/constants/i18n-keys.constant';
-import { ICON_VIEW } from '@app/shared/constants/icons.constant';
+import { I18N_COMMON, I18N_TOCHUC, ICON_VIEW, ToChucViewMode, VIEW_MODE } from '@app/shared/constants';
 
 // Re-export types để backward compatible
 export type OrganizationData = OrganizationViewData;

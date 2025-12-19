@@ -37,10 +37,23 @@ src/app/
 │   ├── services/           # Core singleton services (auth, config, i18n, loading)
 │   └── startup/            # App initialization tasks
 │
-├── services/               # ⭐ Feature Services (KHÔNG đặt trong features/)
+├── services/               # ⭐ Feature Services - CHIA THEO DOMAIN
 │   ├── api/                # API Services - gọi backend
+│   │   ├── organization/   # Organization domain
+│   │   │   ├── organization-api.service.ts
+│   │   │   ├── position-api.service.ts
+│   │   │   ├── function-duty-api.service.ts
+│   │   │   └── index.ts
+│   │   ├── employee/       # Employee domain
+│   │   │   ├── employee-api.service.ts
+│   │   │   └── index.ts
+│   │   ├── approval/       # Approval domain
+│   │   │   ├── approval-api.service.ts
+│   │   │   └── index.ts
 │   │   └── index.ts
 │   ├── shared-state/       # Shared State Services - cross-feature data sharing
+│   │   ├── organization-state.service.ts
+│   │   ├── user-state.service.ts
 │   │   └── index.ts
 │   ├── event-bus/          # Event Bus - cross-feature communication
 │   │   ├── event-bus.service.ts
@@ -55,33 +68,84 @@ src/app/
 │   │   ├── idas-table/
 │   │   ├── ... (60+ components)
 │   │   ├── types/          # Component-specific types
+│   │   │   ├── organization-view.model.ts
+│   │   │   ├── tree-table-node.model.ts
+│   │   │   ├── select-option.model.ts
+│   │   │   └── index.ts
 │   │   └── index.ts
-│   ├── constants/          # ⭐ ALL constants (KHÔNG đặt trong features/)
-│   │   ├── i18n-keys.constant.ts
-│   │   ├── icons.constant.ts
-│   │   ├── view-mode.constant.ts
+│   ├── constants/          # ⭐ ALL constants - CHIA THEO DOMAIN
+│   │   ├── common/         # Common constants
+│   │   │   ├── icons.constant.ts
+│   │   │   ├── view-mode.constant.ts
+│   │   │   └── index.ts
+│   │   ├── i18n/           # i18n keys - CHIA THEO DOMAIN
+│   │   │   ├── common.i18n.ts
+│   │   │   ├── organization.i18n.ts
+│   │   │   ├── employee.i18n.ts
+│   │   │   ├── approval.i18n.ts
+│   │   │   └── index.ts
 │   │   └── index.ts
-│   ├── enums/              # ⭐ ALL enums (KHÔNG đặt trong features/)
-│   │   ├── loai-to-chuc.enum.ts
-│   │   ├── trang-thai.enum.ts
+│   ├── enums/              # ⭐ ALL enums - CHIA THEO DOMAIN
+│   │   ├── common/         # Common enums
+│   │   │   ├── trang-thai.enum.ts
+│   │   │   └── index.ts
+│   │   ├── organization/   # Organization enums
+│   │   │   ├── loai-to-chuc.enum.ts
+│   │   │   ├── tinh-trang-to-chuc.enum.ts
+│   │   │   ├── loai-chuc-nang-nhiem-vu.enum.ts
+│   │   │   └── index.ts
+│   │   ├── approval/       # Approval enums
+│   │   │   ├── type-request.enum.ts
+│   │   │   └── index.ts
 │   │   └── index.ts
-│   ├── models/             # ⭐ ALL models (KHÔNG đặt trong features/)
-│   │   ├── organization.model.ts
-│   │   ├── employee.model.ts
+│   ├── models/             # ⭐ ALL models - CHIA THEO DOMAIN
+│   │   ├── common/         # Common models
+│   │   │   ├── base.model.ts
+│   │   │   ├── pagination.model.ts
+│   │   │   └── index.ts
+│   │   ├── organization/   # Organization models
+│   │   │   ├── organization.model.ts
+│   │   │   ├── organization-position.model.ts
+│   │   │   ├── organization-filter.model.ts
+│   │   │   ├── function-duty.model.ts
+│   │   │   ├── position.model.ts
+│   │   │   └── index.ts
+│   │   ├── employee/       # Employee models
+│   │   │   ├── employee.model.ts
+│   │   │   └── index.ts
+│   │   ├── approval/       # Approval models
+│   │   │   ├── approval-request.model.ts
+│   │   │   └── index.ts
 │   │   └── index.ts
 │   ├── pipes/              # Shared pipes
-│   ├── types/              # Shared TypeScript types
+│   │   └── index.ts
+│   ├── types/              # Shared TypeScript types (dùng chung)
+│   │   ├── table.types.ts
+│   │   └── index.ts
 │   └── utils/              # Utility functions
+│       └── index.ts
 │
 ├── features/               # Feature modules - lazy loaded
 │   ├── exception/          # Exception pages (403, 404, 500)
 │   │   ├── routes/
 │   │   ├── pages/
 │   │   └── exception.feature.ts
-│   └── experimentals/      # Component Showcase
+│   ├── experimentals/      # Component Showcase
+│   │   ├── routes/
+│   │   ├── pages/
+│   │   └── experimentals.feature.ts
+│   └── organization/       # Organization feature (example)
 │       ├── routes/
+│       │   └── organization.routes.ts
 │       ├── pages/
-│       └── experimentals.feature.ts
+│       │   ├── organization-list/
+│       │   └── approval-list/
+│       ├── components/
+│       │   ├── organization-form/
+│       │   └── organization-drawer/
+│       ├── store/
+│       │   └── organization.store.ts
+│       └── organization.feature.ts
 │
 └── layouts/                # Layout components
     ├── default-layout/
@@ -93,11 +157,35 @@ src/app/
 
 ## ⚠️ QUY TẮC QUAN TRỌNG
 
+### Cấu trúc DOMAIN-BASED
+
+Project sử dụng cấu trúc **DOMAIN-BASED** (chia theo domain) để dễ quản lý khi project lớn:
+
+```
+# ✅ ĐÚNG - Cấu trúc DOMAIN-BASED
+shared/
+├── models/
+│   ├── common/                 # Models dùng chung
+│   ├── organization/           # Organization domain
+│   ├── employee/               # Employee domain
+│   └── approval/               # Approval domain
+├── enums/
+│   ├── common/
+│   ├── organization/
+│   └── approval/
+└── constants/
+    ├── common/
+    └── i18n/
+        ├── common.i18n.ts
+        ├── organization.i18n.ts
+        └── employee.i18n.ts
+```
+
 ### Feature Module KHÔNG chứa:
-- ❌ `models/` → Đặt trong `shared/models/`
-- ❌ `constants/` → Đặt trong `shared/constants/`
-- ❌ `enums/` → Đặt trong `shared/enums/`
-- ❌ `services/` → Đặt trong `services/api/`
+- ❌ `models/` → Đặt trong `shared/models/{domain}/`
+- ❌ `constants/` → Đặt trong `shared/constants/{domain}/`
+- ❌ `enums/` → Đặt trong `shared/enums/{domain}/`
+- ❌ `services/` → Đặt trong `services/api/{domain}/`
 
 ### Feature Module CHỈ chứa:
 - ✅ `routes/` - Route definitions
@@ -164,19 +252,22 @@ Cần quản lý state?
 
 ## 📍 Tóm tắt đường dẫn
 
-| Loại | Đường dẫn | Import Path |
-|------|-----------|-------------|
-| Models | `src/app/shared/models/` | `@app/shared/models` |
-| Constants | `src/app/shared/constants/` | `@app/shared/constants` |
-| Enums | `src/app/shared/enums/` | `@app/shared/enums` |
-| API Services | `src/app/services/api/` | `@app/services` |
-| Shared State | `src/app/services/shared-state/` | `@app/services` |
-| Event Bus | `src/app/services/event-bus/` | `@app/services` |
-| Shared Components | `src/app/shared/components/` | `@app/shared/components` |
-| Pipes | `src/app/shared/pipes/` | `@app/shared/pipes` |
-| Core Services | `src/app/core/services/` | `@app/core/services` |
-| Base Classes | `src/app/core/base/` | `@app/core/base` |
-| Feature Stores | `src/app/features/{feature}/store/` | Relative import |
+| Loại | Đường dẫn | Import Path | Cấu trúc |
+|------|-----------|-------------|----------|
+| Models | `src/app/shared/models/{domain}/` | `@app/shared/models` | By domain |
+| Constants | `src/app/shared/constants/{domain}/` | `@app/shared/constants` | By domain |
+| Enums | `src/app/shared/enums/{domain}/` | `@app/shared/enums` | By domain |
+| i18n Keys | `src/app/shared/constants/i18n/` | `@app/shared/constants` | By domain |
+| API Services | `src/app/services/api/{domain}/` | `@app/services` | By domain |
+| Shared State | `src/app/services/shared-state/` | `@app/services` | Flat |
+| Event Bus | `src/app/services/event-bus/` | `@app/services` | - |
+| Shared Types | `src/app/shared/types/` | `@app/shared/types` | Flat |
+| Component Types | `src/app/shared/components/types/` | `@app/shared/components` | Flat |
+| Shared Components | `src/app/shared/components/` | `@app/shared/components` | By component |
+| Pipes | `src/app/shared/pipes/` | `@app/shared/pipes` | Flat |
+| Core Services | `src/app/core/services/` | `@app/core/services` | Flat |
+| Base Classes | `src/app/core/base/` | `@app/core/base` | Flat |
+| Feature Stores | `src/app/features/{feature}/store/` | Relative import | By feature |
 
 ---
 
@@ -222,22 +313,42 @@ Project có sẵn **60+ IDAS components** - wrapper components của ng-zorro-an
 - **Supported languages**: Vietnamese (vi), English (en), Japanese (ja)
 - **Translation files**: `public/i18n/{vi,en,ja}.json`
 - **Format**: Flat structure (không nested)
-- **Constants**: `shared/constants/i18n-keys.constant.ts`
+- **Constants**: `shared/constants/i18n/{domain}.i18n.ts`
+
+### Cấu trúc i18n Keys
+```typescript
+// shared/constants/i18n/organization.i18n.ts
+export const I18N_TOCHUC = {
+  TITLE: 'tochuc.title',
+  LIST: {
+    TITLE: 'tochuc.list.title',
+  },
+  FORM: {
+    // ...
+  },
+  MESSAGES: {
+    // ...
+  }
+} as const;
+```
 
 ---
 
 ## 📝 Checklist khi tạo Feature mới
 
-- [ ] Tạo models trong `shared/models/`
-- [ ] Tạo enums trong `shared/enums/`
-- [ ] Tạo constants trong `shared/constants/`
-- [ ] Tạo API service trong `services/api/`
-- [ ] Tạo feature folder với routes, pages, store
-- [ ] Thêm i18n keys và translations
-- [ ] Export từ barrel files (index.ts)
+- [ ] Tạo domain folder trong `shared/models/{domain}/`
+- [ ] Tạo models trong domain folder
+- [ ] Tạo domain folder trong `shared/enums/{domain}/` (nếu cần)
+- [ ] Tạo enums trong domain folder
+- [ ] Tạo i18n keys trong `shared/constants/i18n/{domain}.i18n.ts`
+- [ ] Tạo domain folder trong `services/api/{domain}/`
+- [ ] Tạo API services trong domain folder
+- [ ] Tạo feature folder với routes, pages, components, store
+- [ ] Thêm translations vào `public/i18n/{vi,en,ja}.json`
+- [ ] Export từ barrel files (index.ts) ở mỗi level
 - [ ] Cập nhật app.routes.ts
 
-**Chi tiết:** Xem `.kiro/steering/feature-creation-guide.md`
+**Chi tiết:** Xem `.kiro/steering/project-structure.md`
 
 ---
 
@@ -257,7 +368,6 @@ pnpm run profile    # Switch environment profile
 - **Steering files**: `.kiro/steering/`
   - `project-structure.md` - Quy tắc cấu trúc thư mục
   - `state-management.md` - Hướng dẫn state management
-  - `feature-creation-guide.md` - Hướng dẫn tạo feature mới
   - `angular-development.md` - Angular development guidelines
   - `coding-standards.md` - Coding standards
   - `shared-components.md` - Shared components reference
@@ -272,6 +382,7 @@ pnpm run profile    # Switch environment profile
 
 | Ngày | Thay đổi |
 |------|----------|
+| 19/12/2025 | Chuyển sang cấu trúc DOMAIN-BASED cho models, enums, constants, services |
 | 19/12/2025 | Cập nhật cấu trúc với services/api, shared-state, event-bus |
 | 19/12/2025 | Loại bỏ models/constants/services khỏi features |
 | 18/12/2025 | Di chuyển constants và models vào shared/ |

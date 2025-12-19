@@ -4,21 +4,17 @@
  * Import: import { OrganizationModel, EmployeeModel } from '@app/shared/models';
  *
  * ⚠️ QUAN TRỌNG: Tất cả models phải đặt ở đây, KHÔNG đặt trong feature folder
+ * Cấu trúc: DOMAIN-BASED (chia theo domain)
  */
 
-// Organization models
-export * from './organization.model';
-export * from './organization-filter.model';
-export * from './organization-position.model';
+// Common models
+export * from './common';
 
-// Employee models
-export * from './employee.model';
+// Organization domain models
+export * from './organization';
 
-// Approval models
-export * from './approval-request.model';
+// Employee domain models
+export * from './employee';
 
-// Position models
-export * from './position.model';
-
-// Function/Duty models
-export * from './function-duty.model';
+// Approval domain models
+export * from './approval';
