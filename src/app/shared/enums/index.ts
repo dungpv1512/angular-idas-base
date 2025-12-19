@@ -1,8 +1,17 @@
 /**
- * Export tất cả enums từ thư mục shared/enums
+ * Barrel export cho tất cả enums
+ *
+ * Import: import { TrangThai, LoaiToChuc } from '@app/shared/enums';
+ *
+ * ⚠️ QUAN TRỌNG: Tất cả enums phải đặt ở đây, KHÔNG đặt trong feature folder
+ * Cấu trúc: DOMAIN-BASED (chia theo domain)
  */
-export * from './trang-thai.enum';
-export * from './loai-to-chuc.enum';
-export * from './tinh-trang-to-chuc.enum';
-export * from './loai-chuc-nang-nhiem-vu.enum';
-export * from './type-request.enum';
+
+// Common enums
+export * from './common';
+
+// Organization domain enums
+export * from './organization';
+
+// Approval domain enums
+export * from './approval';

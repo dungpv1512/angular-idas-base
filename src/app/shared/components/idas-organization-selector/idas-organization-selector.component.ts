@@ -27,9 +27,7 @@ import { IdasOrganizationViewComponent, OrganizationData } from '../idas-organiz
 import { IdasSearchComponent } from '../idas-search/idas-search.component';
 import { IdasButtonComponent } from '../idas-button/idas-button.component';
 import { TableColumn } from '@app/shared/types/table.types';
-import { I18N_TOCHUC, I18N_COMMON } from '@app/shared/constants/i18n-keys.constant';
-import { ICON_ACTION } from '@app/shared/constants/icons.constant';
-import { VIEW_MODE } from '@app/shared/constants/view-mode.constant';
+import { I18N_TOCHUC, I18N_COMMON, ICON_ACTION, VIEW_MODE } from '@app/shared/constants';
 
 /**
  * Interface cho filter options

@@ -1,24 +1,17 @@
 /**
- * Barrel export cho API Services
- *
- * API Services chịu trách nhiệm gọi backend APIs.
- * - Mỗi domain có 1 API service riêng
- * - Kế thừa từ BaseApiService
- * - Provide ở root level (providedIn: 'root')
+ * Barrel export cho tất cả API services
  *
  * Import: import { OrganizationApiService } from '@app/services';
  *
- * @see .kiro/steering/project-structure.md
+ * ⚠️ QUAN TRỌNG: Tất cả API services phải đặt ở đây, KHÔNG đặt trong feature folder
+ * Cấu trúc: DOMAIN-BASED (chia theo domain)
  */
 
-// Organization API
-// export * from './organization-api.service';
+// Organization domain API services
+export * from './organization';
 
-// Employee API
-// export * from './employee-api.service';
+// Employee domain API services
+export * from './employee';
 
-// Position API
-// export * from './position-api.service';
-
-// Approval API
-// export * from './approval-api.service';
+// Approval domain API services
+export * from './approval';
