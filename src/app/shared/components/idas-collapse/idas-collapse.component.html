@@ -1,1 +1,21 @@
-<!-- TODO: Thêm nz-collapse component với bindings phù hợp -->
+<nz-collapse
+  [nzAccordion]="accordion"
+  [nzBordered]="bordered"
+  [nzExpandIconPosition]="expandIconPosition"
+  [nzGhost]="ghost">
+  @for (panel of panels; track panel.header; let i = $index) {
+    <nz-collapse-panel
+      [nzHeader]="panel.header"
+      [nzActive]="panel.active || false"
+      [nzDisabled]="panel.disabled || false"
+      [nzShowArrow]="panel.showArrow !== false"
+      [nzExtra]="panel.extra"
+      (nzActiveChange)="onActiveChange(i, $event)">
+      @if (panel.content) {
+        <ng-container *ngTemplateOutlet="panel.content"></ng-container>
+      }
+    </nz-collapse-panel>
+  }
+  <!-- Cho phép sử dụng ng-content để định nghĩa panels trực tiếp -->
+  <ng-content></ng-content>
+</nz-collapse>

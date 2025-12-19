@@ -15,7 +15,7 @@
       [nzAllowClear]="allowClear"
       [nzMaxMultipleCount]="maxMultipleCount"
       [(ngModel)]="value"
-      (ngModelChange)="onValueChange($event)"
+      (ngModelChange)="valueChange($event)"
       (nzOnSearch)="handleSearch($event)"
     >
       @for (option of options; track option.value) {

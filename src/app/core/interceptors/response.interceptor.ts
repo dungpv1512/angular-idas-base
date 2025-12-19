@@ -5,6 +5,7 @@ import { inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ErrorService } from '@core/services/error.service';
+import { I18N_ERRORS } from '@app/shared/constants';
 
 /**
  * Response Interceptor - Transform response data và xử lý errors
@@ -44,21 +45,21 @@ export const responseInterceptor: HttpInterceptorFn = (req, next) => {
       });
 
       // Transform error message using i18n
-      let errorMessage = translate.instant('errors.general');
+      let errorMessage = translate.instant(I18N_ERRORS.GENERAL);
       let errorCode = `HTTP_${error.status}`;
 
       if (error.status === 0) {
-        errorMessage = translate.instant('errors.network');
+        errorMessage = translate.instant(I18N_ERRORS.NETWORK);
         errorCode = 'NETWORK_ERROR';
       } else if (error.status === 401) {
-        errorMessage = translate.instant('errors.unauthorized');
+        errorMessage = translate.instant(I18N_ERRORS.UNAUTHORIZED);
         // Có thể redirect đến trang login
       } else if (error.status === 403) {
-        errorMessage = translate.instant('errors.forbidden');
+        errorMessage = translate.instant(I18N_ERRORS.FORBIDDEN);
       } else if (error.status === 404) {
-        errorMessage = translate.instant('errors.notFound');
+        errorMessage = translate.instant(I18N_ERRORS.NOT_FOUND);
       } else if (error.status >= 500) {
-        errorMessage = translate.instant('errors.server');
+        errorMessage = translate.instant(I18N_ERRORS.SERVER);
       } else if (error.error?.message) {
         errorMessage = error.error.message;
       }

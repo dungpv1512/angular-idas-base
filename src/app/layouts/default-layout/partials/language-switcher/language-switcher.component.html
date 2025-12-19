@@ -7,7 +7,7 @@
   class="language-switcher"
 >
   <span nz-icon nzType="global" nzTheme="outline"></span>
-  <span class="language-label">{{ getCurrentLanguageLabel() }}</span>
+  <span class="language-label">{{ i18nService.language() | languageLabel }}</span>
   <span nz-icon nzType="down" nzTheme="outline"></span>
 </button>
 

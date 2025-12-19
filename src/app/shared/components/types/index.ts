@@ -19,3 +19,6 @@ export * from './tree-table-node.model';
 // Search types
 export * from './search-result.model';
 export * from './tags-search-result.model';
+
+// Organization types
+export * from './organization-view.model';

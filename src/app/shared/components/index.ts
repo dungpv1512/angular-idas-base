@@ -45,6 +45,7 @@ export * from './idas-radio/idas-radio.component';
 export * from './idas-rate/idas-rate.component';
 export * from './idas-result/idas-result.component';
 export * from './idas-search/idas-search.component';
+export * from './idas-segmented/idas-segmented.component';
 export * from './idas-select/idas-select.component';
 export * from './idas-skeleton/idas-skeleton.component';
 export * from './idas-slider/idas-slider.component';
@@ -67,6 +68,9 @@ export * from './idas-tree-select/idas-tree-select.component';
 export * from './idas-typography/idas-typography.component';
 export * from './idas-upload/idas-upload.component';
 export * from './idas-watermark/idas-watermark.component';
+export * from './idas-search/idas-search.component';
+export * from './idas-organization-view/idas-organization-view.component';
+export * from './idas-organization-selector/idas-organization-selector.component';
 
 // Types - Export từ barrel file
 export * from './types';

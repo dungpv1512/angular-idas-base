@@ -1,0 +1,22 @@
+<div class="result-demo">
+  <h2>Result Component Demo</h2>
+
+  <div class="demo-grid">
+    @for (status of statusList; track status) {
+      <app-idas-card [title]="'Status: ' + status">
+        <app-idas-result
+          [status]="status"
+          [title]="'Result ' + status"
+          subTitle="This is a demo subtitle"
+          [extra]="extraTpl">
+        </app-idas-result>
+
+        <ng-template #extraTpl>
+          <app-idas-button type="primary" (clicked)="onAction()">
+            Primary Action
+          </app-idas-button>
+        </ng-template>
+      </app-idas-card>
+    }
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzButtonModule, NzButtonType } from 'ng-zorro-antd/button';
 
 /**
  * IDAS Button Component - Wrapper cho nz-button
@@ -14,7 +14,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IdasButtonComponent {
-  @Input() type: 'primary' | 'default' | 'dashed' | 'link' | 'text' = 'default';
+  @Input() type: NzButtonType = 'default';
   @Input() shape: 'circle' | 'round' | null = null;
   @Input() size: 'large' | 'default' | 'small' = 'default';
   @Input() loading = false;
@@ -22,4 +22,9 @@ export class IdasButtonComponent {
   @Input() block = false;
   @Input() danger = false;
   @Input() ghost = false;
+  @Output() onClick = new EventEmitter();
+
+  onClickChange(ev: any) {
+    this.onClick.emit(ev);
+  }
 }

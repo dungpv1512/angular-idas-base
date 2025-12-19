@@ -1,165 +1,114 @@
 import { signal, computed, Signal, WritableSignal } from '@angular/core';
-import { BaseState } from './types';
+
+/**
+ * Interface cho trạng thái của store
+ * Được sử dụng để type-check state object
+ */
+export interface StoreState<T> {
+  data: T | null;
+  loading: boolean;
+  error: string | null;
+}
 
 /**
  * Base Store - Lớp cơ sở cho Signal-based state management
- * Cung cấp các patterns chuẩn cho state management
+ * Cung cấp các patterns chuẩn cho state management với Angular Signals
+ *
+ * Đặc điểm:
+ * - Sử dụng signals riêng lẻ cho data, loading, error
+ * - Computed signals tự động cập nhật khi dependencies thay đổi
+ * - Không cần manual subscription management
  *
  * @example
  * ```typescript
- * interface EmployeeState extends BaseState<Employee> {
- *   filter: EmployeeFilter;
- * }
+ * @Injectable()
+ * export class EmployeeStore extends BaseStore<Employee[]> {
+ *   // Thêm state riêng cho feature
+ *   private readonly _selectedEmployee = signal<Employee | null>(null);
  *
- * @Injectable({ providedIn: 'root' })
- * export class EmployeeStore extends BaseStore<Employee, EmployeeState> {
- *   constructor() {
- *     super({
- *       data: [],
- *       selectedItem: null,
- *       total: 0,
- *       page: 1,
- *       pageSize: 20,
- *       loading: false,
- *       error: null,
- *       filter: {}
- *     });
+ *   readonly selectedEmployee = this._selectedEmployee.asReadonly();
+ *
+ *   selectEmployee(employee: Employee | null): void {
+ *     this._selectedEmployee.set(employee);
  *   }
  * }
  * ```
  */
-export abstract class BaseStore<T, S extends BaseState<T>> {
+export abstract class BaseStore<T> {
   /**
-   * State signal - chứa toàn bộ state của store
+   * Trạng thái chính - protected để subclass có thể truy cập
    */
-  protected readonly state: WritableSignal<S>;
-
-  /**
-   * Selectors - computed signals cho từng phần của state
-   */
-  readonly data: Signal<T[]>;
-  readonly selectedItem: Signal<T | null>;
-  readonly loading: Signal<boolean>;
-  readonly error: Signal<string | null>;
-  readonly total: Signal<number>;
-  readonly page: Signal<number>;
-  readonly pageSize: Signal<number>;
+  protected readonly _data: WritableSignal<T | null> = signal(null);
+  protected readonly _loading: WritableSignal<boolean> = signal(false);
+  protected readonly _error: WritableSignal<string | null> = signal(null);
 
   /**
-   * Computed: kiểm tra có data hay không
+   * Public readonly signals - expose ra ngoài để components sử dụng
+   * Sử dụng asReadonly() để ngăn việc set trực tiếp từ bên ngoài
    */
-  readonly hasData: Signal<boolean>;
+  readonly data: Signal<T | null> = this._data.asReadonly();
+  readonly loading: Signal<boolean> = this._loading.asReadonly();
+  readonly error: Signal<string | null> = this._error.asReadonly();
 
   /**
-   * Computed: tổng số trang
+   * Computed signals - tự động cập nhật khi dependencies thay đổi
+   * Validates: Requirements 3.2, 3.3
    */
-  readonly totalPages: Signal<number>;
-
-  constructor(initialState: S) {
-    this.state = signal(initialState);
-
-    // Tạo selectors
-    this.data = computed(() => this.state().data);
-    this.selectedItem = computed(() => this.state().selectedItem);
-    this.loading = computed(() => this.state().loading);
-    this.error = computed(() => this.state().error);
-    this.total = computed(() => this.state().total);
-    this.page = computed(() => this.state().page);
-    this.pageSize = computed(() => this.state().pageSize);
-
-    // Computed values
-    this.hasData = computed(() => this.state().data.length > 0);
-    this.totalPages = computed(() => {
-      const { total, pageSize } = this.state();
-      return Math.ceil(total / pageSize);
-    });
-  }
-
-  /**
-   * Cập nhật state
-   */
-  protected setState(partialState: Partial<S>): void {
-    this.state.update((current) => ({ ...current, ...partialState }));
-  }
+  readonly hasData: Signal<boolean> = computed(() => this._data() !== null);
+  readonly hasError: Signal<boolean> = computed(() => this._error() !== null);
 
   /**
    * Set loading state
+   * Khi bắt đầu loading, tự động clear error
+   *
+   * @param loading - Trạng thái loading
    */
-  setLoading(loading: boolean): void {
-    this.setState({ loading } as Partial<S>);
-  }
-
-  /**
-   * Set error state
-   */
-  setError(error: string | null): void {
-    this.setState({ error, loading: false } as Partial<S>);
-  }
-
-  /**
-   * Set data
-   */
-  setData(data: T[], total?: number): void {
-    this.setState({
-      data,
-      total: total ?? data.length,
-      loading: false,
-      error: null
-    } as Partial<S>);
-  }
-
-  /**
-   * Set selected item
-   */
-  setSelectedItem(item: T | null): void {
-    this.setState({ selectedItem: item } as Partial<S>);
-  }
-
-  /**
-   * Set pagination
-   */
-  setPagination(page: number, pageSize?: number): void {
-    const update: Partial<S> = { page } as Partial<S>;
-    if (pageSize !== undefined) {
-      (update as BaseState<T>).pageSize = pageSize;
+  protected setLoading(loading: boolean): void {
+    this._loading.set(loading);
+    if (loading) {
+      this._error.set(null);
     }
-    this.setState(update);
   }
 
   /**
-   * Add item to data
+   * Set data và tự động tắt loading
+   *
+   * @param data - Dữ liệu cần set
    */
-  addItem(item: T): void {
-    this.state.update((current) => ({
-      ...current,
-      data: [...current.data, item],
-      total: current.total + 1
-    }));
+  protected setData(data: T | null): void {
+    this._data.set(data);
+    this._loading.set(false);
   }
 
   /**
-   * Update item in data
+   * Set error và tự động tắt loading
+   *
+   * @param error - Thông báo lỗi
    */
-  updateItem(predicate: (item: T) => boolean, updatedItem: T): void {
-    this.state.update((current) => ({
-      ...current,
-      data: current.data.map((item) => (predicate(item) ? updatedItem : item))
-    }));
+  protected setError(error: string): void {
+    this._error.set(error);
+    this._loading.set(false);
   }
 
   /**
-   * Remove item from data
+   * Reset state về trạng thái ban đầu
+   * Validates: Requirements 3.4
    */
-  removeItem(predicate: (item: T) => boolean): void {
-    this.state.update((current) => ({
-      ...current,
-      data: current.data.filter((item) => !predicate(item)),
-      total: current.total - 1
-    }));
+  reset(): void {
+    this._data.set(null);
+    this._loading.set(false);
+    this._error.set(null);
   }
 
   /**
-   * Reset state về initial
+   * Lấy snapshot của state hiện tại
+   * Hữu ích cho debugging hoặc logging
    */
-  abstract reset(): void;
+  getState(): StoreState<T> {
+    return {
+      data: this._data(),
+      loading: this._loading(),
+      error: this._error()
+    };
+  }
 }

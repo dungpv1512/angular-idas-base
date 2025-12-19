@@ -1,1 +1,25 @@
-<!-- TODO: Thêm nz-drawer component với bindings phù hợp -->
+<nz-drawer
+  [nzVisible]="visible"
+  [nzTitle]="title"
+  [nzWidth]="width"
+  [nzHeight]="height"
+  [nzPlacement]="placement"
+  [nzClosable]="closable"
+  [nzMaskClosable]="maskClosable"
+  [nzKeyboard]="keyboard"
+  [nzMask]="mask"
+  [nzMaskStyle]="maskStyle ?? {}"
+  [nzBodyStyle]="bodyStyle ?? {}"
+  [nzFooter]="footer"
+  [nzExtra]="extra"
+  [nzZIndex]="zIndex"
+  [nzWrapClassName]="wrapClassName"
+  [nzOffsetX]="offsetX"
+  [nzOffsetY]="offsetY"
+  (nzOnClose)="handleClose()"
+  (nzVisibleChange)="handleVisibleChange($event)"
+>
+  <ng-container *nzDrawerContent>
+    <ng-content></ng-content>
+  </ng-container>
+</nz-drawer>

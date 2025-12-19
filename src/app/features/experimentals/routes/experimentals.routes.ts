@@ -107,5 +107,19 @@ export const EXPERIMENTAL_ROUTES: Routes = [
       import('../pages/breadcrumb-demo/breadcrumb-demo.component').then(
         (m) => m.BreadcrumbDemoComponent
       )
+  },
+  {
+    path: 'result',
+    loadComponent: () =>
+      import('../pages/result-demo/result-demo.component').then(
+        (m) => m.ResultDemoComponent
+      )
+  },
+  {
+    path: 'segmented',
+    loadComponent: () =>
+      import('../pages/segmented-demo/segmented-demo.component').then(
+        (m) => m.SegmentedDemoComponent
+      )
   }
 ];

@@ -1,0 +1,154 @@
+<!-- View Mode Toggle -->
+@if (showViewModeToggle) {
+  <div class="view-mode-toggle">
+    <app-idas-segmented
+      [options]="viewModeOptions"
+      [ngModel]="viewMode"
+      size="small"
+      (onValueChange)="onViewModeChange($event)"
+    />
+  </div>
+}
+
+<!-- Content Container -->
+<div class="organization-view-content">
+  <nz-spin [nzSpinning]="loading">
+    @switch (viewMode) {
+      @case (VIEW_MODE.LIST) {
+        <!-- List Mode (TreeGrid) -->
+        <ng-container *ngTemplateOutlet="listModeTemplate" />
+      }
+      @case (VIEW_MODE.ORG_CHART) {
+        <!-- Org Chart Mode -->
+        <ng-container *ngTemplateOutlet="orgChartModeTemplate" />
+      }
+    }
+  </nz-spin>
+</div>
+
+<!-- ============================================ -->
+<!-- LIST MODE TEMPLATE (TreeGrid) -->
+<!-- ============================================ -->
+<ng-template #listModeTemplate>
+  @if (data && data.length > 0) {
+    <app-idas-table
+      [data]="treeData()"
+      [columns]="columns"
+      [actions]="actions"
+      [loading]="false"
+      [isTree]="true"
+      [checkable]="checkable"
+      [checkedKeys]="checkedKeys"
+      [rowKey]="rowKey"
+      [showPagination]="false"
+      [bordered]="true"
+      (checkChange)="onCheckChange($event)"
+    />
+  } @else {
+    <nz-empty [nzNotFoundContent]="i18nCommon.NO_DATA | translate" />
+  }
+</ng-template>
+
+<!-- ============================================ -->
+<!-- ORG CHART MODE TEMPLATE -->
+<!-- ============================================ -->
+<ng-template #orgChartModeTemplate>
+  @if (orgChartData() && orgChartData().length > 0) {
+    <div class="org-chart-container">
+      <div class="org-chart-wrapper">
+        @for (rootNode of orgChartData(); track rootNode.Id) {
+          <ng-container *ngTemplateOutlet="orgChartNodeTemplate; context: { node: rootNode, isRoot: true }" />
+        }
+      </div>
+    </div>
+  } @else {
+    <nz-empty [nzNotFoundContent]="i18n.ORG_CHART_PLACEHOLDER | translate" />
+  }
+</ng-template>
+
+<!-- ============================================ -->
+<!-- ORG CHART NODE TEMPLATE (Recursive) -->
+<!-- ============================================ -->
+<ng-template #orgChartNodeTemplate let-node="node" let-isRoot="isRoot">
+  <div class="org-chart-node-wrapper" [class.is-root]="isRoot">
+    <!-- Node Card -->
+    <div 
+      class="org-chart-node"
+      [class.selected]="isNodeSelected(node)"
+      (click)="onOrgChartNodeClick(node)"
+      (dblclick)="onOrgChartNodeDoubleClick(node)"
+    >
+      <!-- Avatar -->
+      <div class="node-avatar">
+        @if (node.TenNhanSu) {
+          <nz-avatar 
+            [nzText]="getInitials(node.TenNhanSu)"
+            [nzSize]="40"
+            nzShape="circle"
+          />
+        } @else {
+          <nz-avatar 
+            nzIcon="apartment"
+            [nzSize]="40"
+            nzShape="circle"
+          />
+        }
+      </div>
+
+      <!-- Node Info -->
+      <div class="node-info">
+        <div class="node-title" [title]="node.TenToChuc">
+          {{ node.TenToChuc }}
+        </div>
+        <div class="node-subtitle">
+          {{ node.MaToChuc }}
+        </div>
+        @if (node.TenNhanSu) {
+          <div class="node-leader">
+            <span nz-icon nzType="user" nzTheme="outline"></span>
+            {{ node.TenNhanSu }}
+          </div>
+        }
+      </div>
+
+      <!-- Info Popover -->
+      @if (node.NoiDungChucNangNhiemVus && node.NoiDungChucNangNhiemVus.length > 0) {
+        <div 
+          class="node-info-icon"
+          nz-popover
+          [nzPopoverContent]="chucNangPopoverTemplate"
+          nzPopoverPlacement="right"
+        >
+          <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+        </div>
+        <ng-template #chucNangPopoverTemplate>
+          <div class="chuc-nang-popover">
+            <div class="popover-title">{{ i18n.CHUC_NANG | translate }}</div>
+            <ul class="popover-list">
+              @for (item of node.NoiDungChucNangNhiemVus; track $index) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          </div>
+        </ng-template>
+      }
+
+      <!-- Employee Count Badge -->
+      @if (node.countNS && node.countNS > 0) {
+        <div class="node-badge">
+          <span nz-icon nzType="team" nzTheme="outline"></span>
+          {{ node.countNS }}
+        </div>
+      }
+    </div>
+
+    <!-- Children Nodes -->
+    @if (hasChildren(node)) {
+      <div class="org-chart-children">
+        @for (child of node.children; track child.Id) {
+          <ng-container *ngTemplateOutlet="orgChartNodeTemplate; context: { node: child, isRoot: false }" />
+        }
+      </div>
+    }
+  </div>
+</ng-template>

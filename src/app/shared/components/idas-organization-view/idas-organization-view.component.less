@@ -1,0 +1,259 @@
+/**
+ * IDAS Organization View Component Styles
+ * Styles cho cả List mode (TreeGrid) và Org Chart mode
+ */
+
+// Import variables từ global
+@import '../../../../styles/variables.less';
+
+// ============================================
+// VIEW MODE TOGGLE
+// ============================================
+.view-mode-toggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+// ============================================
+// CONTENT CONTAINER
+// ============================================
+.organization-view-content {
+  min-height: 200px;
+}
+
+// ============================================
+// ORG CHART STYLES
+// ============================================
+.org-chart-container {
+  overflow: auto;
+  padding: 24px;
+  background: @body-background;
+  border-radius: @border-radius-base;
+  min-height: 400px;
+}
+
+.org-chart-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+// ============================================
+// ORG CHART NODE
+// ============================================
+.org-chart-node-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  // Connector line from parent
+  &:not(.is-root)::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 2px;
+    height: 12px;
+    background: @border-color-base;
+  }
+}
+
+.org-chart-node {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: @component-background;
+  border: 1px solid @border-color-base;
+  border-radius: @border-radius-base;
+  box-shadow: @shadow-1-down;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  max-width: 280px;
+  position: relative;
+
+  &:hover {
+    background: @background-color-light;
+    border-color: @primary-color;
+  }
+
+  &.selected {
+    background: @primary-1;
+    border-color: @primary-color;
+    box-shadow: 0 0 0 2px fade(@primary-color, 20%);
+  }
+}
+
+// ============================================
+// NODE AVATAR
+// ============================================
+.node-avatar {
+  flex-shrink: 0;
+
+  :host ::ng-deep .ant-avatar {
+    background: @primary-color;
+  }
+}
+
+// ============================================
+// NODE INFO
+// ============================================
+.node-info {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.node-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: @heading-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.node-subtitle {
+  font-size: 12px;
+  color: @text-color-secondary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.node-leader {
+  font-size: 12px;
+  color: @text-color-secondary;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  span[nz-icon] {
+    font-size: 12px;
+  }
+}
+
+// ============================================
+// NODE INFO ICON
+// ============================================
+.node-info-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: @text-color-secondary;
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: @primary-color;
+  }
+}
+
+// ============================================
+// NODE BADGE
+// ============================================
+.node-badge {
+  position: absolute;
+  bottom: -8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: @primary-color;
+  color: @white;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+
+  span[nz-icon] {
+    font-size: 10px;
+  }
+}
+
+// ============================================
+// ORG CHART CHILDREN
+// ============================================
+.org-chart-children {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  position: relative;
+
+  // Horizontal connector line
+  &::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 100px);
+    height: 2px;
+    background: @border-color-base;
+  }
+
+  // Hide horizontal line if only one child
+  &:has(> .org-chart-node-wrapper:only-child)::before {
+    display: none;
+  }
+}
+
+// ============================================
+// CHUC NANG POPOVER
+// ============================================
+.chuc-nang-popover {
+  max-width: 300px;
+
+  .popover-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: @heading-color;
+  }
+
+  .popover-list {
+    margin: 0;
+    padding-left: 16px;
+
+    li {
+      margin-bottom: 4px;
+      color: @text-color-secondary;
+      font-size: 13px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+@media (max-width: @screen-md) {
+  .org-chart-container {
+    padding: 16px;
+  }
+
+  .org-chart-node {
+    min-width: 160px;
+    max-width: 220px;
+    padding: 8px 12px;
+  }
+
+  .node-title {
+    font-size: 13px;
+  }
+
+  .node-subtitle,
+  .node-leader {
+    font-size: 11px;
+  }
+}

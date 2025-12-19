@@ -1,0 +1,154 @@
+@import '../../../../styles/variables.less';
+
+// Selector container
+.selector-container {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 4px 11px;
+  border: 1px solid @border-color-base;
+  border-radius: @border-radius-base;
+  background-color: @component-background;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover:not(.disabled) {
+    border-color: @primary-color;
+  }
+
+  &:focus-within:not(.disabled) {
+    border-color: @primary-color;
+    box-shadow: 0 0 0 2px fade(@primary-color, 20%);
+  }
+
+  &.disabled {
+    background-color: @background-color-light;
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    .selector-input,
+    .selector-actions {
+      pointer-events: none;
+    }
+  }
+}
+
+// Selector input area
+.selector-input {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+
+  .selected-text {
+    color: @text-color;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
+  .placeholder {
+    color: @text-color-secondary;
+  }
+
+  &.multiple {
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin: -2px 0;
+
+      nz-tag {
+        margin: 0;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+// Selector actions
+.selector-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+  color: @text-color-secondary;
+
+  .clear-icon {
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: @error-color;
+    }
+  }
+
+  .search-icon {
+    color: @text-color-secondary;
+  }
+}
+
+// Modal content
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+.modal-search {
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.modal-body {
+  flex: 1;
+  overflow: auto;
+  border: 1px solid @border-color-base;
+  border-radius: @border-radius-base;
+}
+
+// Selected items preview
+.modal-selected {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: @background-color-light;
+  border-radius: @border-radius-base;
+  flex-shrink: 0;
+
+  .selected-label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: @heading-color;
+  }
+
+  .selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    nz-tag {
+      margin: 0;
+    }
+  }
+}
+
+// Modal footer
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+// Responsive
+@media (max-width: @screen-md) {
+  .modal-content {
+    height: 400px;
+  }
+
+  .selector-input.multiple .tags-container nz-tag {
+    max-width: 100px;
+  }
+}

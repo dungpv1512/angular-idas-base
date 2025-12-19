@@ -1,1 +1,21 @@
-<!-- TODO: Thêm nz-tabs component với bindings phù hợp -->
+<nz-tabset
+  [nzSelectedIndex]="selectedIndex"
+  [nzTabPosition]="tabPosition"
+  [nzType]="type"
+  [nzSize]="size"
+  [nzAnimated]="animated"
+  [nzCentered]="centered"
+  (nzSelectedIndexChange)="onTabChange($event)">
+  @for (tab of tabs; track tab.title; let i = $index) {
+    <nz-tab
+      [nzTitle]="tab.title"
+      [nzDisabled]="tab.disabled || false"
+      (nzClick)="onTabClick(i)">
+      @if (tab.content) {
+        <ng-container *ngTemplateOutlet="tab.content"></ng-container>
+      }
+    </nz-tab>
+  }
+  <!-- Cho phép sử dụng ng-content để định nghĩa tabs trực tiếp -->
+  <ng-content></ng-content>
+</nz-tabset>

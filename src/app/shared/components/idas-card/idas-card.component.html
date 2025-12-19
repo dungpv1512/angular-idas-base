@@ -1,1 +1,11 @@
-<!-- TODO: Thêm nz-card component với bindings phù hợp -->
+<nz-card
+  [nzTitle]="title"
+  [nzExtra]="extra"
+  [nzBordered]="bordered"
+  [nzHoverable]="hoverable"
+  [nzLoading]="loading"
+  [nzSize]="size"
+  [nzType]="type"
+  [nzBodyStyle]="bodyStyle">
+  <ng-content></ng-content>
+</nz-card>

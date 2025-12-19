@@ -1,1 +1,20 @@
-<!-- TODO: Thêm nz-descriptions component với bindings phù hợp -->
+<nz-descriptions
+  [nzTitle]="title"
+  [nzColumn]="column"
+  [nzBordered]="bordered"
+  [nzSize]="size"
+  [nzLayout]="layout"
+  [nzColon]="colon"
+  [nzExtra]="extra">
+  @for (item of items; track item.title) {
+    <nz-descriptions-item [nzTitle]="item.title" [nzSpan]="item.span || 1">
+      @if (isTemplate(item.value)) {
+        <ng-container *ngTemplateOutlet="$any(item.value)"></ng-container>
+      } @else {
+        {{ item.value }}
+      }
+    </nz-descriptions-item>
+  }
+  <!-- Cho phép sử dụng ng-content để định nghĩa items trực tiếp -->
+  <ng-content></ng-content>
+</nz-descriptions>

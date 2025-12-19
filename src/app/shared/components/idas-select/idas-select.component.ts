@@ -31,6 +31,7 @@ export class IdasSelectComponent implements ControlValueAccessor {
   @Input() size: 'large' | 'default' | 'small' = 'default';
 
   @Output() onSearch = new EventEmitter<string>();
+  @Output() onValueChange = new EventEmitter<any>();
 
   value: any = null;
 
@@ -54,10 +55,11 @@ export class IdasSelectComponent implements ControlValueAccessor {
   onChange: any = () => {};
   onTouched: any = () => {};
 
-  onValueChange(value: any): void {
+  valueChange(value: any): void {
     this.value = value;
     this.onChange(value);
     this.onTouched();
+    this.onValueChange.emit(value);
   }
 
   handleSearch(searchText: string): void {

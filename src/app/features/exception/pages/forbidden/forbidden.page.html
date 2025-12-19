@@ -1,0 +1,16 @@
+<div class="exception-container">
+  <app-idas-result status="403" [title]="i18n.FORBIDDEN.TITLE | translate"
+    [subTitle]="i18n.FORBIDDEN.SUBTITLE | translate" [extra]="extraTpl">
+  </app-idas-result>
+
+  <ng-template #extraTpl>
+    <div class="d-flex align-items-center justify-content-space-evenly">
+      <app-idas-button type="default" (onClick)="goBack()">
+        {{ i18n.GO_BACK | translate }}
+      </app-idas-button>
+      <app-idas-button type="primary" (onClick)="goHome()">
+        {{ i18n.GO_HOME | translate }}
+      </app-idas-button>
+    </div>
+  </ng-template>
+</div>

@@ -80,8 +80,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "polyfills": [
-            ],
+            "polyfills": [],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               {
@@ -90,7 +89,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles/styles.less"
             ]
           }
         }

@@ -1,0 +1,128 @@
+<!-- Organization Selector Input -->
+<nz-form-item>
+  @if (label) {
+    <nz-form-label [nzRequired]="required">
+      {{ label }}
+    </nz-form-label>
+  }
+  <nz-form-control [nzValidateStatus]="validateStatus" [nzErrorTip]="errorTip">
+    <div class="selector-container" [class.disabled]="disabled" (click)="openModal()">
+      <!-- Single mode display -->
+      @if (!multiple) {
+        <div class="selector-input">
+          @if (displayText()) {
+            <span class="selected-text">{{ displayText() }}</span>
+          } @else {
+            <span class="placeholder">{{ placeholder || (i18n.SELECT_TO_CHUC | translate) }}</span>
+          }
+        </div>
+      }
+
+      <!-- Multiple mode display -->
+      @if (multiple) {
+        <div class="selector-input multiple">
+          @if (selectedRecords().length > 0) {
+            <div class="tags-container">
+              @for (record of selectedRecords(); track record.Id) {
+                <nz-tag 
+                  [nzMode]="disabled ? 'default' : 'closeable'"
+                  (nzOnClose)="removeItem(record, $event)">
+                  {{ record.TenToChuc }}
+                </nz-tag>
+              }
+            </div>
+          } @else {
+            <span class="placeholder">{{ placeholder || (i18n.SELECT_TO_CHUC | translate) }}</span>
+          }
+        </div>
+      }
+
+      <!-- Actions -->
+      <div class="selector-actions">
+        @if (loading) {
+          <span nz-icon nzType="loading" nzTheme="outline"></span>
+        } @else {
+          @if (showClear && (displayText() || selectedRecords().length > 0) && !disabled) {
+            <span 
+              nz-icon 
+              nzType="close-circle" 
+              nzTheme="fill"
+              class="clear-icon"
+              (click)="clearSelection($event)">
+            </span>
+          }
+          <span nz-icon nzType="search" nzTheme="outline" class="search-icon"></span>
+        }
+      </div>
+    </div>
+  </nz-form-control>
+</nz-form-item>
+
+<!-- Selection Modal -->
+<nz-modal
+  [nzVisible]="modalVisible()"
+  [nzTitle]="computedModalTitle()"
+  [nzWidth]="modalWidth"
+  [nzFooter]="modalFooter"
+  [nzMaskClosable]="false"
+  (nzOnCancel)="closeModal()">
+  
+  <ng-container *nzModalContent>
+    <div class="modal-content">
+      <!-- Search -->
+      <div class="modal-search">
+        <app-idas-search
+          [value]="searchText()"
+          [placeholder]="i18n.SEARCH_PLACEHOLDER | translate"
+          (valueChange)="onSearchChange($event)">
+        </app-idas-search>
+      </div>
+
+      <!-- Organization View -->
+      <div class="modal-body">
+        <app-idas-organization-view
+          [data]="filteredData()"
+          [viewMode]="VIEW_MODE.LIST"
+          [columns]="columns"
+          [loading]="loading"
+          [selectedId]="tempSelectedIds()[0] || null"
+          [showViewModeToggle]="false"
+          [expandAll]="true"
+          (onSelect)="onOrganizationSelect($event)">
+        </app-idas-organization-view>
+      </div>
+
+      <!-- Selected items preview (multiple mode) -->
+      @if (multiple && tempSelectedRecords().length > 0) {
+        <div class="modal-selected">
+          <div class="selected-label">
+            {{ i18nCommon.CONFIRM | translate }}: {{ tempSelectedRecords().length }}
+          </div>
+          <div class="selected-tags">
+            @for (record of tempSelectedRecords(); track record.Id) {
+              <nz-tag 
+                nzMode="closeable"
+                (nzOnClose)="onOrganizationSelect(record)">
+                {{ record.TenToChuc }}
+              </nz-tag>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </ng-container>
+
+  <ng-template #modalFooter>
+    <div class="modal-footer">
+      <app-idas-button (onClick)="closeModal()">
+        {{ i18nCommon.CANCEL | translate }}
+      </app-idas-button>
+      <app-idas-button 
+        type="primary" 
+        [disabled]="tempSelectedIds().length === 0"
+        (onClick)="confirmSelection()">
+        {{ i18nCommon.CONFIRM | translate }}
+      </app-idas-button>
+    </div>
+  </ng-template>
+</nz-modal>

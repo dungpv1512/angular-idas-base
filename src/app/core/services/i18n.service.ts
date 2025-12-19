@@ -1,10 +1,11 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-export type Language = 'vi' | 'en';
+export type Language = 'vi' | 'en' | 'ja';
 
 /**
  * I18n Service - Quản lý đa ngôn ngữ
+ * Hỗ trợ 3 ngôn ngữ: Tiếng Việt, English, 日本語
  */
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,11 @@ export class I18nService {
   // Expose readonly signal
   language = this.currentLang.asReadonly();
 
-  // Available languages
+  // Available languages - 3 ngôn ngữ: vi, en, ja
   readonly availableLanguages: { code: Language; label: string }[] = [
     { code: 'vi', label: 'Tiếng Việt' },
-    { code: 'en', label: 'English' }
+    { code: 'en', label: 'English' },
+    { code: 'ja', label: '日本語' }
   ];
 
   constructor() {

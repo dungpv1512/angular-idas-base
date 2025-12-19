@@ -8,6 +8,8 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/app/*"],
+      "@app/services": ["src/app/services/index.ts"],
+      "@app/services/*": ["src/app/services/*"],
       "@core/*": ["src/app/core/*"],
       "@features/*": ["src/app/features/*"],
       "@layouts/*": ["src/app/layouts/*"],

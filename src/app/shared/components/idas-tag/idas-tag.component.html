@@ -1,1 +1,18 @@
-<!-- TODO: Thêm nz-tag component với bindings phù hợp -->
+@switch (mode) {
+  @case ('closeable') {
+    <nz-tag
+      [nzColor]="color"
+      [nzBordered]="bordered"
+      nzMode="closeable"
+      (nzOnClose)="handleClose($event)">
+      <ng-content></ng-content>
+    </nz-tag>
+  }
+  @default {
+    <nz-tag
+      [nzColor]="color"
+      [nzBordered]="bordered">
+      <ng-content></ng-content>
+    </nz-tag>
+  }
+}

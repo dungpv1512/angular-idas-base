@@ -7,6 +7,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { ErrorService, AppError } from '@core/services/error.service';
+import { I18N_ERROR } from '@app/shared/constants';
 
 /**
  * Error Boundary Component
@@ -40,6 +41,9 @@ import { ErrorService, AppError } from '@core/services/error.service';
 })
 export class ErrorBoundaryComponent {
   protected readonly errorService = inject(ErrorService);
+
+  /** i18n keys - expose cho template */
+  readonly i18n = I18N_ERROR;
 
   /**
    * Signals từ ErrorService

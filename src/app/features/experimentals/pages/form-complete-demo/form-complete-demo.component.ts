@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -9,6 +10,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { IdasInputComponent, IdasSelectComponent, IdasRadioComponent, IdasCheckboxComponent, IdasDatepickerComponent, IdasTextareaComponent } from '@app/shared/components';
 import { SelectOption, RadioOption, CheckboxOption } from '@app/shared/components/types';
+import { I18N_DEMO } from '@app/shared/constants';
 
 @Component({
   selector: 'app-form-complete-demo',
@@ -34,6 +36,7 @@ import { SelectOption, RadioOption, CheckboxOption } from '@app/shared/component
 export class FormCompleteDemoComponent {
   private readonly fb = inject(FormBuilder);
   private readonly message = inject(NzMessageService);
+  private readonly translate = inject(TranslateService);
 
   demoForm: FormGroup;
 
@@ -66,7 +69,7 @@ export class FormCompleteDemoComponent {
 
   onSubmit(): void {
     if (this.demoForm.valid) {
-      this.message.success('Form submitted!');
+      this.message.success(this.translate.instant(I18N_DEMO.FORM_SUBMITTED));
       console.log(this.demoForm.value);
     }
   }

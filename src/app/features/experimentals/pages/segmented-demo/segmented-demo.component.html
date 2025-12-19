@@ -1,0 +1,82 @@
+<div class="demo-container">
+  <h2>Segmented Component Demo</h2>
+
+  <!-- Basic -->
+  <app-idas-card title="Basic Segmented">
+    <div class="demo-section">
+      <app-idas-segmented
+        [options]="basicOptions"
+        [ngModel]="selectedValue()"
+        (onValueChange)="onValueChange($event)">
+      </app-idas-segmented>
+      <p class="demo-result">Selected: {{ selectedValue() }}</p>
+    </div>
+  </app-idas-card>
+
+  <!-- With Icons -->
+  <app-idas-card title="Segmented with Icons">
+    <div class="demo-section">
+      <app-idas-segmented
+        [options]="iconOptions"
+        [ngModel]="'list'"
+        (onValueChange)="onValueChange($event)">
+      </app-idas-segmented>
+    </div>
+  </app-idas-card>
+
+  <!-- Sizes -->
+  <app-idas-card title="Different Sizes">
+    <div class="demo-section">
+      <div class="demo-row">
+        <span class="demo-label">Small:</span>
+        <app-idas-segmented
+          [options]="basicOptions"
+          size="small">
+        </app-idas-segmented>
+      </div>
+      <div class="demo-row">
+        <span class="demo-label">Default:</span>
+        <app-idas-segmented
+          [options]="basicOptions"
+          size="default">
+        </app-idas-segmented>
+      </div>
+      <div class="demo-row">
+        <span class="demo-label">Large:</span>
+        <app-idas-segmented
+          [options]="basicOptions"
+          size="large">
+        </app-idas-segmented>
+      </div>
+    </div>
+  </app-idas-card>
+
+  <!-- Block Mode -->
+  <app-idas-card title="Block Mode (Full Width)">
+    <div class="demo-section">
+      <app-idas-segmented
+        [options]="basicOptions"
+        [block]="true">
+      </app-idas-segmented>
+    </div>
+  </app-idas-card>
+
+  <!-- Disabled Options -->
+  <app-idas-card title="Disabled Options">
+    <div class="demo-section">
+      <app-idas-segmented
+        [options]="disabledOptions">
+      </app-idas-segmented>
+    </div>
+  </app-idas-card>
+
+  <!-- Fully Disabled -->
+  <app-idas-card title="Fully Disabled">
+    <div class="demo-section">
+      <app-idas-segmented
+        [options]="basicOptions"
+        [disabled]="true">
+      </app-idas-segmented>
+    </div>
+  </app-idas-card>
+</div>

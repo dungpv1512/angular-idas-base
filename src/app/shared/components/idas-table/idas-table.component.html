@@ -37,11 +37,11 @@
           [nzAlign]="column.align || 'left'"
           [nzShowSort]="column.sortable ? true : null"
         >
-          {{ column.title }}
+          {{ column.title | translate }}
         </th>
       }
       @if (actions && actions.length > 0) {
-        <th [nzWidth]="isTree ? '18%' : '15%'" nzAlign="center">{{ actionsColumnTitle }}</th>
+        <th [nzWidth]="isTree ? '18%' : '15%'" nzAlign="center">{{ actionsColumnTitle | translate }}</th>
       }
     </tr>
   </thead>
@@ -160,20 +160,20 @@
 </ng-template>
 
 <ng-template #actionButton let-action="action" let-record="record">
-  <span nz-tooltip [nzTooltipTitle]="action.tooltipText">
+  <span nz-tooltip [nzTooltipTitle]="action.tooltipText | translate">
     @if (action.confirm) {
       <button
         nz-button
         [nzType]="action.type || 'default'"
         [nzDanger]="action.danger"
         nz-popconfirm
-        [nzPopconfirmTitle]="action.confirmText || defaultConfirmText"
+        [nzPopconfirmTitle]="(action.confirmText || defaultConfirmText) | translate"
         (nzOnConfirm)="action.onClick(record)"
       >
         @if (action.icon) {
           <span nz-icon [nzType]="action.icon"></span>
         }
-        {{ action.label }}
+        {{ action.label | translate }}
       </button>
     } @else {
       <button
@@ -185,7 +185,7 @@
         @if (action.icon) {
           <span nz-icon [nzType]="action.icon"></span>
         }
-        {{ action.label }}
+        {{ action.label | translate }}
       </button>
     }
   </span>

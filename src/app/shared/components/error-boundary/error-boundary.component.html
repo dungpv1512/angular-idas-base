@@ -3,12 +3,12 @@
   <div class="fatal-error-overlay">
     <nz-result
       nzStatus="error"
-      [nzTitle]="'ERROR.FATAL.TITLE' | translate"
+      [nzTitle]="i18n.FATAL.TITLE | translate"
       [nzSubTitle]="fatalError()?.message"
     >
       <div nz-result-extra>
         @if (fatalError()?.code) {
-          <p class="error-code">{{ 'ERROR.CODE' | translate }}: {{ fatalError()?.code }}</p>
+          <p class="error-code">{{ i18n.CODE | translate }}: {{ fatalError()?.code }}</p>
         }
         @if (fatalError()?.details) {
           <p class="error-details">{{ fatalError()?.details }}</p>
@@ -17,14 +17,14 @@
         <div class="error-actions">
           <button nz-button nzType="primary" (click)="onReload()">
             <span nz-icon nzType="reload"></span>
-            {{ 'ERROR.ACTION.RELOAD' | translate }}
+            {{ i18n.ACTION.RELOAD | translate }}
           </button>
           <button nz-button nzType="default" (click)="onGoHome()">
             <span nz-icon nzType="home"></span>
-            {{ 'ERROR.ACTION.GO_HOME' | translate }}
+            {{ i18n.ACTION.GO_HOME | translate }}
           </button>
           <button nz-button nzType="link" (click)="onDismissAll()">
-            {{ 'ERROR.ACTION.DISMISS' | translate }}
+            {{ i18n.ACTION.DISMISS | translate }}
           </button>
         </div>
       </div>
@@ -42,7 +42,7 @@
         <nz-badge [nzCount]="errorCount()">
           <span nz-icon nzType="warning" nzTheme="fill" class="header-icon"></span>
         </nz-badge>
-        <span class="header-title">{{ 'ERROR.NOTIFICATIONS' | translate }}</span>
+        <span class="header-title">{{ i18n.NOTIFICATIONS | translate }}</span>
         <button
           nz-button
           nzType="link"
@@ -50,7 +50,7 @@
           (click)="onDismissAll()"
           class="dismiss-all-btn"
         >
-          {{ 'ERROR.ACTION.DISMISS_ALL' | translate }}
+          {{ i18n.ACTION.DISMISS_ALL | translate }}
         </button>
       </div>
 

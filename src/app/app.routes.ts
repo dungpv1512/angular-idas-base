@@ -5,19 +5,11 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('@app/layouts/default-layout/default-layout.component').then(m => m.DefaultLayoutComponent),
     children: [
-      { path: '', pathMatch: 'full', redirectTo: '' }
     ]
   },
   {
-    path: '403',
-    loadComponent: () => import('@app/layouts/blank-layout/blank-layout.component').then(m => m.BlankLayoutComponent),
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('@app/features/forbidden/forbidden.feature').then(m => m.FORBIDDEN_ROUTES),
-        title: '403 - Forbidden'
-      }
-    ]
+    path: 'exception',
+    loadChildren: () => import('@app/features/exception/exception.feature').then(m => m.EXCEPTION_ROUTES),
   },
   {
     path: 'experimental',
